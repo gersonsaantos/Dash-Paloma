@@ -1,983 +1,630 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="pt-br">
- <head>
-  <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-  <title>
-   Agenda Pro
-  </title>
-  <link href="primeirostyle.css" rel="stylesheet"/>
-  <link href="responsivo.css" rel="stylesheet"/>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet"/>
- </head>
- <body>
-  <div class="container">
-   <!-- ==================================
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Agenda Pro</title>
+    <link href="primeirostyle.css" rel="stylesheet" />
+    <link href="responsivo.css" rel="stylesheet" />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <!-- ==================================
         MENU PC - SIDEBAR
 ================================== -->
-   <aside class="sidebar">
-    <h2>
-     Agenda Pro
-    </h2>
-    <ul>
-     <li onclick="abrirPagina('home', this)">
-      <i class="fa-solid fa-house">
-      </i>
-      <span>
-       Início
-      </span>
-     </li>
-     <li onclick="abrirPagina('agenda', this)">
-      <i class="fa-solid fa-calendar">
-      </i>
-      <span>
-       Agenda
-      </span>
-     </li>
-     <li onclick="abrirPagina('clientes', this)">
-      <i class="fa-solid fa-users">
-      </i>
-      <span>
-       Clientes
-      </span>
-     </li>
-     <li>
-      <i class="fa-solid fa-scissors">
-      </i>
-      <span>
-       Serviços
-      </span>
-     </li>
-     <li onclick="abrirPagina('financeiro', this)">
-      <i class="fa-solid fa-wallet">
-      </i>
-      <span>
-       Financeiro
-      </span>
-     </li>
-     <li>
-      <i class="fa-solid fa-chart-line">
-      </i>
-      <span>
-       Relatórios
-      </span>
-     </li>
-     <li>
-      <i class="fa-solid fa-gear">
-      </i>
-      <span>
-       Configurações
-      </span>
-     </li>
-    </ul>
-    <button>
-     + Novo Agendamento
-    </button>
-   </aside>
-   <!-- ==================================
+      <aside class="sidebar">
+        <h2>Agenda Pro</h2>
+        <ul>
+          <li onclick="abrirPagina('home', this)">
+            <i class="fa-solid fa-house"> </i>
+            <span> Início </span>
+          </li>
+          <li onclick="abrirPagina('agenda', this)">
+            <i class="fa-solid fa-calendar"> </i>
+            <span> Agenda </span>
+          </li>
+          <li onclick="abrirPagina('clientes', this)">
+            <i class="fa-solid fa-users"> </i>
+            <span> Clientes </span>
+          </li>
+          <li>
+            <i class="fa-solid fa-scissors"> </i>
+            <span> Serviços </span>
+          </li>
+          <li onclick="abrirPagina('financeiro', this)">
+            <i class="fa-solid fa-wallet"> </i>
+            <span> Financeiro </span>
+          </li>
+          <li>
+            <i class="fa-solid fa-chart-line"> </i>
+            <span> Relatórios </span>
+          </li>
+          <li>
+            <i class="fa-solid fa-gear"> </i>
+            <span> Configurações </span>
+          </li>
+        </ul>
+        <button>+ Novo Agendamento</button>
+      </aside>
+      <!-- ==================================
         CONTEÚDO PRINCIPAL
 ================================== -->
-   <main class="main">
-    <!-- ==========================
+      <main class="main">
+        <!-- ==========================
         TELA HOME
 ========================== -->
-    <section class="pagina ativa" id="home">
-     <!-- CABEÇALHO HOME -->
-     <header class="home-header">
-      <div class="top-mobile">
-       <button class="menu-button">
-        <i class="fa-solid fa-bars">
-        </i>
-       </button>
-       <div class="header-right">
-        <i class="fa-regular fa-bell">
-        </i>
-        <img class="profile-image" src="/assets/Avatares/cliente01 (27).jpg"/>
-       </div>
-      </div>
-      <h1>
-       Bom dia, Paloma! ☀️
-      </h1>
-      <p>
-       Segunda-feira, 27 de julho de 2026
-      </p>
-     </header>
-     <!-- ==========================
+        <section class="pagina ativa" id="home">
+          <!-- CABEÇALHO HOME -->
+          <header class="home-header">
+            <div class="top-mobile">
+              <button class="menu-button">
+                <i class="fa-solid fa-bars"> </i>
+              </button>
+              <div class="header-right">
+                <i class="fa-regular fa-bell"> </i>
+                <img
+                  class="profile-image"
+                  src="assets/Avatares/cliente01 (27).jpg"
+                />
+              </div>
+            </div>
+            <h1>Bom dia, Paloma! ☀️</h1>
+            <p>Segunda-feira, 27 de julho de 2026</p>
+          </header>
+          <!-- ==========================
         CARDS RESUMO
 ========================== -->
-     <section class="cards-home">
-      <div class="card">
-       <div class="card-top">
-        <i class="fa-solid fa-calendar-days">
-        </i>
-        <div>
-         <h3>
-          Atendimentos hoje
-         </h3>
-         <p>
-          12
-         </p>
-         <span>
-          clientes agendadas
-         </span>
-        </div>
-       </div>
-      </div>
-      <div class="card">
-       <div class="card-top">
-        <i class="fa-solid fa-wallet">
-        </i>
-        <div>
-         <h3>
-          Faturamento do dia
-         </h3>
-         <p>
-          R$ 1.850,00
-         </p>
-         <span>
-          estimado
-         </span>
-        </div>
-       </div>
-      </div>
-      <div class="card">
-       <div class="card-top">
-        <i class="fa-solid fa-clock">
-        </i>
-        <div>
-         <h3>
-          Próximos agendamentos
-         </h3>
-         <p>
-          28
-         </p>
-         <span>
-          agendamentos
-         </span>
-        </div>
-       </div>
-      </div>
-      <div class="card">
-       <div class="card-top">
-        <i class="fa-solid fa-users">
-        </i>
-        <div>
-         <h3>
-          Clientes cadastradas
-         </h3>
-         <p>
-          340
-         </p>
-         <span>
-          total de clientes
-         </span>
-        </div>
-       </div>
-      </div>
-     </section>
-     <!-- ==========================
+          <section class="cards-home">
+            <div class="card">
+              <div class="card-top">
+                <i class="fa-solid fa-calendar-days"> </i>
+                <div>
+                  <h3>Atendimentos hoje</h3>
+                  <p>12</p>
+                  <span> clientes agendadas </span>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-top">
+                <i class="fa-solid fa-wallet"> </i>
+                <div>
+                  <h3>Faturamento do dia</h3>
+                  <p>R$ 1.850,00</p>
+                  <span> estimado </span>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-top">
+                <i class="fa-solid fa-clock"> </i>
+                <div>
+                  <h3>Próximos agendamentos</h3>
+                  <p>28</p>
+                  <span> agendamentos </span>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-top">
+                <i class="fa-solid fa-users"> </i>
+                <div>
+                  <h3>Clientes cadastradas</h3>
+                  <p>340</p>
+                  <span> total de clientes </span>
+                </div>
+              </div>
+            </div>
+          </section>
+          <!-- ==========================
         AGENDA DO DIA
 ========================== -->
-     <section class="agenda-home">
-      <div class="agenda-header">
-       <h2>
-        <i class="fa-solid fa-calendar-days">
-        </i>
-        Agenda do dia
-       </h2>
-       <a>
-        Ver todos
-       </a>
-      </div>
-      <div class="agenda-clientes">
-       <!-- CLIENTE 1 -->
-       <div class="cliente-home">
-        <div class="horario">
-         09:00
-        </div>
-        <img src="/assets/Avatares/cliente01 (27).jpg"/>
-        <div class="cliente-info-home">
-         <h3>
-          Maria Oliveira
-         </h3>
-         <p>
-          🔴 Maquiagem Social
-         </p>
-         <p>
-          🟣 Penteado
-         </p>
-        </div>
-        <div class="valor-home">
-         <strong>
-          R$250,00
-         </strong>
-         <span class="confirmado">
-          Confirmado
-         </span>
-        </div>
-       </div>
-       <!-- CLIENTE 2 -->
-       <div class="cliente-home">
-        <div class="horario">
-         10:30
-        </div>
-        <img src="/assets/Avatares/cliente01 (1).jpg"/>
-        <div class="cliente-info-home">
-         <h3>
-          Ana Souza
-         </h3>
-         <p>
-          🟣 Maquiagem
-         </p>
-        </div>
-        <div class="valor-home">
-         <strong>
-          R$130,00
-         </strong>
-         <span class="confirmado">
-          Confirmado
-         </span>
-        </div>
-       </div>
-       <!-- CLIENTE 3 -->
-       <div class="cliente-home">
-        <div class="horario">
-         13:30
-        </div>
-        <img src="/assets/Avatares/cliente01 (1).jpg"/>
-        <div class="cliente-info-home">
-         <h3>
-          Juliana Lima
-         </h3>
-         <p>
-          🔴 Maquiagem Social
-         </p>
-         <p>
-          🟣 Penteado
-         </p>
-        </div>
-        <div class="valor-home">
-         <strong>
-          R$250,00
-         </strong>
-         <span class="pendente">
-          Pendente
-         </span>
-        </div>
-       </div>
-       <!-- CLIENTE 4 -->
-       <div class="cliente-home">
-        <div class="horario">
-         15:00
-        </div>
-        <img src="/assets/Avatares/cliente01 (1).jpg"/>
-        <div class="cliente-info-home">
-         <h3>
-          Carla Martins
-         </h3>
-         <p>
-          🟣 Penteado
-         </p>
-        </div>
-        <div class="valor-home">
-         <strong>
-          R$120,00
-         </strong>
-         <span class="confirmado">
-          Confirmado
-         </span>
-        </div>
-       </div>
-      </div>
-     </section>
-     <!-- ==========================
+          <section class="agenda-home">
+            <div class="agenda-header">
+              <h2>
+                <i class="fa-solid fa-calendar-days"> </i>
+                Agenda do dia
+              </h2>
+              <a> Ver todos </a>
+            </div>
+            <div class="agenda-clientes">
+              <!-- CLIENTE 1 -->
+              <div class="cliente-home">
+                <div class="horario">09:00</div>
+                <img src="assets/Avatares/cliente01 (27).jpg" />
+                <div class="cliente-info-home">
+                  <h3>Maria Oliveira</h3>
+                  <p>🔴 Maquiagem Social</p>
+                  <p>🟣 Penteado</p>
+                </div>
+                <div class="valor-home">
+                  <strong> R$250,00 </strong>
+                  <span class="confirmado"> Confirmado </span>
+                </div>
+              </div>
+              <!-- CLIENTE 2 -->
+              <div class="cliente-home">
+                <div class="horario">10:30</div>
+                <img src="assets/Avatares/cliente01 (1).jpg" />
+                <div class="cliente-info-home">
+                  <h3>Ana Souza</h3>
+                  <p>🟣 Maquiagem</p>
+                </div>
+                <div class="valor-home">
+                  <strong> R$130,00 </strong>
+                  <span class="confirmado"> Confirmado </span>
+                </div>
+              </div>
+              <!-- CLIENTE 3 -->
+              <div class="cliente-home">
+                <div class="horario">13:30</div>
+                <img src="assets/Avatares/cliente01 (1).jpg" />
+                <div class="cliente-info-home">
+                  <h3>Juliana Lima</h3>
+                  <p>🔴 Maquiagem Social</p>
+                  <p>🟣 Penteado</p>
+                </div>
+                <div class="valor-home">
+                  <strong> R$250,00 </strong>
+                  <span class="pendente"> Pendente </span>
+                </div>
+              </div>
+              <!-- CLIENTE 4 -->
+              <div class="cliente-home">
+                <div class="horario">15:00</div>
+                <img src="assets/Avatares/cliente01 (1).jpg" />
+                <div class="cliente-info-home">
+                  <h3>Carla Martins</h3>
+                  <p>🟣 Penteado</p>
+                </div>
+                <div class="valor-home">
+                  <strong> R$120,00 </strong>
+                  <span class="confirmado"> Confirmado </span>
+                </div>
+              </div>
+            </div>
+          </section>
+          <!-- ==========================
      PRÓXIMO ATENDIMENTO
 ========================== -->
-     <section class="proximo-home">
-      <div class="proximo-title">
-       <i class="fa-regular fa-clock">
-       </i>
-       <h2>
-        Próximo atendimento
-       </h2>
-      </div>
-      <h1>
-       09:00
-      </h1>
-      <p>
-       Daqui a 30 min
-      </p>
-      <div class="proxima-cliente">
-       <img src="/assets/Avatares/cliente01 (27).jpg"/>
-       <div>
-        <h3>
-         Maria Oliveira
-        </h3>
-        <p>
-         Maquiagem Social + Penteado
-        </p>
-       </div>
-       <strong>
-        R$250,00
-       </strong>
-      </div>
-      <button>
-       Ver detalhes
-      </button>
-     </section>
-    </section>
-    <section class="pagina" id="agenda">
-     <!-- CABEÇALHO -->
-     <header class="agenda-header-mobile">
-      <button class="menu-button">
-       <i class="fa-solid fa-bars">
-       </i>
-      </button>
-      <h1>
-       Agenda
-      </h1>
-      <div class="agenda-actions-mobile">
-       <i class="fa-solid fa-filter">
-       </i>
-       <i class="fa-solid fa-plus">
-       </i>
-      </div>
-     </header>
-     <!-- CALENDÁRIO SEMANAL -->
-     <section class="week-calendar">
-      <div class="week-days">
-       <span>
-        D
-       </span>
-       <span>
-        S
-       </span>
-       <span>
-        T
-       </span>
-       <span>
-        Q
-       </span>
-       <span>
-        Q
-       </span>
-       <span>
-        S
-       </span>
-       <span>
-        S
-       </span>
-      </div>
-      <div class="week-numbers">
-       <span>
-        26
-       </span>
-       <span class="active-day">
-        27
-       </span>
-       <span>
-        28
-       </span>
-       <span>
-        29
-       </span>
-       <span>
-        30
-       </span>
-       <span>
-        31
-       </span>
-       <span>
-        1
-       </span>
-      </div>
-     </section>
-     <!-- RESUMO DO DIA -->
-     <div class="agenda-summary">
-      <div>
-       <i class="fa-solid fa-calendar-days">
-       </i>
-       <strong>
-        Segunda-feira, 27 de julho
-       </strong>
-      </div>
-      <span>
-       12 agendamentos
-      </span>
-     </div>
-     <!-- LISTA DE AGENDAMENTOS -->
-     <section class="appointments">
-      <!-- CLIENTE 1 -->
-      <div class="appointment-card">
-       <div class="time">
-        09:00
-       </div>
-       <img src="/assets/Avatares/cliente01 (27).jpg"/>
-       <div class="appointment-info">
-        <h3>
-         Maria Oliveira
-        </h3>
-        <p>
-         🔴 Maquiagem Social
-        </p>
-        <p>
-         🟣 Penteado
-        </p>
-       </div>
-       <div class="appointment-value">
-        <strong>
-         R$250,00
-        </strong>
-        <span class="confirmado">
-         Confirmado
-        </span>
-       </div>
-       <i class="fa-solid fa-chevron-right">
-       </i>
-      </div>
-      <!-- CLIENTE 2 -->
-      <div class="appointment-card">
-       <div class="time">
-        10:30
-       </div>
-       <img src="/assets/Avatares/cliente01 (1).jpg"/>
-       <div class="appointment-info">
-        <h3>
-         Ana Souza
-        </h3>
-        <p>
-         🟣 Maquiagem
-        </p>
-       </div>
-       <div class="appointment-value">
-        <strong>
-         R$130,00
-        </strong>
-        <span class="confirmado">
-         Confirmado
-        </span>
-       </div>
-       <i class="fa-solid fa-chevron-right">
-       </i>
-      </div>
-      <!-- CLIENTE 3 -->
-      <div class="appointment-card">
-       <div class="time">
-        11:30
-       </div>
-       <img src="/assets/Avatares/cliente01 (1).jpg"/>
-       <div class="appointment-info">
-        <h3>
-         Carla Silva
-        </h3>
-        <p>
-         🟣 Maquiagem Social
-        </p>
-       </div>
-       <div class="appointment-value">
-        <strong>
-         R$180,00
-        </strong>
-        <span class="confirmado">
-         Confirmado
-        </span>
-       </div>
-       <i class="fa-solid fa-chevron-right">
-       </i>
-      </div>
-      <!-- CLIENTE 4 -->
-      <div class="appointment-card">
-       <div class="time">
-        13:30
-       </div>
-       <img src="/assets/Avatares/cliente01 (1).jpg"/>
-       <div class="appointment-info">
-        <h3>
-         Juliana Lima
-        </h3>
-        <p>
-         🔴 Maquiagem Social
-        </p>
-        <p>
-         🟣 Penteado
-        </p>
-       </div>
-       <div class="appointment-value">
-        <strong>
-         R$250,00
-        </strong>
-        <span class="pendente">
-         Pendente
-        </span>
-       </div>
-       <i class="fa-solid fa-chevron-right">
-       </i>
-      </div>
-      <!-- CLIENTE 5 -->
-      <div class="appointment-card">
-       <div class="time">
-        15:00
-       </div>
-       <img src="/assets/Avatares/cliente01 (1).jpg"/>
-       <div class="appointment-info">
-        <h3>
-         Carla Martins
-        </h3>
-        <p>
-         🟣 Penteado
-        </p>
-       </div>
-       <div class="appointment-value">
-        <strong>
-         R$120,00
-        </strong>
-        <span class="confirmado">
-         Confirmado
-        </span>
-       </div>
-       <i class="fa-solid fa-chevron-right">
-       </i>
-      </div>
-      <!-- CLIENTE 6 -->
-      <div class="appointment-card">
-       <div class="time">
-        16:30
-       </div>
-       <img src="/assets/Avatares/cliente01 (1).jpg"/>
-       <div class="appointment-info">
-        <h3>
-         Beatriz Santos
-        </h3>
-        <p>
-         🔴 Maquiagem Social
-        </p>
-        <p>
-         🟣 Cílios
-        </p>
-       </div>
-       <div class="appointment-value">
-        <strong>
-         R$180,00
-        </strong>
-        <span class="pendente">
-         Pendente
-        </span>
-       </div>
-       <i class="fa-solid fa-chevron-right">
-       </i>
-      </div>
-     </section>
-     <!-- ADICIONAR AGENDAMENTO -->
-     <div class="add-agenda">
-      <i class="fa-solid fa-calendar-plus">
-      </i>
-      <strong>
-       Adicionar agendamento
-      </strong>
-      <button>
-       <i class="fa-solid fa-plus">
-       </i>
-      </button>
-     </div>
-     <!-- DICA -->
-     <div class="tip-box">
-      <i class="fa-regular fa-lightbulb">
-      </i>
-      <div>
-       <strong>
-        Dica para o dia:
-       </strong>
-       <p>
-        Você tem um intervalo de 1h livre entre 11:30 e 13:30. Que tal
-            aproveitar para organizar seus materiais?
-       </p>
-      </div>
-     </div>
-    </section>
-    <section class="pagina" id="clientes">
-     <!-- CABEÇALHO -->
-     <header class="clientes-header-mobile">
-      <button class="menu-button">
-       <i class="fa-solid fa-bars">
-       </i>
-      </button>
-      <h1>
-       Clientes
-      </h1>
-      <button class="add-client">
-       <i class="fa-solid fa-plus">
-       </i>
-      </button>
-     </header>
-     <!-- BUSCA -->
-     <div class="search-client">
-      <i class="fa-solid fa-magnifying-glass">
-      </i>
-      <input placeholder="Buscar cliente..." type="text"/>
-     </div>
-     <!-- FILTROS -->
-     <div class="client-filters">
-      <button class="active">
-       Todos
-      </button>
-      <button>
-       Ativas
-      </button>
-      <button>
-       Novas
-      </button>
-      <button>
-       Inativas
-      </button>
-     </div>
-     <!-- CARDS RESUMO -->
-     <section class="client-summary">
-      <div class="client-card">
-       <i class="fa-solid fa-users">
-       </i>
-       <span>
-        Total de clientes
-       </span>
-       <strong>
-        340
-       </strong>
-      </div>
-      <div class="client-card">
-       <i class="fa-solid fa-user-plus">
-       </i>
-       <span>
-        Novas este mês
-       </span>
-       <strong>
-        18
-       </strong>
-      </div>
-      <div class="client-card">
-       <i class="fa-regular fa-clock">
-       </i>
-       <span>
-        Retornando
-       </span>
-       <strong>
-        42
-       </strong>
-      </div>
-      <div class="client-card">
-       <i class="fa-solid fa-user-slash">
-       </i>
-       <span>
-        Inativas
-       </span>
-       <strong>
-        12
-       </strong>
-      </div>
-     </section>
-     <!-- LISTA DE CLIENTES -->
-     <section class="client-list">
-      <!-- CLIENTE -->
-      <div class="client-item">
-       <img src="/assets/Avatares/cliente01 (27).jpg"/>
-       <div class="client-data">
-        <h3>
-         Maria Oliveira
-        </h3>
-        <p>
-         (83) 99999-1111
-        </p>
-        <div class="client-history">
-         <span>
-          <i class="fa-solid fa-calendar">
-          </i>
-          12 agendamentos
-         </span>
-         <span>
-          Último: 27/07/2026
-         </span>
-        </div>
-       </div>
-       <span class="client-status active">
-        Ativa
-       </span>
-       <i class="fa-solid fa-chevron-right">
-       </i>
-      </div>
-      <div class="client-item">
-       <img src="/assets/Avatares/cliente01 (1).jpg"/>
-       <div class="client-data">
-        <h3>
-         Ana Souza
-        </h3>
-        <p>
-         (83) 98888-2222
-        </p>
-        <div class="client-history">
-         <span>
-          <i class="fa-solid fa-calendar">
-          </i>
-          8 agendamentos
-         </span>
-         <span>
-          Último: 25/07/2026
-         </span>
-        </div>
-       </div>
-       <span class="client-status active">
-        Ativa
-       </span>
-       <i class="fa-solid fa-chevron-right">
-       </i>
-      </div>
-      <div class="client-item">
-       <img src="/assets/Avatares/cliente01 (1).jpg"/>
-       <div class="client-data">
-        <h3>
-         Juliana Lima
-        </h3>
-        <p>
-         (83) 97777-3333
-        </p>
-        <div class="client-history">
-         <span>
-          <i class="fa-solid fa-calendar">
-          </i>
-          6 agendamentos
-         </span>
-         <span>
-          Último: 24/07/2026
-         </span>
-        </div>
-       </div>
-       <span class="client-status active">
-        Ativa
-       </span>
-       <i class="fa-solid fa-chevron-right">
-       </i>
-      </div>
-      <div class="client-item">
-       <img src="/assets/Avatares/cliente01 (1).jpg"/>
-       <div class="client-data">
-        <h3>
-         Carla Martins
-        </h3>
-        <p>
-         (83) 96666-4444
-        </p>
-        <div class="client-history">
-         <span>
-          <i class="fa-solid fa-calendar">
-          </i>
-          5 agendamentos
-         </span>
-         <span>
-          Último: 23/07/2026
-         </span>
-        </div>
-       </div>
-       <span class="client-status active">
-        Ativa
-       </span>
-       <i class="fa-solid fa-chevron-right">
-       </i>
-      </div>
-      <div class="client-item">
-       <img src="/assets/Avatares/cliente01 (1).jpg"/>
-       <div class="client-data">
-        <h3>
-         Beatriz Santos
-        </h3>
-        <p>
-         (83) 95555-5555
-        </p>
-        <div class="client-history">
-         <span>
-          <i class="fa-solid fa-calendar">
-          </i>
-          9 agendamentos
-         </span>
-         <span>
-          Último: 22/07/2026
-         </span>
-        </div>
-       </div>
-       <span class="client-status active">
-        Ativa
-       </span>
-       <i class="fa-solid fa-chevron-right">
-       </i>
-      </div>
-      <div class="client-item">
-       <img src="/assets/Avatares/cliente01 (1).jpg"/>
-       <div class="client-data">
-        <h3>
-         Fernanda Alves
-        </h3>
-        <p>
-         (83) 94444-6666
-        </p>
-        <div class="client-history">
-         <span>
-          <i class="fa-solid fa-calendar">
-          </i>
-          3 agendamentos
-         </span>
-         <span>
-          Último: 21/07/2026
-         </span>
-        </div>
-       </div>
-       <span class="client-status new">
-        Nova
-       </span>
-       <i class="fa-solid fa-chevron-right">
-       </i>
-      </div>
-     </section>
-    </section>
-    <section class="pagina" id="financeiro">
-     <header class="financeiro-header-mobile">
-      <button class="menu-button">
-       <i class="fa-solid fa-bars">
-       </i>
-      </button>
-      <h1>
-       Financeiro
-      </h1>
-      <i class="fa-solid fa-filter">
-      </i>
-     </header>
-     <div class="finance-tabs">
-      <button class="active">
-       Resumo
-      </button>
-      <button>
-       Transações
-      </button>
-      <button>
-       Relatórios
-      </button>
-     </div>
-     <section class="resumo-financeiro">
-      <h2>
-       Resumo do mês
-      </h2>
-      <span>
-       Julho 2026
-      </span>
-      <div class="faturamento-card">
-       <i class="fa-solid fa-chart-line">
-       </i>
-       <div>
-        <p>
-         Faturamento
-        </p>
-        <strong>
-         R$ 6.450,00
-        </strong>
-        <span>
-         ↑ 15% vs. Jun/2026
-        </span>
-       </div>
-      </div>
-     </section>
-     <section class="grafico-faturamento">
-      <div class="section-title">
-       <h2>
-        Faturamento dos últimos meses
-       </h2>
-       <button>
-        Últimos 6 meses
-       </button>
-      </div>
-      <!-- Aqui futuramente entra o gráfico -->
-      <div id="grafico">
-      </div>
-     </section>
-     <section class="receita-servico">
-      <h2>
-       Receita por serviço
-      </h2>
-      <div class="servico-item">
-       <span>
-        Maquiagem Social
-       </span>
-       <strong>
-        45%
-       </strong>
-      </div>
-      <div class="servico-item">
-       <span>
-        Penteado
-       </span>
-       <strong>
-        25%
-       </strong>
-      </div>
-      <div class="servico-item">
-       <span>
-        Maquiagem + Penteado
-       </span>
-       <strong>
-        17%
-       </strong>
-      </div>
-      <div class="servico-item">
-       <span>
-        Outros
-       </span>
-       <strong>
-        13%
-       </strong>
-      </div>
-     </section>
-    </section>
-   </main>
-   <!-- MENU MOBILE INFERIOR -->
-   <nav class="mobile-nav">
-    <button class="mobile-item active" onclick="abrirPagina('home', this)">
-     <i class="fa-solid fa-house">
-     </i>
-     <span>
-      Início
-     </span>
-    </button>
-    <button class="mobile-item" onclick="abrirPagina('agenda', this)">
-     <i class="fa-solid fa-calendar">
-     </i>
-     <span>
-      Agenda
-     </span>
-    </button>
-    <button class="mobile-item" onclick="abrirPagina('clientes', this)">
-     <i class="fa-solid fa-users">
-     </i>
-     <span>
-      Clientes
-     </span>
-    </button>
-    <button class="mobile-item" onclick="abrirPagina('financeiro', this)">
-     <i class="fa-solid fa-wallet">
-     </i>
-     <span>
-      Financeiro
-     </span>
-    </button>
-    <button class="mobile-item">
-     <i class="fa-solid fa-ellipsis">
-     </i>
-     <span>
-      Mais
-     </span>
-    </button>
-   </nav>
-  </div>
-  <!-- ==========================
+          <section class="proximo-home">
+            <div class="proximo-title">
+              <i class="fa-regular fa-clock"> </i>
+              <h2>Próximo atendimento</h2>
+            </div>
+            <h1>09:00</h1>
+            <p>Daqui a 30 min</p>
+            <div class="proxima-cliente">
+              <img src="assets/Avatares/cliente01 (27).jpg" />
+              <div>
+                <h3>Maria Oliveira</h3>
+                <p>Maquiagem Social + Penteado</p>
+              </div>
+              <strong> R$250,00 </strong>
+            </div>
+            <button>Ver detalhes</button>
+          </section>
+        </section>
+        <section class="pagina" id="agenda">
+          <!-- CABEÇALHO -->
+          <header class="agenda-header-mobile">
+            <button class="menu-button">
+              <i class="fa-solid fa-bars"> </i>
+            </button>
+            <h1>Agenda</h1>
+            <div class="agenda-actions-mobile">
+              <i class="fa-solid fa-filter"> </i>
+              <i class="fa-solid fa-plus"> </i>
+            </div>
+          </header>
+          <!-- BOTÃO CALENDÁRIO COMPLETO -->
+          <div class="calendar-toggle">
+            <button id="abrirCalendario">
+              <i class="fa-solid fa-calendar-days"></i>
+              Ver calendário completo
+            </button>
+          </div>
+
+          <!-- CALENDÁRIO COMPLETO -->
+          <section class="calendar-full-container" id="calendarFullContainer">
+            <div id="calendarAgenda"></div>
+          </section>
+
+          <!-- CLIENTES DO DIA SELECIONADO -->
+          <section class="clientes-dia">
+            <div class="clientes-dia-header">
+              <h2>Agendamentos do dia</h2>
+              <span id="dataSelecionada">
+                Selecione uma data
+              </span>
+            </div>
+
+            <div id="listaClientesDia">
+              <!-- O JavaScript preencherá os clientes aqui -->
+            </div>
+          </section>
+
+          <!-- CALENDÁRIO SEMANAL -->
+          <section class="week-calendar">
+            <div class="week-days">
+              <span> D </span>
+              <span> S </span>
+              <span> T </span>
+              <span> Q </span>
+              <span> Q </span>
+              <span> S </span>
+              <span> S </span>
+            </div>
+            <div class="week-numbers">
+              <span> 26 </span>
+              <span class="active-day"> 27 </span>
+              <span> 28 </span>
+              <span> 29 </span>
+              <span> 30 </span>
+              <span> 31 </span>
+              <span> 1 </span>
+            </div>
+          </section>
+          <!-- RESUMO DO DIA -->
+          <div class="agenda-summary">
+            <div>
+              <i class="fa-solid fa-calendar-days"> </i>
+              <strong> Segunda-feira, 27 de julho </strong>
+            </div>
+            <span> 12 agendamentos </span>
+          </div>
+          <!-- LISTA DE AGENDAMENTOS -->
+          <section class="appointments">
+            <!-- CLIENTE 1 -->
+            <div class="appointment-card">
+              <div class="time">09:00</div>
+              <img src="assets/Avatares/cliente01 (27).jpg" />
+              <div class="appointment-info">
+                <h3>Maria Oliveira</h3>
+                <p>🔴 Maquiagem Social</p>
+                <p>🟣 Penteado</p>
+              </div>
+              <div class="appointment-value">
+                <strong> R$250,00 </strong>
+                <span class="confirmado"> Confirmado </span>
+              </div>
+              <i class="fa-solid fa-chevron-right"> </i>
+            </div>
+            <!-- CLIENTE 2 -->
+            <div class="appointment-card">
+              <div class="time">10:30</div>
+              <img src="assets/Avatares/cliente01 (1).jpg" />
+              <div class="appointment-info">
+                <h3>Ana Souza</h3>
+                <p>🟣 Maquiagem</p>
+              </div>
+              <div class="appointment-value">
+                <strong> R$130,00 </strong>
+                <span class="confirmado"> Confirmado </span>
+              </div>
+              <i class="fa-solid fa-chevron-right"> </i>
+            </div>
+            <!-- CLIENTE 3 -->
+            <div class="appointment-card">
+              <div class="time">11:30</div>
+              <img src="assets/Avatares/cliente01 (1).jpg" />
+              <div class="appointment-info">
+                <h3>Carla Silva</h3>
+                <p>🟣 Maquiagem Social</p>
+              </div>
+              <div class="appointment-value">
+                <strong> R$180,00 </strong>
+                <span class="confirmado"> Confirmado </span>
+              </div>
+              <i class="fa-solid fa-chevron-right"> </i>
+            </div>
+            <!-- CLIENTE 4 -->
+            <div class="appointment-card">
+              <div class="time">13:30</div>
+              <img src="assets/Avatares/cliente01 (1).jpg" />
+              <div class="appointment-info">
+                <h3>Juliana Lima</h3>
+                <p>🔴 Maquiagem Social</p>
+                <p>🟣 Penteado</p>
+              </div>
+              <div class="appointment-value">
+                <strong> R$250,00 </strong>
+                <span class="pendente"> Pendente </span>
+              </div>
+              <i class="fa-solid fa-chevron-right"> </i>
+            </div>
+            <!-- CLIENTE 5 -->
+            <div class="appointment-card">
+              <div class="time">15:00</div>
+              <img src="assets/Avatares/cliente01 (1).jpg" />
+              <div class="appointment-info">
+                <h3>Carla Martins</h3>
+                <p>🟣 Penteado</p>
+              </div>
+              <div class="appointment-value">
+                <strong> R$120,00 </strong>
+                <span class="confirmado"> Confirmado </span>
+              </div>
+              <i class="fa-solid fa-chevron-right"> </i>
+            </div>
+            <!-- CLIENTE 6 -->
+            <div class="appointment-card">
+              <div class="time">16:30</div>
+              <img src="assets/Avatares/cliente01 (1).jpg" />
+              <div class="appointment-info">
+                <h3>Beatriz Santos</h3>
+                <p>🔴 Maquiagem Social</p>
+                <p>🟣 Cílios</p>
+              </div>
+              <div class="appointment-value">
+                <strong> R$180,00 </strong>
+                <span class="pendente"> Pendente </span>
+              </div>
+              <i class="fa-solid fa-chevron-right"> </i>
+            </div>
+          </section>
+          <!-- ADICIONAR AGENDAMENTO -->
+          <div class="add-agenda">
+            <i class="fa-solid fa-calendar-plus"> </i>
+            <strong> Adicionar agendamento </strong>
+            <button>
+              <i class="fa-solid fa-plus"> </i>
+            </button>
+          </div>
+          <!-- DICA -->
+          <div class="tip-box">
+            <i class="fa-regular fa-lightbulb"> </i>
+            <div>
+              <strong> Dica para o dia: </strong>
+              <p>
+                Você tem um intervalo de 1h livre entre 11:30 e 13:30. Que tal
+                aproveitar para organizar seus materiais?
+              </p>
+            </div>
+          </div>
+        </section>
+        <section class="pagina" id="clientes">
+          <!-- CABEÇALHO -->
+          <header class="clientes-header-mobile">
+            <button class="menu-button">
+              <i class="fa-solid fa-bars"> </i>
+            </button>
+            <h1>Clientes</h1>
+            <button class="add-client">
+              <i class="fa-solid fa-plus"> </i>
+            </button>
+          </header>
+          <!-- BUSCA -->
+          <div class="search-client">
+            <i class="fa-solid fa-magnifying-glass"> </i>
+            <input placeholder="Buscar cliente..." type="text" />
+          </div>
+          <!-- FILTROS -->
+          <div class="client-filters">
+            <button class="active">Todos</button>
+            <button>Ativas</button>
+            <button>Novas</button>
+            <button>Inativas</button>
+          </div>
+          <!-- CARDS RESUMO -->
+          <section class="client-summary">
+            <div class="client-card">
+              <i class="fa-solid fa-users"> </i>
+              <span> Total de clientes </span>
+              <strong> 340 </strong>
+            </div>
+            <div class="client-card">
+              <i class="fa-solid fa-user-plus"> </i>
+              <span> Novas este mês </span>
+              <strong> 18 </strong>
+            </div>
+            <div class="client-card">
+              <i class="fa-regular fa-clock"> </i>
+              <span> Retornando </span>
+              <strong> 42 </strong>
+            </div>
+            <div class="client-card">
+              <i class="fa-solid fa-user-slash"> </i>
+              <span> Inativas </span>
+              <strong> 12 </strong>
+            </div>
+          </section>
+          <!-- LISTA DE CLIENTES -->
+          <section class="client-list">
+            <!-- CLIENTE -->
+            <div class="client-item">
+              <img src="assets/Avatares/cliente01 (27).jpg" />
+              <div class="client-data">
+                <h3>Maria Oliveira</h3>
+                <p>(83) 99999-1111</p>
+                <div class="client-history">
+                  <span>
+                    <i class="fa-solid fa-calendar"> </i>
+                    12 agendamentos
+                  </span>
+                  <span> Último: 27/07/2026 </span>
+                </div>
+              </div>
+              <span class="client-status active"> Ativa </span>
+              <i class="fa-solid fa-chevron-right"> </i>
+            </div>
+            <div class="client-item">
+              <img src="assets/Avatares/cliente01 (1).jpg" />
+              <div class="client-data">
+                <h3>Ana Souza</h3>
+                <p>(83) 98888-2222</p>
+                <div class="client-history">
+                  <span>
+                    <i class="fa-solid fa-calendar"> </i>
+                    8 agendamentos
+                  </span>
+                  <span> Último: 25/07/2026 </span>
+                </div>
+              </div>
+              <span class="client-status active"> Ativa </span>
+              <i class="fa-solid fa-chevron-right"> </i>
+            </div>
+            <div class="client-item">
+              <img src="assets/Avatares/cliente01 (1).jpg" />
+              <div class="client-data">
+                <h3>Juliana Lima</h3>
+                <p>(83) 97777-3333</p>
+                <div class="client-history">
+                  <span>
+                    <i class="fa-solid fa-calendar"> </i>
+                    6 agendamentos
+                  </span>
+                  <span> Último: 24/07/2026 </span>
+                </div>
+              </div>
+              <span class="client-status active"> Ativa </span>
+              <i class="fa-solid fa-chevron-right"> </i>
+            </div>
+            <div class="client-item">
+              <img src="assets/Avatares/cliente01 (1).jpg" />
+              <div class="client-data">
+                <h3>Carla Martins</h3>
+                <p>(83) 96666-4444</p>
+                <div class="client-history">
+                  <span>
+                    <i class="fa-solid fa-calendar"> </i>
+                    5 agendamentos
+                  </span>
+                  <span> Último: 23/07/2026 </span>
+                </div>
+              </div>
+              <span class="client-status active"> Ativa </span>
+              <i class="fa-solid fa-chevron-right"> </i>
+            </div>
+            <div class="client-item">
+              <img src="assets/Avatares/cliente01 (1).jpg" />
+              <div class="client-data">
+                <h3>Beatriz Santos</h3>
+                <p>(83) 95555-5555</p>
+                <div class="client-history">
+                  <span>
+                    <i class="fa-solid fa-calendar"> </i>
+                    9 agendamentos
+                  </span>
+                  <span> Último: 22/07/2026 </span>
+                </div>
+              </div>
+              <span class="client-status active"> Ativa </span>
+              <i class="fa-solid fa-chevron-right"> </i>
+            </div>
+            <div class="client-item">
+              <img src="assets/Avatares/cliente01 (1).jpg" />
+              <div class="client-data">
+                <h3>Fernanda Alves</h3>
+                <p>(83) 94444-6666</p>
+                <div class="client-history">
+                  <span>
+                    <i class="fa-solid fa-calendar"> </i>
+                    3 agendamentos
+                  </span>
+                  <span> Último: 21/07/2026 </span>
+                </div>
+              </div>
+              <span class="client-status new"> Nova </span>
+              <i class="fa-solid fa-chevron-right"> </i>
+            </div>
+          </section>
+        </section>
+        <section class="pagina" id="financeiro">
+          <header class="financeiro-header-mobile">
+            <button class="menu-button">
+              <i class="fa-solid fa-bars"> </i>
+            </button>
+            <h1>Financeiro</h1>
+            <i class="fa-solid fa-filter"> </i>
+          </header>
+          <div class="finance-tabs">
+            <button class="active">Resumo</button>
+            <button>Transações</button>
+            <button>Relatórios</button>
+          </div>
+          <section class="resumo-financeiro">
+            <h2>Resumo do mês</h2>
+            <span> Julho 2026 </span>
+            <div class="faturamento-card">
+              <i class="fa-solid fa-chart-line"> </i>
+              <div>
+                <p>Faturamento</p>
+                <strong> R$ 6.450,00 </strong>
+                <span> ↑ 15% vs. Jun/2026 </span>
+              </div>
+            </div>
+          </section>
+          <section class="grafico-faturamento">
+            <div class="section-title">
+              <h2>Faturamento dos últimos meses</h2>
+              <button>Últimos 6 meses</button>
+            </div>
+            <!-- Aqui futuramente entra o gráfico -->
+            <div class="grafico-container">
+              <canvas id="graficoFaturamento"></canvas>
+            </div>
+          </section>
+          <section class="receita-servico">
+            <h2>Receita por serviço</h2>
+            <div class="grafico-servicos">
+              <canvas id="graficoServicos"></canvas>
+            </div>
+            <div class="servico-item">
+              <span> Maquiagem Social </span>
+              <strong> 45% </strong>
+            </div>
+            <div class="servico-item">
+              <span> Penteado </span>
+              <strong> 25% </strong>
+            </div>
+            <div class="servico-item">
+              <span> Maquiagem + Penteado </span>
+              <strong> 17% </strong>
+            </div>
+            <div class="servico-item">
+              <span> Outros </span>
+              <strong> 13% </strong>
+            </div>
+          </section>
+        </section>
+      </main>
+      <!-- MENU MOBILE INFERIOR -->
+      <nav class="mobile-nav">
+        <button class="mobile-item active" onclick="abrirPagina('home', this)">
+          <i class="fa-solid fa-house"> </i>
+          <span> Início </span>
+        </button>
+        <button class="mobile-item" onclick="abrirPagina('agenda', this)">
+          <i class="fa-solid fa-calendar"> </i>
+          <span> Agenda </span>
+        </button>
+        <button class="mobile-item" onclick="abrirPagina('clientes', this)">
+          <i class="fa-solid fa-users"> </i>
+          <span> Clientes </span>
+        </button>
+        <button class="mobile-item" onclick="abrirPagina('financeiro', this)">
+          <i class="fa-solid fa-wallet"> </i>
+          <span> Financeiro </span>
+        </button>
+        <button class="mobile-item">
+          <i class="fa-solid fa-ellipsis"> </i>
+          <span> Mais </span>
+        </button>
+      </nav>
+    </div>
+    <!-- ==========================
         TELA AGENDA
 ========================== -->
-  <!-- ==========================
+    <!-- ==========================
         TELA CLIENTES
 ========================== -->
-  <script src="script.js">
-  </script>
- </body>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+  </body>
 </html>
