@@ -1,0 +1,1231 @@
+/* ==========================
+ MENU MOBILE INFERIOR
+========================== */
+.mobile-nav{
+    display:none;
+}
+
+@media(max-width:768px){
+
+.mobile-nav{
+    position:fixed;
+    bottom:0;
+    left:0;
+    width:100%;
+    height:85px;
+    background:white;
+    display:flex;
+    justify-content:space-around;
+    align-items:center;
+    border-top:1px solid #eee;
+    padding-bottom:10px;
+    z-index:999;
+}
+
+.mobile-item{
+    background:none;
+    border:none;
+    outline:none;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+    color:#555;
+    width:20%;
+}
+.mobile-item i{
+    font-size:25px;
+}
+
+.mobile-item span{
+    font-size:13px;
+}
+
+.mobile-item.active{
+    color:var(--primary);
+}
+.mobile-item.active i{
+    background:var(--primary);
+    color:white;
+    width:48px;
+    height:40px;
+    border-radius:12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+}
+/* =====================================
+   HOME MOBILE - AGENDA PRO
+===================================== */
+
+
+/* Esconde páginas futuramente */
+
+.pagina{
+    display:none;
+}
+
+.pagina.ativa{
+    display:block;
+}
+
+/* =====================================
+   MOBILE
+===================================== */
+
+@media(max-width:768px){
+
+body{
+    padding-bottom:90px;
+
+}
+
+/* Remove sidebar no celular */
+.sidebar{
+    display:none;
+}
+
+/* Área principal */
+.main{
+    width:100%;
+    padding:20px;
+
+}
+
+/* =====================================
+   CABEÇALHO HOME
+===================================== */
+.home-header{
+    margin-bottom:25px;
+}
+
+.top-mobile{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:25px;
+}
+
+.menu-button{
+    border:none;
+    background:none;
+    color:var(--primary);
+    font-size:25px;
+}
+.header-right{
+    display:flex;
+    align-items:center;
+    gap:20px;
+    color:#555;
+    font-size:22px;
+}
+
+.profile-image{
+    width:45px;
+    height:45px;
+    border-radius:50%;
+    object-fit:cover;
+
+}
+.home-header h1{
+    font-size:30px;
+    margin-bottom:5px;
+}
+.home-header p{
+    color:var(--gray);
+    font-size:15px;
+}
+
+/* =====================================
+   CARDS HOME
+===================================== */
+.cards-home{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:15px;
+    margin-bottom:25px;
+
+}
+.cards-home .card{
+    background:white;
+    border-radius:var(--radius);
+    padding:18px 15px;
+    box-shadow:var(--shadow);
+
+}
+
+.cards-home .card-top{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+.cards-home i{
+    width:45px;
+    height:45px;
+    border-radius:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#F8E8EF;
+    color:var(--primary);
+}
+.cards-home h3{
+    font-size:12px;
+    color:#777;
+    margin-bottom:8px;
+}
+
+.cards-home p{
+    font-size:22px;
+    font-weight:bold;
+    margin:0;
+}
+.cards-home span{
+    font-size:11px;
+    color:#777;
+}
+
+/* =====================================
+   AGENDA HOME
+===================================== */
+.agenda-home{
+    background:white;
+    border-radius:var(--radius);
+    padding:20px;
+    box-shadow:var(--shadow);
+    margin-bottom:20px;
+}
+.agenda-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+}
+.agenda-header h2{
+    font-size:18px;
+}
+
+.agenda-header a{
+    color:var(--primary);
+    font-weight:bold;
+    font-size:14px;
+
+}
+.cliente-home{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:15px 0;
+    border-bottom:1px solid #eee;
+}
+.cliente-home:last-child{
+    border-bottom:none;
+}
+.cliente-home img{
+    width:45px;
+    height:45px;
+    border-radius:50%;
+    object-fit:cover;
+
+}
+
+.cliente-info-home{
+    flex:1;
+
+}
+.cliente-info-home h3{
+    font-size:15px;
+    margin-bottom:5px;
+}
+.cliente-info-home p{
+    font-size:12px;
+    margin:2px 0;
+    color:#555;
+}
+
+.horario{
+    color:var(--primary);
+    font-weight:bold;
+    font-size:14px;
+}
+.valor-home{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-end;
+    gap:6px;
+
+}
+.valor-home strong{
+    font-size:13px;
+}
+
+.confirmado,
+.pendente{
+    padding:4px 9px;
+    border-radius:20px;
+    font-size:10px;
+}
+.confirmado{
+    background:#E8F5E9;
+    color:#6FA56F;
+}
+.pendente{
+    background:#FFF0DD;
+    color:#D9923B;
+}
+
+/* =====================================
+   PRÓXIMO ATENDIMENTO
+===================================== */
+.proximo-home{
+    background:white;
+    border-radius:var(--radius);
+    padding:20px;
+    box-shadow:var(--shadow);
+}
+.proximo-title{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.proximo-title i{
+    color:var(--primary);
+    font-size:25px;
+}
+
+.proximo-title h2{
+    font-size:17px;
+}
+
+.proximo-home h1{
+    font-size:28px;
+    margin-top:20px;
+}
+
+.proximo-home p{
+    color:#777;
+}
+.proxima-cliente{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-top:20px;
+
+}
+.proxima-cliente img{
+    width:45px;
+    height:45px;
+    border-radius:50%;
+}
+.proxima-cliente div{
+    flex:1;
+
+}
+.proxima-cliente h3{
+    font-size:15px;
+}
+.proxima-cliente p{
+    font-size:12px;
+}
+.proximo-home button{
+    width:100%;
+    height:42px;
+    margin-top:20px;
+    border:none;
+    border-radius:10px;
+    background:var(--primary);
+    color:white;
+    font-weight:bold;
+}
+}
+/* =====================================
+   TELA AGENDA MOBILE
+===================================== */
+@media(max-width:768px){
+
+/* ==========================
+   CABEÇALHO AGENDA
+========================== */
+.agenda-header-mobile{
+    background:var(--primary);
+    color:white;
+    margin:-20px -20px 20px;
+    padding:35px 25px 45px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    border-radius:0 0 25px 25px;
+}
+.agenda-header-mobile h1{
+    font-size:22px;
+}
+.agenda-header-mobile button{
+    border:none;
+    background:none;
+    color:white;
+    font-size:25px;
+}
+.agenda-actions-mobile{
+    display:flex;
+    gap:18px;
+    font-size:22px;
+}
+/* ==========================
+   CALENDÁRIO SEMANAL
+========================== */
+
+.week-calendar{
+    background:white;
+    border-radius:18px;
+    padding:18px;
+    margin-top:-20px;
+    box-shadow:var(--shadow);
+
+}
+.week-days,
+.week-numbers{
+    display:grid;
+    grid-template-columns:repeat(7,1fr);
+    text-align:center;
+    align-items:center;
+}
+.week-days span{
+    font-size:13px;
+    color:#777;
+    font-weight:bold;
+
+}
+.week-numbers{
+    margin-top:15px;
+
+}
+.week-numbers span{
+    font-size:16px;
+    font-weight:bold;
+    height:38px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+.active-day{
+    background:var(--primary);
+    color:white;
+    border-radius:50%;
+}
+
+/* ==========================
+   RESUMO DO DIA
+========================== */
+
+.agenda-summary{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin:25px 5px;
+}
+
+.agenda-summary div{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+.agenda-summary i{
+    color:var(--primary);
+    font-size:22px;
+}
+.agenda-summary strong{
+    font-size:15px;
+}
+.agenda-summary span{
+    color:#777;
+    font-size:13px;
+}
+/* ==========================
+   CARDS DOS AGENDAMENTOS
+========================== */
+.appointments{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+
+}
+.appointment-card{
+    background:white;
+    border-radius:16px;
+    padding:15px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    box-shadow:var(--shadow);
+}
+.appointment-card .time{
+    color:var(--primary);
+    font-size:15px;
+    font-weight:bold;
+    width:45px;
+}
+.appointment-card img{
+    width:50px;
+    height:50px;
+    border-radius:50%;
+    object-fit:cover;
+}
+.appointment-info{
+    flex:1;
+}
+.appointment-info h3{
+    font-size:15px;
+    margin-bottom:5px;
+
+}
+.appointment-info p{
+    font-size:12px;
+    margin:3px 0;
+    color:#555;
+}
+.appointment-value{
+    display:flex;
+    flex-direction:column;
+    align-items:flex-end;
+    gap:6px;
+}
+.appointment-value strong{
+    font-size:13px;
+}
+.appointment-card > i{
+    color:#999;
+    font-size:18px;
+}
+/* ==========================
+   BOTÃO ADICIONAR
+========================== */
+.add-agenda{
+    background:white;
+    border-radius:18px;
+    padding:18px;
+    margin-top:20px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    box-shadow:var(--shadow);
+}
+.add-agenda i{
+    color:var(--primary);
+    font-size:22px;
+}
+.add-agenda strong{
+    flex:1;
+    color:var(--primary);
+}
+.add-agenda button{
+    width:42px;
+    height:42px;
+    border:none;
+    border-radius:50%;
+    background:var(--primary);
+    color:white;
+    font-size:18px;
+}
+/* ==========================
+   DICA DO DIA
+========================== */
+.tip-box{
+    background:#FFF5F8;
+    border-radius:18px;
+    padding:18px;
+    margin-top:20px;
+    display:flex;
+    gap:15px;
+}
+
+.tip-box i{
+    color:var(--primary);
+    font-size:25px;
+
+}
+.tip-box strong{
+    font-size:14px;
+}
+.tip-box p{
+    font-size:13px;
+    color:#666;
+    line-height:1.5;
+    margin-top:5px;
+
+}
+/* =====================================
+   TELA CLIENTES MOBILE
+===================================== */
+
+@media(max-width:768px){
+
+/* ==========================
+   CABEÇALHO
+========================== */
+.clientes-header-mobile{
+    background:var(--primary);
+    color:white;
+    margin:-20px -20px 20px;
+    padding:35px 25px 45px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    border-radius:0 0 25px 25px;
+}
+
+.clientes-header-mobile h1{
+    font-size:22px;
+}
+
+.clientes-header-mobile button{
+    background:none;
+    border:none;
+    color:white;
+    font-size:25px;
+
+}
+
+.add-client{
+    width:42px;
+    height:42px;
+    border-radius:50%!important;
+    background:rgba(255,255,255,.15)!important;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+}
+/* ==========================
+   BUSCA
+========================== */
+.search-client{
+    background:white;
+    height:55px;
+    border-radius:15px;
+    box-shadow:var(--shadow);
+    display:flex;
+    align-items:center;
+    gap:15px;
+    padding:0 18px;
+    margin-top:-25px;
+    position:relative;
+}
+.search-client i{
+    color:#999;
+    font-size:20px;
+}
+.search-client input{
+    border:none;
+    outline:none;
+    flex:1;
+    font-size:16px;
+    color:#555;
+}
+.search-client input::placeholder{
+    color:#999;
+}
+/* ==========================
+   FILTROS
+========================== */
+.client-filters{
+    display:flex;
+    justify-content:space-between;
+    margin:25px 0;
+    background:white;
+    border-radius:15px;
+    padding:5px;
+}
+.client-filters button{
+    border:none;
+    background:none;
+    color:var(--primary);
+    font-weight:bold;
+    padding:12px 15px;
+    border-radius:25px;
+    font-size:13px;
+}
+.client-filters button.active{
+    background:var(--primary);
+    color:white;
+}
+/* ==========================
+   RESUMO CLIENTES
+========================== */
+.client-summary{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:8px;
+    margin-bottom:20px;
+
+}
+.client-card{
+    background:white;
+    border-radius:15px;
+    box-shadow:var(--shadow);
+    padding:15px 5px;
+    text-align:center;
+}
+.client-card i{
+    width:35px;
+    height:35px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin:auto auto 8px;
+    color:var(--primary);
+    background:#F8E8EF;
+}
+.client-card span{
+    display:block;
+    font-size:10px;
+    color:#777;
+    margin-bottom:5px;
+}
+.client-card strong{
+    font-size:20px;
+}
+
+/* ==========================
+   LISTA CLIENTES
+========================== */
+.client-list{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+.client-item{
+    background:white;
+    border-radius:16px;
+    padding:15px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    box-shadow:var(--shadow);
+}
+.client-item img{
+    width:55px;
+    height:55px;
+    border-radius:50%;
+    object-fit:cover;
+}
+.client-data{
+    flex:1;
+}
+.client-data h3{
+    font-size:16px;
+    margin-bottom:4px;
+}
+
+.client-data p{
+    font-size:13px;
+    color:#555;
+    margin-bottom:8px;
+
+}
+.client-history{
+    display:flex;
+    gap:10px;
+    align-items:center;
+    flex-wrap:wrap;
+}
+.client-history span{
+    font-size:11px;
+    color:#777;
+
+}
+.client-history i{
+    color:var(--primary);
+
+}
+/* ==========================
+   STATUS
+========================== */
+.client-status{
+    padding:5px 10px;
+    border-radius:20px;
+    font-size:11px;
+    font-weight:bold;
+}
+.client-status.active{
+    background:#E8F5E9;
+    color:#6FA56F;
+}
+.client-status.new{
+    background:#E8F0FF;
+    color:#4285F4;
+}
+.client-item > i{
+    color:#999;
+    font-size:18px;
+}
+}
+/* =====================================
+   TELA FINANCEIRO MOBILE
+===================================== */
+
+
+@media(max-width:768px){
+
+
+
+/* ==========================
+   CABEÇALHO FINANCEIRO
+========================== */
+
+
+.financeiro-header-mobile{
+
+
+    background:var(--primary);
+
+    color:white;
+
+    margin:-20px -20px 20px;
+
+    padding:35px 25px 45px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:space-between;
+
+    border-radius:0 0 25px 25px;
+
+
+}
+
+
+
+.financeiro-header-mobile h1{
+
+
+    font-size:22px;
+
+
+}
+
+
+
+.financeiro-header-mobile i{
+
+
+    font-size:22px;
+
+
+}
+
+
+
+
+/* ==========================
+   ABAS
+========================== */
+
+
+.finance-tabs{
+
+
+    background:white;
+
+    border-radius:18px;
+
+    padding:5px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    margin-top:-20px;
+
+    box-shadow:var(--shadow);
+
+    margin-bottom:20px;
+
+
+}
+
+
+
+.finance-tabs button{
+
+
+    border:none;
+
+    background:none;
+
+    color:#777;
+
+    font-weight:bold;
+
+    font-size:13px;
+
+    padding:12px 20px;
+
+    border-radius:25px;
+
+
+}
+
+
+
+.finance-tabs .active{
+
+
+    background:var(--primary);
+
+    color:white;
+
+
+}
+
+
+
+
+
+
+
+/* ==========================
+   RESUMO DO MÊS
+========================== */
+
+
+.resumo-financeiro{
+
+
+    background:white;
+
+    border-radius:var(--radius);
+
+    padding:20px;
+
+    box-shadow:var(--shadow);
+
+    margin-bottom:20px;
+
+
+}
+
+
+
+.resumo-financeiro h2{
+
+
+    font-size:20px;
+
+    margin-bottom:5px;
+
+
+}
+
+
+
+.resumo-financeiro > span{
+
+
+    color:var(--primary);
+
+    font-weight:bold;
+
+    font-size:14px;
+
+
+}
+
+
+
+
+
+/* CARD FATURAMENTO */
+
+
+.faturamento-card{
+
+
+    margin-top:20px;
+
+    background:#F8F8F8;
+
+    border-radius:18px;
+
+    padding:20px;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:15px;
+
+
+}
+
+
+
+.faturamento-card i{
+
+
+    width:50px;
+
+    height:50px;
+
+    border-radius:50%;
+
+    background:#E8F5E9;
+
+    color:#6FA56F;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:22px;
+
+
+}
+
+
+
+.faturamento-card p{
+
+
+    color:#777;
+
+    font-size:14px;
+
+    margin-bottom:5px;
+
+
+}
+
+
+
+.faturamento-card strong{
+
+
+    display:block;
+
+    font-size:25px;
+
+    color:#4C8B45;
+
+
+}
+
+
+
+.faturamento-card span{
+
+
+    font-size:12px;
+
+    color:#4C8B45;
+
+
+}
+
+
+
+
+
+
+
+
+
+/* ==========================
+   GRÁFICO FATURAMENTO
+========================== */
+
+
+.grafico-faturamento{
+
+
+    background:white;
+
+    border-radius:var(--radius);
+
+    padding:20px;
+
+    box-shadow:var(--shadow);
+
+    margin-bottom:20px;
+
+
+}
+
+
+
+.section-title{
+
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    margin-bottom:20px;
+
+
+}
+
+
+
+.section-title h2{
+
+
+    font-size:17px;
+
+
+}
+
+
+
+.section-title button{
+
+
+    border:1px solid #eee;
+
+    background:white;
+
+    border-radius:10px;
+
+    padding:8px 12px;
+
+    font-size:12px;
+
+
+}
+
+
+
+/* espaço reservado para gráfico */
+
+
+#grafico{
+
+
+    height:230px;
+
+    background:
+
+    linear-gradient(
+
+    to top,
+
+    #FAF8F7,
+
+    white
+
+    );
+
+    border-radius:15px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    color:#999;
+
+
+}
+
+
+
+
+
+
+
+/* ==========================
+   RECEITA POR SERVIÇO
+========================== */
+
+
+.receita-servico{
+
+
+    background:white;
+
+    border-radius:var(--radius);
+
+    padding:20px;
+
+    box-shadow:var(--shadow);
+
+
+}
+
+
+
+.receita-servico h2{
+
+
+    font-size:18px;
+
+    margin-bottom:20px;
+
+
+}
+
+
+
+
+.servico-item{
+
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:15px 0;
+
+    border-bottom:1px solid #eee;
+
+
+}
+
+
+
+.servico-item:last-child{
+
+
+    border-bottom:none;
+
+
+}
+
+
+
+.servico-item span{
+
+
+    font-size:14px;
+
+
+}
+
+
+
+.servico-item strong{
+
+
+    color:var(--primary);
+
+    font-size:16px;
+
+
+}
+
+
+
+}
+}
