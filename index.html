@@ -77,8 +77,8 @@
                 />
               </div>
             </div>
-            <h1>Bom dia, Paloma! ☀️</h1>
-            <p>Segunda-feira, 27 de julho de 2026</p>
+            <h1 id="saudacao"></h1>
+            <p id="dataAtual"></p>
           </header>
           <!-- ==========================
         CARDS RESUMO
@@ -136,61 +136,10 @@
               </h2>
               <a> Ver todos </a>
             </div>
-            <div class="agenda-clientes">
-              <!-- CLIENTE 1 -->
-              <div class="cliente-home">
-                <div class="horario">09:00</div>
-                <img src="assets/Avatares/cliente01 (27).jpg" />
-                <div class="cliente-info-home">
-                  <h3>Maria Oliveira</h3>
-                  <p>🔴 Maquiagem Social</p>
-                  <p>🟣 Penteado</p>
-                </div>
-                <div class="valor-home">
-                  <strong> R$250,00 </strong>
-                  <span class="confirmado"> Confirmado </span>
-                </div>
-              </div>
-              <!-- CLIENTE 2 -->
-              <div class="cliente-home">
-                <div class="horario">10:30</div>
-                <img src="assets/Avatares/cliente01 (1).jpg" />
-                <div class="cliente-info-home">
-                  <h3>Ana Souza</h3>
-                  <p>🟣 Maquiagem</p>
-                </div>
-                <div class="valor-home">
-                  <strong> R$130,00 </strong>
-                  <span class="confirmado"> Confirmado </span>
-                </div>
-              </div>
-              <!-- CLIENTE 3 -->
-              <div class="cliente-home">
-                <div class="horario">13:30</div>
-                <img src="assets/Avatares/cliente01 (1).jpg" />
-                <div class="cliente-info-home">
-                  <h3>Juliana Lima</h3>
-                  <p>🔴 Maquiagem Social</p>
-                  <p>🟣 Penteado</p>
-                </div>
-                <div class="valor-home">
-                  <strong> R$250,00 </strong>
-                  <span class="pendente"> Pendente </span>
-                </div>
-              </div>
-              <!-- CLIENTE 4 -->
-              <div class="cliente-home">
-                <div class="horario">15:00</div>
-                <img src="assets/Avatares/cliente01 (1).jpg" />
-                <div class="cliente-info-home">
-                  <h3>Carla Martins</h3>
-                  <p>🟣 Penteado</p>
-                </div>
-                <div class="valor-home">
-                  <strong> R$120,00 </strong>
-                  <span class="confirmado"> Confirmado </span>
-                </div>
-              </div>
+            <div class="agenda-clientes" id="agendaHoje">
+
+              <!-- O JavaScript irá preencher os clientes reais da API aqui -->
+
             </div>
           </section>
           <!-- ==========================
@@ -281,95 +230,7 @@
             <span> 12 agendamentos </span>
           </div>
           <!-- LISTA DE AGENDAMENTOS -->
-          <section class="appointments">
-            <!-- CLIENTE 1 -->
-            <div class="appointment-card">
-              <div class="time">09:00</div>
-              <img src="assets/Avatares/cliente01 (27).jpg" />
-              <div class="appointment-info">
-                <h3>Maria Oliveira</h3>
-                <p>🔴 Maquiagem Social</p>
-                <p>🟣 Penteado</p>
-              </div>
-              <div class="appointment-value">
-                <strong> R$250,00 </strong>
-                <span class="confirmado"> Confirmado </span>
-              </div>
-              <i class="fa-solid fa-chevron-right"> </i>
-            </div>
-            <!-- CLIENTE 2 -->
-            <div class="appointment-card">
-              <div class="time">10:30</div>
-              <img src="assets/Avatares/cliente01 (1).jpg" />
-              <div class="appointment-info">
-                <h3>Ana Souza</h3>
-                <p>🟣 Maquiagem</p>
-              </div>
-              <div class="appointment-value">
-                <strong> R$130,00 </strong>
-                <span class="confirmado"> Confirmado </span>
-              </div>
-              <i class="fa-solid fa-chevron-right"> </i>
-            </div>
-            <!-- CLIENTE 3 -->
-            <div class="appointment-card">
-              <div class="time">11:30</div>
-              <img src="assets/Avatares/cliente01 (1).jpg" />
-              <div class="appointment-info">
-                <h3>Carla Silva</h3>
-                <p>🟣 Maquiagem Social</p>
-              </div>
-              <div class="appointment-value">
-                <strong> R$180,00 </strong>
-                <span class="confirmado"> Confirmado </span>
-              </div>
-              <i class="fa-solid fa-chevron-right"> </i>
-            </div>
-            <!-- CLIENTE 4 -->
-            <div class="appointment-card">
-              <div class="time">13:30</div>
-              <img src="assets/Avatares/cliente01 (1).jpg" />
-              <div class="appointment-info">
-                <h3>Juliana Lima</h3>
-                <p>🔴 Maquiagem Social</p>
-                <p>🟣 Penteado</p>
-              </div>
-              <div class="appointment-value">
-                <strong> R$250,00 </strong>
-                <span class="pendente"> Pendente </span>
-              </div>
-              <i class="fa-solid fa-chevron-right"> </i>
-            </div>
-            <!-- CLIENTE 5 -->
-            <div class="appointment-card">
-              <div class="time">15:00</div>
-              <img src="assets/Avatares/cliente01 (1).jpg" />
-              <div class="appointment-info">
-                <h3>Carla Martins</h3>
-                <p>🟣 Penteado</p>
-              </div>
-              <div class="appointment-value">
-                <strong> R$120,00 </strong>
-                <span class="confirmado"> Confirmado </span>
-              </div>
-              <i class="fa-solid fa-chevron-right"> </i>
-            </div>
-            <!-- CLIENTE 6 -->
-            <div class="appointment-card">
-              <div class="time">16:30</div>
-              <img src="assets/Avatares/cliente01 (1).jpg" />
-              <div class="appointment-info">
-                <h3>Beatriz Santos</h3>
-                <p>🔴 Maquiagem Social</p>
-                <p>🟣 Cílios</p>
-              </div>
-              <div class="appointment-value">
-                <strong> R$180,00 </strong>
-                <span class="pendente"> Pendente </span>
-              </div>
-              <i class="fa-solid fa-chevron-right"> </i>
-            </div>
-          </section>
+          <section id="agendaHoje"></section>
           <!-- ADICIONAR AGENDAMENTO -->
           <div class="add-agenda">
             <i class="fa-solid fa-calendar-plus"> </i>
@@ -629,5 +490,7 @@
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="script.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/telas/tela-inicio.js"></script>
   </body>
 </html>
