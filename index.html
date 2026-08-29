@@ -89,7 +89,7 @@
                 <i class="fa-solid fa-calendar-days"> </i>
                 <div>
                   <h3>Atendimentos hoje</h3>
-                  <p>12</p>
+                  <p id="atendimentosHoje">0</p>
                   <span> clientes agendadas </span>
                 </div>
               </div>
@@ -99,7 +99,7 @@
                 <i class="fa-solid fa-wallet"> </i>
                 <div>
                   <h3>Faturamento do dia</h3>
-                  <p>R$ 1.850,00</p>
+                  <p id="faturamentoHoje">R$ 0,00</p>
                   <span> estimado </span>
                 </div>
               </div>
@@ -109,7 +109,7 @@
                 <i class="fa-solid fa-clock"> </i>
                 <div>
                   <h3>Próximos agendamentos</h3>
-                  <p>28</p>
+                  <p id="proximosAgendamentos">0</p>
                   <span> agendamentos </span>
                 </div>
               </div>
@@ -119,7 +119,7 @@
                 <i class="fa-solid fa-users"> </i>
                 <div>
                   <h3>Clientes cadastradas</h3>
-                  <p>340</p>
+                  <p id="clientesCadastradas">0</p>
                   <span> total de clientes </span>
                 </div>
               </div>
@@ -137,31 +137,50 @@
               <a> Ver todos </a>
             </div>
             <div class="agenda-clientes" id="agendaHoje">
-
               <!-- O JavaScript irá preencher os clientes reais da API aqui -->
-
             </div>
           </section>
           <!-- ==========================
      PRÓXIMO ATENDIMENTO
 ========================== -->
-          <section class="proximo-home">
-            <div class="proximo-title">
-              <i class="fa-regular fa-clock"> </i>
-              <h2>Próximo atendimento</h2>
-            </div>
-            <h1>09:00</h1>
-            <p>Daqui a 30 min</p>
-            <div class="proxima-cliente">
-              <img src="assets/Avatares/cliente01 (27).jpg" />
-              <div>
-                <h3>Maria Oliveira</h3>
-                <p>Maquiagem Social + Penteado</p>
+          <!-- =====================================
+     PRÓXIMO ATENDIMENTO
+===================================== -->
+
+          <div class="next-appointment">
+            <h3>
+              <span>◷</span>
+              Próximo atendimento
+            </h3>
+
+            <!-- HORÁRIO -->
+
+            <div id="proximoHorario" class="proximo-horario">--:--</div>
+
+            <!-- TEMPO RESTANTE -->
+
+            <p id="proximoTempo" class="proximo-tempo">Carregando...</p>
+
+            <!-- CLIENTE -->
+
+            <div class="proximo-cliente">
+              <img src="assets/Avatares/cliente01 (27).jpg" alt="Cliente" />
+
+              <div class="cliente-info-home">
+                <h4 id="proximoNome">Carregando...</h4>
+
+                <p id="proximoServico">--</p>
               </div>
-              <strong> R$250,00 </strong>
+
+              <!-- VALOR -->
+
+              <strong id="proximoValor"> R$ 0,00 </strong>
             </div>
-            <button>Ver detalhes</button>
-          </section>
+
+            <!-- BOTÃO -->
+
+            <button id="verDetalhesProximo" type="button">Ver detalhes</button>
+          </div>
         </section>
         <section class="pagina" id="agenda">
           <!-- CABEÇALHO -->
@@ -230,7 +249,7 @@
             <span> 12 agendamentos </span>
           </div>
           <!-- LISTA DE AGENDAMENTOS -->
-          <section id="agendaHoje"></section>
+          <section id="listaAgenda"></section>
           <!-- ADICIONAR AGENDAMENTO -->
           <div class="add-agenda">
             <i class="fa-solid fa-calendar-plus"> </i>
@@ -303,7 +322,7 @@
             <div class="client-item">
               <img src="assets/Avatares/cliente01 (27).jpg" />
               <div class="client-data">
-                <h3>Maria Oliveira</h3>
+                <h3>joana</h3>
                 <p>(83) 99999-1111</p>
                 <div class="client-history">
                   <span>

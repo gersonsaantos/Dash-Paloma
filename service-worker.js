@@ -1,53 +1,132 @@
-const CACHE_NAME = "agenda-pro-v1";
+// =====================================
+// SERVICE WORKER - FLOW PRO
+// =====================================
+
+const CACHE_NAME = "agenda-pro-v2";
 
 
 const arquivos = [
 
-"/",
-"/index.html",
-"/primeirostyle.css",
-"/responsivo.css",
-"/script.js"
+    "/",
+
+    "/index.html",
+
+    "/primeirostyle.css",
+
+    "/responsivo.css",
+
+    "/script.js",
+
+    "/tela-inicio.js"
 
 ];
 
 
 
-self.addEventListener("install", function(event){
+// =====================================
+// INSTALAÇÃO
+// =====================================
 
-event.waitUntil(
+self.addEventListener(
+    "install",
+    function(event){
 
-caches.open(CACHE_NAME)
-.then(cache=>{
+        self.skipWaiting();
 
-return cache.addAll(arquivos);
+        event.waitUntil(
 
-})
+            caches.open(CACHE_NAME)
 
-);
+                .then(function(cache){
 
-});
+                    return cache.addAll(
+                        arquivos
+                    );
 
+                })
 
+        );
 
-
-
-self.addEventListener("fetch", function(event){
-
-
-event.respondWith(
-
-caches.match(event.request)
-.then(response=>{
-
-
-return response || fetch(event.request);
-
-
-})
-
-
+    }
 );
 
 
-});
+
+// =====================================
+// ATIVAÇÃO
+// =====================================
+
+self.addEventListener(
+    "activate",
+    function(event){
+
+        event.waitUntil(
+
+            caches.keys()
+                .then(function(cacheNames){
+
+                    return Promise.all(
+
+                        cacheNames.map(
+                            function(cacheName){
+
+                                if(
+                                    cacheName !==
+                                    CACHE_NAME
+                                ){
+
+                                    return caches.delete(
+                                        cacheName
+                                    );
+
+                                }
+
+                            }
+                        )
+
+                    );
+
+                })
+                .then(function(){
+
+                    return self.clients.claim();
+
+                })
+
+        );
+
+    }
+);
+
+
+
+// =====================================
+// BUSCAR ARQUIVOS
+// =====================================
+
+self.addEventListener(
+    "fetch",
+    function(event){
+
+        event.respondWith(
+
+            fetch(event.request)
+
+                .then(function(response){
+
+                    return response;
+
+                })
+
+                .catch(function(){
+
+                    return caches.match(
+                        event.request
+                    );
+
+                })
+
+        );
+
+    }
+);
