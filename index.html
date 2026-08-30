@@ -126,18 +126,29 @@
             </div>
           </section>
           <!-- ==========================
-        AGENDA DO DIA
+      <!-- ==========================
+     AGENDA DO DIA
 ========================== -->
+
           <section class="agenda-home">
             <div class="agenda-header">
               <h2>
-                <i class="fa-solid fa-calendar-days"> </i>
+                <i class="fa-solid fa-calendar-days"></i>
                 Agenda do dia
               </h2>
-              <a> Ver todos </a>
+
+              <button
+                type="button"
+                id="verTodosAgenda"
+                class="btn-ver-todos-agenda"
+              >
+                Ver todos
+              </button>
             </div>
+
             <div class="agenda-clientes" id="agendaHoje">
-              <!-- O JavaScript irá preencher os clientes reais da API aqui -->
+              <!-- O JavaScript irá preencher
+         os clientes reais da API aqui -->
             </div>
           </section>
           <!-- ==========================
@@ -511,5 +522,6 @@
     <script src="script.js"></script>
     <script src="js/api.js"></script>
     <script src="js/telas/tela-inicio.js"></script>
+    <script src="js/telas/tela-agenda.js"></script>
   </body>
 </html>

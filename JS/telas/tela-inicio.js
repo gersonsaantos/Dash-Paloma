@@ -24,7 +24,7 @@ function iniciarInicio(){
 
 
 // =====================================
-// SAUDAÇÃO AUTOMÁTICA
+// SAUDAÇÃO
 // =====================================
 
 function atualizarSaudacao(){
@@ -32,12 +32,9 @@ function atualizarSaudacao(){
     const elemento =
         document.getElementById("saudacao");
 
-
     if(!elemento) return;
 
-
     const agora = new Date();
-
 
     const hora = Number(
         agora.toLocaleString(
@@ -49,9 +46,7 @@ function atualizarSaudacao(){
         )
     );
 
-
     let mensagem = "";
-
 
     if(hora >= 5 && hora < 12){
 
@@ -71,9 +66,7 @@ function atualizarSaudacao(){
 
     }
 
-
     const nomeUsuario = "Paloma";
-
 
     elemento.innerHTML =
         `${mensagem}, ${nomeUsuario}! ☀️`;
@@ -83,7 +76,7 @@ function atualizarSaudacao(){
 
 
 // =====================================
-// DATA ATUAL - BRASÍLIA
+// DATA ATUAL
 // =====================================
 
 function atualizarData(){
@@ -91,12 +84,9 @@ function atualizarData(){
     const elemento =
         document.getElementById("dataAtual");
 
-
     if(!elemento) return;
 
-
     const hoje = new Date();
-
 
     const dataFormatada =
         hoje.toLocaleDateString(
@@ -110,7 +100,6 @@ function atualizarData(){
             }
         );
 
-
     elemento.innerHTML =
         dataFormatada.charAt(0).toUpperCase()
         +
@@ -121,7 +110,7 @@ function atualizarData(){
 
 
 // =====================================
-// PEGAR DATA ATUAL DE BRASÍLIA
+// DATA BRASÍLIA
 // =====================================
 
 function pegarDataBrasilia(){
@@ -145,25 +134,19 @@ function criarDataSegura(data){
 
     if(!data) return null;
 
-
     if(data instanceof Date){
 
         return data;
 
     }
 
-
     const texto =
         String(data).trim();
-
 
     if(!texto) return null;
 
 
-
-    // ==================================
-    // FORMATO YYYY-MM-DD
-    // ==================================
+    // YYYY-MM-DD
 
     if(
         /^\d{4}-\d{2}-\d{2}$/.test(texto)
@@ -171,7 +154,6 @@ function criarDataSegura(data){
 
         const partes =
             texto.split("-");
-
 
         return new Date(
             Number(partes[0]),
@@ -182,10 +164,7 @@ function criarDataSegura(data){
     }
 
 
-
-    // ==================================
-    // FORMATO DD/MM/YYYY
-    // ==================================
+    // DD/MM/YYYY
 
     if(
         /^\d{2}\/\d{2}\/\d{4}$/.test(texto)
@@ -193,7 +172,6 @@ function criarDataSegura(data){
 
         const partes =
             texto.split("/");
-
 
         return new Date(
             Number(partes[2]),
@@ -207,13 +185,15 @@ function criarDataSegura(data){
     const tentativa =
         new Date(texto);
 
-
-    if(isNaN(tentativa.getTime())){
+    if(
+        isNaN(
+            tentativa.getTime()
+        )
+    ){
 
         return null;
 
     }
-
 
     return tentativa;
 
@@ -249,16 +229,13 @@ function converterValor(valor){
 
     }
 
-
     if(!valor) return 0;
-
 
     let texto =
         String(valor)
             .trim()
             .replace("R$", "")
             .trim();
-
 
     if(texto.includes(",")){
 
@@ -269,10 +246,8 @@ function converterValor(valor){
 
     }
 
-
     const numero =
         Number(texto);
-
 
     return isNaN(numero)
         ? 0
@@ -291,29 +266,22 @@ function encontrarValorServico(
     tamanhoCabelo
 ){
 
-    if(!dadosSistema.servicos){
+    if(
+        !dadosSistema.servicos ||
+        !nomeServico
+    ){
 
         return 0;
 
     }
-
-
-    if(!nomeServico){
-
-        return 0;
-
-    }
-
 
     const servicos =
         dadosSistema.servicos;
-
 
     const nome =
         normalizarTexto(
             nomeServico
         );
-
 
     const tamanho =
         normalizarTexto(
@@ -321,10 +289,7 @@ function encontrarValorServico(
         );
 
 
-
-    // ==================================
     // SERVIÇO EXATO
-    // ==================================
 
     let encontrado =
         servicos.find(servico => {
@@ -345,10 +310,7 @@ function encontrarValorServico(
     }
 
 
-
-    // ==================================
-    // SERVIÇO COM "+"
-    // ==================================
+    // SERVIÇO COM +
 
     if(nomeServico.includes("+")){
 
@@ -360,7 +322,6 @@ function encontrarValorServico(
                         parte.trim()
                 )
                 .filter(Boolean);
-
 
         let total = 0;
 
@@ -394,7 +355,6 @@ function encontrarValorServico(
             }
 
 
-
             if(tamanho){
 
                 servicoEncontrado =
@@ -405,7 +365,6 @@ function encontrarValorServico(
                                 servico.nome
                             );
 
-
                         return (
                             nomeTabela.includes(
                                 parteNormalizada
@@ -413,18 +372,9 @@ function encontrarValorServico(
                             &&
                             nomeTabela.includes(
                                 tamanho
-                                    .replace(
-                                        "(p)",
-                                        ""
-                                    )
-                                    .replace(
-                                        "(m)",
-                                        ""
-                                    )
-                                    .replace(
-                                        "(g)",
-                                        ""
-                                    )
+                                    .replace("(p)", "")
+                                    .replace("(m)", "")
+                                    .replace("(g)", "")
                                     .trim()
                             )
                         );
@@ -438,8 +388,6 @@ function encontrarValorServico(
                         servicoEncontrado.valor
                     );
 
-                    return;
-
                 }
 
             }
@@ -452,10 +400,7 @@ function encontrarValorServico(
     }
 
 
-
-    // ==================================
     // BUSCA PARCIAL
-    // ==================================
 
     encontrado =
         servicos.find(servico => {
@@ -464,7 +409,6 @@ function encontrarValorServico(
                 normalizarTexto(
                     servico.nome
                 );
-
 
             return (
                 nomeTabela.includes(nome)
@@ -510,42 +454,28 @@ function formatarMoeda(valor){
 
 
 // =====================================
-// ATUALIZAR CARDS DA HOME
+// ATUALIZAR CARDS
 // =====================================
 
 function atualizarCardsInicio(){
-
-    console.log(
-        "Atualizando cards da Home..."
-    );
-
 
     if(
         !dadosSistema ||
         !dadosSistema.agendamentos
     ){
 
-        console.log(
-            "Agendamentos ainda não carregados."
-        );
-
         return;
 
     }
 
-
     const agendamentos =
         dadosSistema.agendamentos;
-
 
     const hoje =
         pegarDataBrasilia();
 
 
-
-    // ==================================
-    // ATENDIMENTOS DE HOJE
-    // ==================================
+    // ATENDIMENTOS HOJE
 
     const atendimentosHoje =
         agendamentos.filter(
@@ -555,7 +485,6 @@ function atualizarCardsInicio(){
 
             }
         );
-
 
 
     const elementoAtendimentos =
@@ -572,10 +501,7 @@ function atualizarCardsInicio(){
     }
 
 
-
-    // ==================================
-    // FATURAMENTO DO DIA
-    // ==================================
+    // FATURAMENTO
 
     let faturamentoHoje = 0;
 
@@ -591,7 +517,6 @@ function atualizarCardsInicio(){
 
         }
     );
-
 
 
     const elementoFaturamento =
@@ -610,11 +535,7 @@ function atualizarCardsInicio(){
     }
 
 
-
-    // ==================================
-    // PRÓXIMOS AGENDAMENTOS
-    // MÊS ATUAL
-    // ==================================
+    // PRÓXIMOS DO MÊS
 
     const dataAtual =
         criarDataSegura(
@@ -630,10 +551,8 @@ function atualizarCardsInicio(){
         const anoAtual =
             dataAtual.getFullYear();
 
-
         const mesAtual =
             dataAtual.getMonth();
-
 
         const diaAtual =
             dataAtual.getDate();
@@ -656,21 +575,9 @@ function atualizarCardsInicio(){
                     }
 
 
-                    const anoCliente =
-                        dataCliente.getFullYear();
-
-
-                    const mesCliente =
-                        dataCliente.getMonth();
-
-
-                    const diaCliente =
-                        dataCliente.getDate();
-
-
                     if(
-                        anoCliente !==
-                        anoAtual
+                        dataCliente.getFullYear()
+                        !== anoAtual
                     ){
 
                         return false;
@@ -679,8 +586,8 @@ function atualizarCardsInicio(){
 
 
                     if(
-                        mesCliente !==
-                        mesAtual
+                        dataCliente.getMonth()
+                        !== mesAtual
                     ){
 
                         return false;
@@ -689,8 +596,8 @@ function atualizarCardsInicio(){
 
 
                     if(
-                        diaCliente <
-                        diaAtual
+                        dataCliente.getDate()
+                        < diaAtual
                     ){
 
                         return false;
@@ -704,7 +611,6 @@ function atualizarCardsInicio(){
             );
 
     }
-
 
 
     const elementoProximos =
@@ -721,10 +627,7 @@ function atualizarCardsInicio(){
     }
 
 
-
-    // ==================================
-    // CLIENTES CADASTRADAS
-    // ==================================
+    // CLIENTES
 
     const clientesValidas =
         agendamentos.filter(
@@ -783,26 +686,12 @@ function carregarAgendaHoje(){
     }
 
 
-    const agendamentos =
-        dadosSistema.agendamentos;
-
-
-    if(agendamentos.length === 0){
-
-        lista.innerHTML =
-            "<p>Nenhum atendimento cadastrado.</p>";
-
-        return;
-
-    }
-
-
     const dataHoje =
         pegarDataBrasilia();
 
 
     const clientesHoje =
-        agendamentos.filter(
+        dadosSistema.agendamentos.filter(
             cliente => {
 
                 return cliente.data === dataHoje;
@@ -844,8 +733,12 @@ function carregarAgendaHoje(){
     }
 
 
+    // ==================================
+    // MOSTRAR OS CLIENTES
+    // ==================================
+
     clientesHoje.forEach(
-        cliente => {
+        (cliente, indice) => {
 
             const valor =
                 encontrarValorServico(
@@ -859,9 +752,7 @@ function carregarAgendaHoje(){
                 <div class="cliente-home">
 
                     <div class="horario">
-
                         ${cliente.horario || "--:--"}
-
                     </div>
 
 
@@ -876,7 +767,6 @@ function carregarAgendaHoje(){
                         <h3>
                             ${cliente.nome}
                         </h3>
-
 
                         <p>
                             ${cliente.servico ||
@@ -904,6 +794,319 @@ function carregarAgendaHoje(){
 
 
 // =====================================
+// VER TODOS - AGENDA DO DIA
+// =====================================
+
+function abrirTodosAgendamentosHoje(){
+
+    if(
+        !dadosSistema ||
+        !Array.isArray(
+            dadosSistema.agendamentos
+        )
+    ){
+
+        return;
+
+    }
+
+
+    const dataHoje =
+        pegarDataBrasilia();
+
+
+    const clientesHoje =
+        dadosSistema.agendamentos.filter(
+            cliente => {
+
+                return cliente.data === dataHoje;
+
+            }
+        );
+
+
+    clientesHoje.sort(
+        (a,b) => {
+
+            return String(
+                a.horario || ""
+            ).localeCompare(
+                String(
+                    b.horario || ""
+                )
+            );
+
+        }
+    );
+
+
+    let modal =
+        document.getElementById(
+            "modalAgendaHoje"
+        );
+
+
+    // ==================================
+    // CRIAR MODAL
+    // ==================================
+
+    if(!modal){
+
+        modal =
+            document.createElement(
+                "div"
+            );
+
+
+        modal.id =
+            "modalAgendaHoje";
+
+
+        modal.className =
+            "modal-detalhes-cliente";
+
+
+        document.body.appendChild(
+            modal
+        );
+
+    }
+
+
+    // ==================================
+    // CONTEÚDO
+    // ==================================
+
+    let conteudo = `
+
+        <div class="modal-conteudo">
+
+            <button
+                type="button"
+                class="modal-fechar"
+                id="fecharModalAgendaHoje"
+            >
+                ×
+            </button>
+
+
+            <h2>
+                Agenda de hoje
+            </h2>
+
+
+            <p style="
+                margin-top:-10px;
+                margin-bottom:20px;
+                color:#777;
+            ">
+                ${formatarDataDetalhes(dataHoje)}
+            </p>
+
+    `;
+
+
+    if(clientesHoje.length === 0){
+
+        conteudo += `
+
+            <div class="detalhe-item">
+
+                <span>
+                    Nenhum atendimento agendado para hoje.
+                </span>
+
+            </div>
+
+        `;
+
+    }
+
+    else{
+
+        clientesHoje.forEach(
+            (cliente, indice) => {
+
+                const valor =
+                    encontrarValorServico(
+                        cliente.servico,
+                        cliente.tamanhoCabelo
+                    );
+
+
+                conteudo += `
+
+                    <div
+                        class="agenda-completa-item"
+                        style="
+                            padding:15px 0;
+                            border-bottom:1px solid #eee;
+                        "
+                    >
+
+                        <div
+                            style="
+                                display:flex;
+                                align-items:center;
+                                gap:10px;
+                            "
+                        >
+
+                            <strong>
+                                ${cliente.horario || "--:--"}
+                            </strong>
+
+                            <span>
+                                ${cliente.nome || "Cliente"}
+                            </span>
+
+                        </div>
+
+
+                        <div
+                            style="
+                                font-size:13px;
+                                color:#777;
+                                margin-top:5px;
+                            "
+                        >
+
+                            ${cliente.servico || "Serviço não informado"}
+
+                            <br>
+
+                            ${formatarMoeda(valor)}
+
+                        </div>
+
+
+                        <button
+                            type="button"
+                            class="btn-ver-detalhes-agenda"
+                            data-indice="${indice}"
+                            style="
+                                margin-top:10px;
+                                border:none;
+                                background:#6B304F;
+                                color:white;
+                                padding:8px 14px;
+                                border-radius:8px;
+                                cursor:pointer;
+                            "
+                        >
+                            Ver detalhes
+                        </button>
+
+                    </div>
+
+                `;
+
+            }
+        );
+
+    }
+
+
+    conteudo += `
+
+        </div>
+
+    `;
+
+
+    modal.innerHTML =
+        conteudo;
+
+
+    modal.classList.add(
+        "ativo"
+    );
+
+
+    // ==================================
+    // FECHAR
+    // ==================================
+
+    document
+        .getElementById(
+            "fecharModalAgendaHoje"
+        )
+        .addEventListener(
+            "click",
+            function(){
+
+                modal.classList.remove(
+                    "ativo"
+                );
+
+            }
+        );
+
+
+    // ==================================
+    // BOTÕES VER DETALHES
+    // ==================================
+
+    const botoes =
+        modal.querySelectorAll(
+            ".btn-ver-detalhes-agenda"
+        );
+
+
+    botoes.forEach(
+        botao => {
+
+            botao.addEventListener(
+                "click",
+                function(){
+
+                    const indice =
+                        Number(
+                            botao.dataset.indice
+                        );
+
+
+                    const cliente =
+                        clientesHoje[indice];
+
+
+                    abrirDetalhesCliente(
+                        cliente
+                    );
+
+                }
+            );
+
+        }
+    );
+
+
+    // ==================================
+    // FECHAR CLICANDO FORA
+    // ==================================
+
+    modal.addEventListener(
+        "click",
+        function(event){
+
+            if(
+                event.target === modal
+            ){
+
+                modal.classList.remove(
+                    "ativo"
+                );
+
+            }
+
+        }
+    );
+
+}
+
+
+
+// =====================================
 // PRÓXIMO ATENDIMENTO
 // =====================================
 
@@ -914,24 +1117,20 @@ function carregarProximoAtendimento(){
             "proximoHorario"
         );
 
-
     const tempoElemento =
         document.getElementById(
             "proximoTempo"
         );
-
 
     const nomeElemento =
         document.getElementById(
             "proximoNome"
         );
 
-
     const servicoElemento =
         document.getElementById(
             "proximoServico"
         );
-
 
     const valorElemento =
         document.getElementById(
@@ -958,37 +1157,10 @@ function carregarProximoAtendimento(){
         )
     ){
 
-        horarioElemento.innerText =
-            "--:--";
-
-        tempoElemento.innerText =
-            "Carregando...";
-
-        nomeElemento.innerText =
-            "Carregando...";
-
-        servicoElemento.innerText =
-            "--";
-
-        if(valorElemento){
-
-            valorElemento.innerText =
-                "R$ 0,00";
-
-        }
-
         return;
 
     }
 
-
-    const agendamentos =
-        dadosSistema.agendamentos;
-
-
-    // ==================================
-    // DATA E HORA ATUAL
-    // ==================================
 
     const agora =
         new Date();
@@ -1051,13 +1223,8 @@ function carregarProximoAtendimento(){
         `${valoresData.hour}:${valoresData.minute}`;
 
 
-
-    // ==================================
-    // FILTRAR ATENDIMENTOS FUTUROS
-    // ==================================
-
     const futuros =
-        agendamentos.filter(
+        dadosSistema.agendamentos.filter(
             cliente => {
 
                 if(
@@ -1099,38 +1266,20 @@ function carregarProximoAtendimento(){
         );
 
 
-
-    // ==================================
-    // ORDENAR
-    // ==================================
-
     futuros.sort(
         (a,b) => {
 
-            const primeiro =
-                `${a.data} ${a.horario}`;
-
-
-            const segundo =
-                `${b.data} ${b.horario}`;
-
-
-            return primeiro.localeCompare(
-                segundo
+            return (
+                `${a.data} ${a.horario}`
+            ).localeCompare(
+                `${b.data} ${b.horario}`
             );
 
         }
     );
 
 
-
-    // ==================================
-    // NENHUM ATENDIMENTO
-    // ==================================
-
-    if(
-        futuros.length === 0
-    ){
+    if(futuros.length === 0){
 
         horarioElemento.innerText =
             "--:--";
@@ -1159,18 +1308,12 @@ function carregarProximoAtendimento(){
     }
 
 
-
-    // ==================================
-    // PRÓXIMO
-    // ==================================
-
     const proximo =
         futuros[0];
 
 
     window.proximoAtendimento =
         proximo;
-
 
 
     horarioElemento.innerText =
@@ -1187,30 +1330,18 @@ function carregarProximoAtendimento(){
         "Serviço não informado";
 
 
-
-    // ==================================
-    // VALOR
-    // ==================================
-
     if(valorElemento){
 
-        const valor =
-            encontrarValorServico(
-                proximo.servico,
-                proximo.tamanhoCabelo
-            );
-
-
         valorElemento.innerText =
-            formatarMoeda(valor);
+            formatarMoeda(
+                encontrarValorServico(
+                    proximo.servico,
+                    proximo.tamanhoCabelo
+                )
+            );
 
     }
 
-
-
-    // ==================================
-    // TEMPO
-    // ==================================
 
     tempoElemento.innerText =
         calcularTempoAte(
@@ -1218,18 +1349,12 @@ function carregarProximoAtendimento(){
             proximo.horario
         );
 
-
-    console.log(
-        "PRÓXIMO ATENDIMENTO:",
-        proximo
-    );
-
 }
 
 
 
 // =====================================
-// CALCULAR TEMPO ATÉ O ATENDIMENTO
+// CALCULAR TEMPO
 // =====================================
 
 function calcularTempoAte(
@@ -1286,9 +1411,7 @@ function calcularTempoAte(
         agora.getTime();
 
 
-    if(
-        diferenca <= 0
-    ){
+    if(diferenca <= 0){
 
         return "Agora";
 
@@ -1317,7 +1440,6 @@ function calcularTempoAte(
         minutos % 60;
 
 
-
     if(dias > 0){
 
         if(dias === 1){
@@ -1326,11 +1448,9 @@ function calcularTempoAte(
 
         }
 
-
         return `Daqui a ${dias} dias`;
 
     }
-
 
 
     if(horas > 0){
@@ -1341,11 +1461,9 @@ function calcularTempoAte(
 
         }
 
-
         return `Daqui a ${horas}h`;
 
     }
-
 
 
     if(minutosRestantes > 0){
@@ -1362,20 +1480,12 @@ function calcularTempoAte(
 
 
 // =====================================
-// ABRIR DETALHES
+// ABRIR DETALHES DE QUALQUER CLIENTE
 // =====================================
 
-function abrirDetalhesProximo(){
-
-    const cliente =
-        window.proximoAtendimento;
-
+function abrirDetalhesCliente(cliente){
 
     if(!cliente){
-
-        console.log(
-            "Nenhum próximo atendimento disponível."
-        );
 
         return;
 
@@ -1387,11 +1497,6 @@ function abrirDetalhesProximo(){
             "modalDetalhesCliente"
         );
 
-
-
-    // ==================================
-    // CRIAR MODAL
-    // ==================================
 
     if(!modal){
 
@@ -1514,6 +1619,39 @@ function abrirDetalhesProximo(){
 
                 </div>
 
+
+                <div class="detalhe-item">
+
+                    <strong>
+                        Bairro
+                    </strong>
+
+                    <span id="detalheBairro"></span>
+
+                </div>
+
+
+                <div class="detalhe-item">
+
+                    <strong>
+                        Localização
+                    </strong>
+
+                    <span id="detalheLocalizacao"></span>
+
+                </div>
+
+
+                <div class="detalhe-item">
+
+                    <strong>
+                        Autorização de uso de imagem
+                    </strong>
+
+                    <span id="detalheImagem"></span>
+
+                </div>
+
             </div>
 
         `;
@@ -1524,11 +1662,6 @@ function abrirDetalhesProximo(){
         );
 
 
-
-        // ==================================
-        // FECHAR
-        // ==================================
-
         document
             .getElementById(
                 "fecharModalCliente"
@@ -1538,11 +1671,6 @@ function abrirDetalhesProximo(){
                 fecharDetalhesProximo
             );
 
-
-
-        // ==================================
-        // FECHAR CLICANDO FORA
-        // ==================================
 
         modal.addEventListener(
             "click",
@@ -1562,9 +1690,8 @@ function abrirDetalhesProximo(){
     }
 
 
-
     // ==================================
-    // PREENCHER DETALHES
+    // PREENCHER DADOS
     // ==================================
 
     document.getElementById(
@@ -1617,8 +1744,121 @@ function abrirDetalhesProximo(){
         cliente.penteado || "-";
 
 
+    document.getElementById(
+        "detalheBairro"
+    ).innerText =
+        cliente.bairro || "-";
+
+
+    // ==================================
+    // LOCALIZAÇÃO
+    // ==================================
+
+    const localizacaoElemento =
+        document.getElementById(
+            "detalheLocalizacao"
+        );
+
+
+    const localizacao =
+        cliente.localizacao ||
+        cliente.linkLocalizacao ||
+        cliente.link ||
+        "";
+
+
+    if(localizacao){
+
+        if(
+            /^https?:\/\//i.test(
+                String(localizacao)
+            )
+        ){
+
+            localizacaoElemento.innerHTML = `
+
+                <a
+                    href="${localizacao}"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style="
+                        color:#6B304F;
+                        font-weight:bold;
+                        text-decoration:none;
+                    "
+                >
+                    Abrir localização
+                </a>
+
+            `;
+
+        }
+
+        else{
+
+            localizacaoElemento.innerText =
+                localizacao;
+
+        }
+
+    }
+
+    else{
+
+        localizacaoElemento.innerText =
+            "-";
+
+    }
+
+
+    // ==================================
+    // AUTORIZAÇÃO
+    // ==================================
+
+    const autorizacaoImagem =
+        cliente.autorizacaoImagem ||
+        cliente.usoImagem ||
+        cliente.autorizacao ||
+        "";
+
+
+    document.getElementById(
+        "detalheImagem"
+    ).innerText =
+        autorizacaoImagem || "-";
+
+
     modal.classList.add(
         "ativo"
+    );
+
+}
+
+
+
+// =====================================
+// DETALHES DO PRÓXIMO ATENDIMENTO
+// =====================================
+
+function abrirDetalhesProximo(){
+
+    const cliente =
+        window.proximoAtendimento;
+
+
+    if(!cliente){
+
+        console.log(
+            "Nenhum próximo atendimento disponível."
+        );
+
+        return;
+
+    }
+
+
+    abrirDetalhesCliente(
+        cliente
     );
 
 }
@@ -1650,7 +1890,7 @@ function fecharDetalhesProximo(){
 
 
 // =====================================
-// FORMATAR DATA DOS DETALHES
+// FORMATAR DATA
 // =====================================
 
 function formatarDataDetalhes(
@@ -1694,13 +1934,8 @@ function formatarDataDetalhes(
 
 
 // =====================================
-// BOTÃO VER DETALHES
+// BOTÃO VER DETALHES DO PRÓXIMO
 // =====================================
-//
-// Usamos delegação de evento.
-// Assim funciona mesmo se o card
-// for atualizado/recriado pelo JS.
-//
 
 document.addEventListener(
     "click",
@@ -1722,12 +1957,62 @@ document.addEventListener(
         event.preventDefault();
 
 
+        abrirDetalhesProximo();
+
+    }
+);
+
+
+
+// =====================================
+// BOTÃO VER TODOS
+// =====================================
+
+document.addEventListener(
+    "click",
+    function(event){
+
+        const botao =
+            event.target.closest(
+                "#verTodosAgenda"
+            );
+
+
+        if(!botao){
+
+            return;
+
+        }
+
+
+        event.preventDefault();
+
+
         console.log(
-            "VER DETALHES CLICADO"
+            "Abrindo todos os agendamentos de hoje..."
         );
 
 
-        abrirDetalhesProximo();
+        abrirTodosAgendamentosHoje();
+
+    }
+);
+
+
+
+// =====================================
+// INICIAR HOME
+// =====================================
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function(){
+
+        atualizarSaudacao();
+
+        atualizarData();
+
+        iniciarInicio();
 
     }
 );
@@ -1746,6 +2031,10 @@ document.addEventListener(
             "API finalizada. Atualizando Home..."
         );
 
+
+        atualizarSaudacao();
+
+        atualizarData();
 
         atualizarCardsInicio();
 
