@@ -1,132 +1,55 @@
 // =====================================
 // SERVICE WORKER - FLOW PRO
+// TEMPORARIAMENTE DESATIVADO
 // =====================================
 
-const CACHE_NAME = "agenda-pro-v2";
+self.addEventListener("install", function(event){
+
+    self.skipWaiting();
+
+});
 
 
-const arquivos = [
+self.addEventListener("activate", function(event){
 
-    "/",
+    event.waitUntil(
 
-    "/index.html",
+        caches.keys().then(function(cacheNames){
 
-    "/primeirostyle.css",
+            return Promise.all(
 
-    "/responsivo.css",
+                cacheNames.map(function(cacheName){
 
-    "/script.js",
-
-    "/tela-inicio.js"
-
-];
-
-
-
-// =====================================
-// INSTALAÇÃO
-// =====================================
-
-self.addEventListener(
-    "install",
-    function(event){
-
-        self.skipWaiting();
-
-        event.waitUntil(
-
-            caches.open(CACHE_NAME)
-
-                .then(function(cache){
-
-                    return cache.addAll(
-                        arquivos
+                    console.log(
+                        "Apagando cache:",
+                        cacheName
                     );
 
-                })
-
-        );
-
-    }
-);
-
-
-
-// =====================================
-// ATIVAÇÃO
-// =====================================
-
-self.addEventListener(
-    "activate",
-    function(event){
-
-        event.waitUntil(
-
-            caches.keys()
-                .then(function(cacheNames){
-
-                    return Promise.all(
-
-                        cacheNames.map(
-                            function(cacheName){
-
-                                if(
-                                    cacheName !==
-                                    CACHE_NAME
-                                ){
-
-                                    return caches.delete(
-                                        cacheName
-                                    );
-
-                                }
-
-                            }
-                        )
-
-                    );
-
-                })
-                .then(function(){
-
-                    return self.clients.claim();
+                    return caches.delete(cacheName);
 
                 })
 
-        );
+            );
 
-    }
-);
+        })
+
+        .then(function(){
+
+            return self.clients.claim();
+
+        })
+
+    );
+
+});
 
 
+self.addEventListener("fetch", function(event){
 
-// =====================================
-// BUSCAR ARQUIVOS
-// =====================================
+    event.respondWith(
 
-self.addEventListener(
-    "fetch",
-    function(event){
+        fetch(event.request)
 
-        event.respondWith(
+    );
 
-            fetch(event.request)
-
-                .then(function(response){
-
-                    return response;
-
-                })
-
-                .catch(function(){
-
-                    return caches.match(
-                        event.request
-                    );
-
-                })
-
-        );
-
-    }
-);
+});

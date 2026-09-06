@@ -1,2313 +1,2103 @@
 /* ==========================
-   MENU MOBILE INFERIOR
+MENU MOBILE INFERIOR
 ========================== */
-
 .mobile-nav{
-    display:none;
+display:none;
 }
-
 @media(max-width:768px){
-
-    .mobile-nav{
-        position:fixed;
-        bottom:0;
-        left:0;
-        width:100%;
-        height:85px;
-        background:white;
-        display:flex;
-        justify-content:space-around;
-        align-items:center;
-        border-top:1px solid #eee;
-        padding-bottom:10px;
-        z-index:999;
-    }
-
-    .mobile-item{
-        background:none;
-        border:none;
-        outline:none;
-        display:flex;
-        flex-direction:column;
-        align-items:center;
-        justify-content:center;
-        gap:6px;
-        color:#555;
-        width:20%;
-    }
-
-    .mobile-item i{
-        font-size:25px;
-    }
-
-    .mobile-item span{
-        font-size:13px;
-    }
-
-    .mobile-item.active{
-        color:var(--primary);
-    }
-
-    .mobile-item.active i{
-        background:var(--primary);
-        color:white;
-        width:48px;
-        height:40px;
-        border-radius:12px;
-        display:flex;
-        align-items:center;
-        justify-content:center;
-    }
+.mobile-nav{
+position:fixed;
+bottom:0;
+left:0;
+width:100%;
+height:85px;
+background:white;
+display:flex;
+justify-content:space-around;
+align-items:center;
+border-top:1px solid #eee;
+padding-bottom:10px;
+z-index:999;
 }
-
-
+.mobile-item{
+background:none;
+border:none;
+outline:none;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+gap:6px;
+color:#555;
+width:20%;
+}
+.mobile-item i{
+font-size:25px;
+}
+.mobile-item span{
+font-size:13px;
+}
+.mobile-item.active{
+color:var(--primary);
+}
+.mobile-item.active i{
+background:var(--primary);
+color:white;
+width:48px;
+height:40px;
+border-radius:12px;
+display:flex;
+align-items:center;
+justify-content:center;
+}
+}
 /* =====================================
-   HOME MOBILE - AGENDA PRO
+HOME MOBILE - AGENDA PRO
 ===================================== */
-
 .pagina{
-    display:none;
+display:none;
 }
-
 .pagina.ativa{
-    display:block;
+display:block;
 }
-
-
 /* =====================================
-   MOBILE
+MOBILE
 ===================================== */
-
 @media(max-width:768px){
-
-    body{
-        padding-bottom:90px;
-    }
-
-    .sidebar{
-        display:none;
-    }
-
-    .main{
-        width:100%;
-        padding:20px;
-    }
-
-
-    /* =====================================
-       CABEÇALHO HOME
-    ===================================== */
-
-    .home-header{
-        margin-bottom:25px;
-    }
-
-    .top-mobile{
-        display:flex;
-        justify-content:space-between;
-        align-items:center;
-        margin-bottom:25px;
-    }
-
-    .menu-button{
-        border:none;
-        background:none;
-        color:var(--primary);
-        font-size:25px;
-    }
-
-    .header-right{
-        display:flex;
-        align-items:center;
-        gap:20px;
-        color:#555;
-        font-size:22px;
-    }
-
-    .profile-image{
-        width:45px;
-        height:45px;
-        border-radius:50%;
-        object-fit:cover;
-    }
-
-    .home-header h1{
-        font-size:30px;
-        margin-bottom:5px;
-    }
-
-    .home-header p{
-        color:var(--gray);
-        font-size:15px;
-    }
-
-
-    /* =====================================
-       CARDS HOME
-    ===================================== */
-
-    .cards-home{
-        display:grid;
-        grid-template-columns:repeat(2,1fr);
-        gap:15px;
-        margin-bottom:25px;
-    }
-
-    .cards-home .card{
-        background:white;
-        border-radius:var(--radius);
-        padding:18px 15px;
-        box-shadow:var(--shadow);
-    }
-
-    .cards-home .card-top{
-        display:flex;
-        align-items:center;
-        gap:12px;
-    }
-
-    .cards-home i{
-        width:45px;
-        height:45px;
-        border-radius:50%;
-        display:flex;
-        justify-content:center;
-        align-items:center;
-        background:#F8E8EF;
-        color:var(--primary);
-    }
-
-    .cards-home h3{
-        font-size:12px;
-        color:#777;
-        margin-bottom:8px;
-    }
-
-    .cards-home p{
-        font-size:22px;
-        font-weight:bold;
-        margin:0;
-    }
-
-    .cards-home span{
-        font-size:11px;
-        color:#777;
-    }
-
-
-    /* =====================================
-       AGENDA HOME
-    ===================================== */
-
-    .agenda-home{
-        background:white;
-        border-radius:var(--radius);
-        padding:20px;
-        box-shadow:var(--shadow);
-        margin-bottom:20px;
-    }
-
-    .agenda-header{
-        display:flex;
-        justify-content:space-between;
-        align-items:center;
-        margin-bottom:20px;
-    }
-
-    .agenda-header h2{
-        font-size:18px;
-    }
-
-    .agenda-header a{
-        color:var(--primary);
-        font-weight:bold;
-        font-size:14px;
-    }
-
-    .cliente-home{
-        display:flex;
-        align-items:center;
-        gap:12px;
-        padding:15px 0;
-        border-bottom:1px solid #eee;
-    }
-
-    .cliente-home:last-child{
-        border-bottom:none;
-    }
-
-    .cliente-home img{
-        width:45px;
-        height:45px;
-        border-radius:50%;
-        object-fit:cover;
-    }
-
-    .cliente-info-home{
-        flex:1;
-    }
-
-    .cliente-info-home h3{
-        font-size:15px;
-        margin-bottom:5px;
-    }
-
-    .cliente-info-home p{
-        font-size:12px;
-        margin:2px 0;
-        color:#555;
-    }
-
-    .horario{
-        color:var(--primary);
-        font-weight:bold;
-        font-size:14px;
-    }
-
-    .valor-home{
-        display:flex;
-        flex-direction:column;
-        align-items:flex-end;
-        gap:6px;
-    }
-
-    .valor-home strong{
-        font-size:13px;
-    }
-
-    .confirmado,
-    .pendente{
-        padding:4px 9px;
-        border-radius:20px;
-        font-size:10px;
-    }
-
-    .confirmado{
-        background:#E8F5E9;
-        color:#6FA56F;
-    }
-
-    .pendente{
-        background:#FFF0DD;
-        color:#D9923B;
-    }
-
-
-    /* =====================================
-       BOTÃO VER TODOS
-    ===================================== */
-
-    .btn-ver-todos-agenda{
-        border:none;
-        background:transparent;
-        color:#7b3157;
-        font-size:13px;
-        font-weight:600;
-        cursor:pointer;
-        padding:5px 0;
-        font-family:inherit;
-    }
-
-    .btn-ver-todos-agenda:hover{
-        text-decoration:underline;
-    }
-
-
-    /* =====================================
-       MODAL DA AGENDA COMPLETA
-    ===================================== */
-
-    #modalAgendaHoje{
-        position:fixed;
-        inset:0;
-        width:100%;
-        height:100%;
-        background:rgba(0,0,0,.45);
-
-        display:flex;
-        align-items:center;
-        justify-content:center;
-
-        padding:20px;
-        box-sizing:border-box;
-
-        z-index:9998;
-
-        opacity:0;
-        visibility:hidden;
-
-        transition:
-            opacity .2s ease,
-            visibility .2s ease;
-    }
-
-    #modalAgendaHoje.ativo{
-        opacity:1;
-        visibility:visible;
-    }
-
-    #modalAgendaHoje .modal-conteudo{
-        width:100%;
-        max-width:430px;
-        max-height:85vh;
-
-        background:#fff;
-        border-radius:20px;
-
-        padding:22px;
-        box-sizing:border-box;
-
-        overflow-y:auto;
-        position:relative;
-
-        box-shadow:0 15px 40px rgba(0,0,0,.18);
-    }
-
-    #modalAgendaHoje .modal-conteudo h2{
-        margin:0 35px 15px 0;
-        font-size:20px;
-        font-weight:700;
-        color:#222;
-    }
-
-    #fecharModalAgendaHoje{
-        position:absolute;
-        top:14px;
-        right:16px;
-
-        width:32px;
-        height:32px;
-
-        border:none;
-        background:transparent;
-
-        font-size:28px;
-        line-height:1;
-
-        color:#333;
-        cursor:pointer;
-    }
-
-
-    /* =====================================
-       ITEM AGENDA COMPLETA
-    ===================================== */
-
-    .agenda-completa-item{
-        padding:16px 0 !important;
-        border-bottom:1px solid #eee !important;
-    }
-
-    .agenda-completa-item:last-child{
-        border-bottom:none !important;
-    }
-
-    .agenda-completa-item strong{
-        color:#7b3157;
-        font-size:15px;
-        min-width:45px;
-    }
-
-    .agenda-completa-item span{
-        color:#222;
-        font-size:15px;
-        font-weight:600;
-    }
-
-    .agenda-completa-item div{
-        color:#777;
-    }
-
-
-    /* =====================================
-       BOTÃO VER DETALHES
-    ===================================== */
-
-    .btn-ver-detalhes-agenda{
-        width:100%;
-        border:none;
-        background:#7b3157 !important;
-        color:#fff !important;
-
-        padding:10px 14px !important;
-        border-radius:8px !important;
-
-        font-family:inherit;
-        font-size:13px;
-        font-weight:600;
-
-        cursor:pointer;
-
-        transition:
-            background .2s ease,
-            transform .1s ease;
-    }
-
-    .btn-ver-detalhes-agenda:hover{
-        background:#662743 !important;
-    }
-
-    .btn-ver-detalhes-agenda:active{
-        transform:scale(.98);
-    }
-
-
-    /* =====================================
-       MODAL DETALHES CLIENTE
-    ===================================== */
-
-    #modalDetalhesCliente{
-        position:fixed;
-        inset:0;
-
-        width:100%;
-        height:100%;
-
-        background:rgba(0,0,0,.45);
-
-        display:flex;
-        align-items:center;
-        justify-content:center;
-
-        padding:20px;
-        box-sizing:border-box;
-
-        z-index:9999;
-
-        opacity:0;
-        visibility:hidden;
-
-        transition:
-            opacity .2s ease,
-            visibility .2s ease;
-    }
-
-    #modalDetalhesCliente.ativo{
-        opacity:1;
-        visibility:visible;
-    }
-
-    #modalDetalhesCliente .modal-conteudo{
-        width:100%;
-        max-width:430px;
-        max-height:88vh;
-
-        background:#fff;
-        border-radius:20px;
-
-        padding:22px;
-        box-sizing:border-box;
-
-        overflow-y:auto;
-        position:relative;
-
-        box-shadow:0 15px 40px rgba(0,0,0,.18);
-    }
-
-    #modalDetalhesCliente .modal-conteudo h2{
-        margin:0 35px 18px 0;
-        font-size:20px;
-        color:#222;
-    }
-
-    #fecharModalCliente{
-        position:absolute;
-
-        top:14px;
-        right:16px;
-
-        width:32px;
-        height:32px;
-
-        border:none;
-        background:transparent;
-
-        font-size:28px;
-        line-height:1;
-
-        color:#333;
-        cursor:pointer;
-    }
-
-
-    /* =====================================
-       INFORMAÇÕES CLIENTE
-    ===================================== */
-
-    .detalhe-item{
-        padding:11px 0;
-
-        border-bottom:1px solid #eee;
-
-        display:flex;
-        flex-direction:column;
-
-        gap:4px;
-    }
-
-    .detalhe-item:last-child{
-        border-bottom:none;
-    }
-
-    .detalhe-item strong{
-        font-size:11px;
-        font-weight:500;
-        color:#777;
-    }
-
-    .detalhe-item span{
-        font-size:14px;
-        color:#222;
-        word-break:break-word;
-    }
-
-
-    /* =====================================
-       LOCALIZAÇÃO
-    ===================================== */
-
-    #detalheLocalizacao a{
-        display:inline-block;
-        color:#7b3157 !important;
-        font-weight:600;
-        text-decoration:none;
-    }
-
-    #detalheLocalizacao a:hover{
-        text-decoration:underline;
-    }
-
-
-    /* =====================================
-       PRÓXIMO ATENDIMENTO
-    ===================================== */
-
-    .next-appointment{
-        background:white;
-        border-radius:var(--radius);
-        padding:20px;
-        box-shadow:var(--shadow);
-        margin-top:20px;
-    }
-
-    .next-appointment h3{
-        display:flex;
-        align-items:center;
-        gap:10px;
-        font-size:17px;
-        margin:0;
-    }
-
-    .next-appointment h3 span{
-        color:var(--primary);
-        font-size:25px;
-    }
-
-    .proximo-horario{
-        font-size:28px;
-        font-weight:bold;
-        color:var(--text);
-        margin-top:20px;
-    }
-
-    .proximo-tempo{
-        color:#777;
-        font-size:13px;
-        margin-top:5px;
-    }
-
-    .proximo-cliente{
-        display:flex;
-        align-items:center;
-        gap:12px;
-        margin-top:20px;
-    }
-
-    .proximo-cliente img{
-        width:45px;
-        height:45px;
-        border-radius:50%;
-        object-fit:cover;
-    }
-
-    .proximo-cliente .cliente-info-home{
-        flex:1;
-    }
-
-    .proximo-cliente h4{
-        font-size:15px;
-        margin:0 0 5px 0;
-    }
-
-    .proximo-cliente p{
-        font-size:12px;
-        color:#555;
-        margin:0;
-    }
-
-    #proximoValor{
-        font-size:14px;
-        color:var(--primary);
-        white-space:nowrap;
-    }
-
-    .next-appointment button{
-        width:100%;
-        height:42px;
-        margin-top:20px;
-
-        border:none;
-        border-radius:10px;
-
-        background:var(--primary);
-        color:white;
-
-        font-weight:bold;
-        cursor:pointer;
-
-        position:relative;
-        z-index:5;
-    }
-
-
-    /* =====================================
-       MODAL DETALHES
-    ===================================== */
-
-    .modal-detalhes-cliente{
-        position:fixed;
-        inset:0;
-
-        width:100%;
-        height:100%;
-
-        background:rgba(0,0,0,.45);
-
-        display:none;
-
-        align-items:center;
-        justify-content:center;
-
-        padding:20px;
-        box-sizing:border-box;
-
-        z-index:99999;
-    }
-
-    .modal-detalhes-cliente.ativo{
-        display:flex;
-    }
-
-    .modal-conteudo{
-        width:100%;
-        max-width:420px;
-        max-height:90vh;
-
-        overflow-y:auto;
-
-        background:white;
-
-        border-radius:24px;
-
-        padding:25px;
-
-        box-sizing:border-box;
-
-        position:relative;
-    }
-
-    .modal-conteudo h2{
-        margin-top:0;
-        margin-bottom:20px;
-    }
-
-    .modal-fechar{
-        position:absolute;
-
-        right:15px;
-        top:10px;
-
-        border:none;
-        background:transparent;
-
-        font-size:30px;
-        cursor:pointer;
-
-        z-index:10;
-    }
-
-
-    /* =====================================
-       TELA AGENDA MOBILE
-    ===================================== */
-
-    .agenda-header-mobile{
-        background:var(--primary);
-        color:white;
-
-        margin:-20px -20px 20px;
-
-        padding:35px 25px 45px;
-
-        display:flex;
-        align-items:center;
-        justify-content:space-between;
-
-        border-radius:0 0 25px 25px;
-    }
-
-    .agenda-header-mobile h1{
-        font-size:22px;
-    }
-
-    .agenda-header-mobile button{
-        border:none;
-        background:none;
-        color:white;
-        font-size:25px;
-    }
-
-    .agenda-actions-mobile{
-        display:flex;
-        gap:18px;
-        font-size:22px;
-    }
-
-
-    /* =====================================
-       CALENDÁRIO COMPLETO
-    ===================================== */
-
-    .calendar-toggle{
-        margin:15px 0;
-    }
-
-    .calendar-toggle button{
-        width:100%;
-        height:45px;
-
-        border:none;
-        border-radius:14px;
-
-        background:var(--primary);
-        color:white;
-
-        font-size:14px;
-        font-weight:bold;
-
-        display:flex;
-        align-items:center;
-        justify-content:center;
-
-        gap:10px;
-
-        cursor:pointer;
-    }
-
-    .calendar-toggle button i{
-        font-size:16px;
-    }
-
-    .calendar-full-container{
-        display:none;
-
-        width:100%;
-
-        background:white;
-
-        border-radius:18px;
-
-        padding:15px;
-
-        margin:12px 0 18px;
-
-        box-shadow:var(--shadow);
-
-        box-sizing:border-box;
-    }
-
-    .calendar-full-container.ativo{
-        display:block;
-    }
-
-
-    /* =====================================
-       CALENDÁRIO CUSTOMIZADO
-    ===================================== */
-
-    #calendarAgenda{
-        width:100%;
-
-        background:#fff;
-
-        border-radius:18px;
-
-        padding:16px;
-
-        box-sizing:border-box;
-    }
-
-    .calendar-agenda-header{
-        display:flex;
-        align-items:center;
-        justify-content:space-between;
-
-        margin-bottom:16px;
-    }
-
-    .calendar-agenda-header > div{
-        display:flex;
-        flex-direction:column;
-        align-items:center;
-        justify-content:center;
-
-        gap:2px;
-    }
-
-    .calendar-agenda-header strong{
-        color:var(--primary);
-        font-size:17px;
-        font-weight:700;
-    }
-
-    .calendar-agenda-header span{
-        color:#777;
-        font-size:12px;
-    }
-
-    .calendar-agenda-header button{
-        width:34px;
-        height:34px;
-
-        border:none;
-        border-radius:50%;
-
-        background:#F8E8EF;
-        color:var(--primary);
-
-        font-size:23px;
-        line-height:1;
-
-        cursor:pointer;
-
-        display:flex;
-        align-items:center;
-        justify-content:center;
-    }
-
-    .calendar-agenda-weekdays{
-        display:grid;
-        grid-template-columns:repeat(7,1fr);
-
-        gap:2px;
-
-        text-align:center;
-
-        margin-bottom:6px;
-    }
-
-    .calendar-agenda-weekdays span{
-        color:#777;
-        font-size:10px;
-        font-weight:700;
-    }
-
-    .calendar-agenda-days{
-        display:grid;
-        grid-template-columns:repeat(7,1fr);
-
-        gap:5px;
-    }
-
-    .calendar-day{
-        position:relative;
-
-        width:100%;
-        height:34px;
-
-        padding:0;
-
-        border:none;
-        border-radius:50%;
-
-        background:transparent;
-
-        color:#333;
-
-        font-family:inherit;
-        font-size:12px;
-        font-weight:600;
-
-        cursor:pointer;
-
-        display:flex;
-        align-items:center;
-        justify-content:center;
-    }
-
-    .calendar-day:hover{
-        background:#F8E8EF;
-    }
-
-    .calendar-day.active-day{
-        background:var(--primary);
-        color:#fff;
-    }
-
-    .calendar-day.has-agendamento::after{
-        content:"";
-
-        position:absolute;
-
-        bottom:1px;
-        left:50%;
-
-        width:4px;
-        height:4px;
-
-        border-radius:50%;
-
-        background:var(--primary);
-
-        transform:translateX(-50%);
-    }
-
-    .calendar-day.active-day.has-agendamento::after{
-        background:#fff;
-    }
-
-    .calendar-day.vazio{
-        pointer-events:none;
-        cursor:default;
-        background:transparent;
-    }
-
-
-    /* =====================================
-       CLIENTES DO DIA
-    ===================================== */
-
-    .clientes-dia{
-        width:100%;
-
-        background:white;
-
-        border-radius:18px;
-
-        padding:18px;
-
-        margin-top:20px;
-
-        box-shadow:var(--shadow);
-
-        box-sizing:border-box;
-    }
-
-    .clientes-dia-header{
-        display:flex;
-        justify-content:space-between;
-        align-items:center;
-
-        gap:8px;
-
-        margin-bottom:15px;
-    }
-
-    .clientes-dia-header h2{
-        margin:0;
-        font-size:18px;
-        color:#222;
-    }
-
-    .clientes-dia-header span{
-        color:#777;
-        font-size:12px;
-        white-space:nowrap;
-    }
-
-    #listaClientesDia{
-        width:100%;
-    }
-
-
-    /* =====================================
-       CARD CLIENTE DO DIA
-    ===================================== */
-
-    .cliente-dia-card{
-        display:flex;
-        align-items:center;
-
-        gap:12px;
-
-        padding:15px 0;
-
-        border-bottom:1px solid #eee;
-    }
-
-    .cliente-dia-card:last-child{
-        border-bottom:none;
-    }
-
-    .cliente-dia-card img{
-        width:45px;
-        height:45px;
-
-        border-radius:50%;
-
-        object-fit:cover;
-    }
-
-    .cliente-dia-info{
-        flex:1;
-        min-width:0;
-    }
-
-    .cliente-dia-info h3{
-        font-size:14px;
-        margin:0;
-    }
-
-    .cliente-dia-info p{
-        font-size:12px;
-        color:#777;
-        margin:3px 0;
-    }
-
-    .cliente-dia-valor{
-        display:flex;
-        flex-direction:column;
-        align-items:flex-end;
-    }
-
-    .cliente-dia-valor strong{
-        color:var(--primary);
-        font-size:14px;
-    }
-
-
-    /* =====================================
-       CLIENTE AGENDA JS
-    ===================================== */
-
-    .cliente-agenda-dia{
-        display:grid;
-
-        grid-template-columns:
-            42px
-            minmax(0,1fr)
-            auto;
-
-        align-items:center;
-
-        gap:9px;
-
-        padding:13px 0;
-
-        border-bottom:1px solid #eee;
-    }
-
-    .cliente-agenda-dia:last-child{
-        border-bottom:none;
-    }
-
-    .cliente-agenda-hora{
-        color:var(--primary);
-
-        font-size:13px;
-
-        font-weight:700;
-    }
-
-    .cliente-agenda-info{
-        min-width:0;
-
-        display:flex;
-
-        flex-direction:column;
-
-        gap:3px;
-    }
-
-    .cliente-agenda-info strong{
-        color:#222;
-
-        font-size:12px;
-
-        line-height:1.25;
-
-        word-break:break-word;
-    }
-
-    .cliente-agenda-info span{
-        color:#777;
-
-        font-size:10px;
-
-        line-height:1.25;
-
-        word-break:break-word;
-    }
-
-    .cliente-agenda-valor{
-        color:#222;
-
-        font-size:11px;
-
-        font-weight:600;
-
-        white-space:nowrap;
-    }
-
-    .btn-detalhes-agenda{
-        grid-column:2 / 4;
-
-        width:100%;
-
-        min-height:34px;
-
-        padding:8px 10px;
-
-        border:none;
-
-        border-radius:9px;
-
-        background:var(--primary);
-
-        color:#fff;
-
-        font-family:inherit;
-
-        font-size:10px;
-
-        font-weight:700;
-
-        cursor:pointer;
-    }
-
-    .btn-detalhes-agenda:active{
-        transform:scale(.98);
-    }
-
-    .agenda-sem-clientes{
-        padding:25px 10px;
-
-        text-align:center;
-
-        color:#999;
-    }
-
-    .agenda-sem-clientes i{
-        display:block;
-
-        margin-bottom:8px;
-
-        color:var(--primary);
-
-        font-size:25px;
-    }
-
-    .agenda-sem-clientes p{
-        margin:0;
-
-        font-size:12px;
-    }
-
-
-    /* =====================================
-       STATUS
-    ===================================== */
-
-    .status-dia{
-        padding:4px 10px;
-        border-radius:20px;
-        font-size:10px;
-    }
-
-    .status-confirmado{
-        background:#E8F5E9;
-        color:#6FA56F;
-    }
-
-    .status-pendente{
-        background:#FFF3CD;
-        color:#B8860B;
-    }
-
-
-    /* =====================================
-       CALENDÁRIO SEMANAL
-    ===================================== */
-
-    .week-calendar{
-        background:white;
-
-        border-radius:18px;
-
-        padding:18px;
-
-        margin-top:12px;
-
-        box-shadow:var(--shadow);
-    }
-
-    .week-days,
-    .week-numbers{
-        display:grid;
-
-        grid-template-columns:repeat(7,1fr);
-
-        text-align:center;
-
-        align-items:center;
-    }
-
-    .week-days span{
-        font-size:13px;
-
-        color:#777;
-
-        font-weight:bold;
-    }
-
-    .week-numbers{
-        margin-top:15px;
-    }
-
-    .week-numbers span{
-        display:flex;
-
-        align-items:center;
-        justify-content:center;
-
-        width:30px;
-        height:30px;
-
-        margin:auto;
-
-        border-radius:50%;
-
-        font-size:12px;
-
-        font-weight:600;
-
-        color:#333;
-
-        cursor:pointer;
-    }
-
-    .week-numbers span:hover{
-        background:#F8E8EF;
-    }
-
-    .week-numbers span.active-day{
-        background:var(--primary);
-        color:white;
-    }
-
-
-    /* =====================================
-       RESUMO DO DIA
-    ===================================== */
-
-    .agenda-summary{
-        display:flex;
-
-        justify-content:space-between;
-
-        align-items:center;
-
-        gap:10px;
-
-        padding:15px 5px;
-    }
-
-    .agenda-summary > div{
-        display:flex;
-
-        align-items:center;
-
-        gap:7px;
-
-        min-width:0;
-    }
-
-    .agenda-summary i{
-        color:var(--primary);
-
-        font-size:15px;
-    }
-
-    .agenda-summary strong{
-        font-size:12px;
-
-        color:#333;
-
-        line-height:1.25;
-    }
-
-    .agenda-summary > span{
-        color:#999;
-
-        font-size:10px;
-
-        white-space:nowrap;
-    }
-
-
-    /* =====================================
-       LISTA DE AGENDAMENTOS
-    ===================================== */
-
-    #listaAgenda{
-        width:100%;
-    }
-
-    .appointments{
-        display:flex;
-
-        flex-direction:column;
-
-        gap:8px;
-    }
-
-    .appointment-card{
-        background:white;
-
-        border-radius:16px;
-
-        padding:15px;
-
-        display:flex;
-
-        align-items:center;
-
-        gap:12px;
-
-        box-shadow:var(--shadow);
-    }
-
-    .appointment-card .time{
-        color:var(--primary);
-
-        font-size:15px;
-
-        font-weight:bold;
-
-        width:45px;
-    }
-
-    .appointment-card img{
-        width:50px;
-        height:50px;
-
-        border-radius:50%;
-
-        object-fit:cover;
-    }
-
-    .appointment-info{
-        flex:1;
-        min-width:0;
-    }
-
-    .appointment-info h3{
-        font-size:15px;
-        margin-bottom:5px;
-    }
-
-    .appointment-info p{
-        font-size:12px;
-
-        margin:3px 0;
-
-        color:#555;
-    }
-
-    .appointment-value{
-        display:flex;
-
-        flex-direction:column;
-
-        align-items:flex-end;
-
-        gap:6px;
-    }
-
-    .appointment-value strong{
-        font-size:13px;
-    }
-
-    .appointment-card > i{
-        color:#999;
-        font-size:18px;
-    }
-
-
-    /* =====================================
-       ADICIONAR AGENDAMENTO
-    ===================================== */
-
-    .add-agenda{
-        display:flex;
-
-        align-items:center;
-
-        gap:10px;
-
-        background:white;
-
-        border-radius:18px;
-
-        padding:18px;
-
-        margin-top:20px;
-
-        box-shadow:var(--shadow);
-
-        cursor:pointer;
-
-        -webkit-tap-highlight-color:transparent;
-    }
-
-    .add-agenda > i{
-        color:var(--primary);
-
-        font-size:22px;
-    }
-
-    .add-agenda strong{
-        flex:1;
-
-        color:var(--primary);
-
-        font-size:12px;
-    }
-
-    .add-agenda button{
-        width:42px;
-        height:42px;
-
-        border:none;
-
-        border-radius:50%;
-
-        background:var(--primary);
-
-        color:white;
-
-        font-size:18px;
-
-        cursor:pointer;
-    }
-
-
-    /* =====================================
-       DICA DO DIA
-    ===================================== */
-
-    .tip-box{
-        background:#FFF5F8;
-
-        border-radius:18px;
-
-        padding:18px;
-
-        margin-top:20px;
-
-        display:flex;
-
-        gap:15px;
-    }
-
-    .tip-box i{
-        color:var(--primary);
-
-        font-size:25px;
-    }
-
-    .tip-box strong{
-        font-size:14px;
-    }
-
-    .tip-box p{
-        font-size:13px;
-
-        color:#666;
-
-        line-height:1.5;
-
-        margin-top:5px;
-    }
-
-
-    /* =====================================
-       FORMULÁRIO NOVO AGENDAMENTO
-    ===================================== */
-
-    #modalNovoAgendamento .modal-conteudo{
-        padding-bottom:24px;
-    }
-
-    .form-agendamento{
-        display:flex;
-
-        flex-direction:column;
-
-        gap:7px;
-    }
-
-    .form-agendamento label{
-        margin-top:6px;
-
-        color:#666;
-
-        font-size:11px;
-
-        font-weight:600;
-    }
-
-    .form-agendamento input,
-    .form-agendamento select{
-        width:100%;
-
-        min-height:42px;
-
-        padding:0 12px;
-
-        box-sizing:border-box;
-
-        border:1px solid #e4e4e4;
-
-        border-radius:10px;
-
-        outline:none;
-
-        background:#fff;
-
-        color:#333;
-
-        font-family:inherit;
-
-        font-size:13px;
-    }
-
-    .form-agendamento input:focus,
-    .form-agendamento select:focus{
-        border-color:var(--primary);
-
-        box-shadow:
-            0 0 0 2px rgba(123,49,87,.08);
-    }
-
-    .btn-salvar-agendamento{
-        width:100%;
-
-        min-height:44px;
-
-        margin-top:12px;
-
-        border:none;
-
-        border-radius:10px;
-
-        background:var(--primary);
-
-        color:#fff;
-
-        font-family:inherit;
-
-        font-size:13px;
-
-        font-weight:700;
-
-        cursor:pointer;
-    }
-
-    .btn-salvar-agendamento:disabled{
-        opacity:.65;
-
-        cursor:wait;
-    }
-
-
-    /* =====================================
-       CELULAR
-    ===================================== */
-
-    @media(max-width:480px){
-
-        .calendar-full-container{
-            margin-top:10px;
-            margin-bottom:15px;
-        }
-
-        #calendarAgenda{
-            padding:14px;
-            border-radius:18px;
-        }
-
-        .calendar-agenda-header{
-            margin-bottom:13px;
-        }
-
-        .calendar-agenda-header strong{
-            font-size:16px;
-        }
-
-        .calendar-agenda-header span{
-            font-size:11px;
-        }
-
-        .calendar-agenda-header button{
-            width:32px;
-            height:32px;
-            font-size:21px;
-        }
-
-        .calendar-agenda-weekdays span{
-            font-size:9px;
-        }
-
-        .calendar-agenda-days{
-            gap:3px;
-        }
-
-        .calendar-day{
-            height:33px;
-            font-size:11px;
-        }
-
-        .cliente-agenda-dia{
-            grid-template-columns:
-                40px
-                minmax(0,1fr)
-                auto;
-
-            gap:7px;
-
-            padding:12px 0;
-        }
-
-        .cliente-agenda-hora{
-            font-size:12px;
-        }
-
-        .cliente-agenda-info strong{
-            font-size:11px;
-        }
-
-        .cliente-agenda-info span{
-            font-size:9px;
-        }
-
-        .cliente-agenda-valor{
-            font-size:10px;
-        }
-
-        .btn-detalhes-agenda{
-            min-height:32px;
-
-            padding:7px;
-
-            font-size:9px;
-        }
-
-        .modal-detalhes-cliente{
-            padding:10px;
-        }
-
-        .modal-detalhes-cliente .modal-conteudo{
-            max-height:92vh;
-
-            padding:20px;
-
-            border-radius:18px;
-        }
-
-        .modal-detalhes-cliente .modal-conteudo h2{
-            font-size:19px;
-        }
-
-        #modalAgendaHoje,
-        #modalDetalhesCliente{
-            padding:10px;
-        }
-
-        #modalAgendaHoje .modal-conteudo,
-        #modalDetalhesCliente .modal-conteudo{
-            max-height:92vh;
-
-            border-radius:18px;
-
-            padding:20px;
-        }
-
-        #modalAgendaHoje .modal-conteudo h2,
-        #modalDetalhesCliente .modal-conteudo h2{
-            font-size:19px;
-        }
-
-        .agenda-completa-item{
-            padding:14px 0 !important;
-        }
-
-        .btn-ver-detalhes-agenda{
-            padding:11px !important;
-        }
-    }
+body{
+padding-bottom:90px;
 }
-
-
-/* =====================================
-   TELA CLIENTES MOBILE
-===================================== */
-
-@media(max-width:768px){
-
-    .clientes-header-mobile{
-        background:var(--primary);
-        color:white;
-
-        margin:-20px -20px 20px;
-
-        padding:35px 25px 45px;
-
-        display:flex;
-        align-items:center;
-        justify-content:space-between;
-
-        border-radius:0 0 25px 25px;
-    }
-
-    .clientes-header-mobile h1{
-        font-size:22px;
-    }
-
-    .clientes-header-mobile button{
-        background:none;
-        border:none;
-        color:white;
-        font-size:25px;
-    }
-
-    .add-client{
-        width:42px;
-        height:42px;
-        border-radius:50%!important;
-        background:rgba(255,255,255,.15)!important;
-
-        display:flex;
-        align-items:center;
-        justify-content:center;
-    }
-
-    .search-client{
-        background:white;
-        height:55px;
-        border-radius:15px;
-        box-shadow:var(--shadow);
-
-        display:flex;
-        align-items:center;
-        gap:15px;
-
-        padding:0 18px;
-        margin-top:-25px;
-
-        position:relative;
-    }
-
-    .search-client i{
-        color:#999;
-        font-size:20px;
-    }
-
-    .search-client input{
-        border:none;
-        outline:none;
-        flex:1;
-        font-size:16px;
-        color:#555;
-    }
-
-    .search-client input::placeholder{
-        color:#999;
-    }
-
-    .client-filters{
-        display:flex;
-        justify-content:space-between;
-
-        margin:25px 0;
-
-        background:white;
-        border-radius:15px;
-        padding:5px;
-    }
-
-    .client-filters button{
-        border:none;
-        background:none;
-        color:var(--primary);
-        font-weight:bold;
-
-        padding:12px 15px;
-
-        border-radius:25px;
-
-        font-size:13px;
-    }
-
-    .client-filters button.active{
-        background:var(--primary);
-        color:white;
-    }
-
-    .client-summary{
-        display:grid;
-        grid-template-columns:repeat(4,1fr);
-        gap:8px;
-        margin-bottom:20px;
-    }
-
-    .client-card{
-        background:white;
-        border-radius:15px;
-        box-shadow:var(--shadow);
-
-        padding:15px 5px;
-
-        text-align:center;
-    }
-
-    .client-card i{
-        width:35px;
-        height:35px;
-
-        border-radius:50%;
-
-        display:flex;
-        align-items:center;
-        justify-content:center;
-
-        margin:auto auto 8px;
-
-        color:var(--primary);
-        background:#F8E8EF;
-    }
-
-    .client-card span{
-        display:block;
-        font-size:10px;
-        color:#777;
-        margin-bottom:5px;
-    }
-
-    .client-card strong{
-        font-size:20px;
-    }
-
-    .client-list{
-        display:flex;
-        flex-direction:column;
-        gap:10px;
-    }
-
-    .client-item{
-        background:white;
-        border-radius:16px;
-        padding:15px;
-
-        display:flex;
-        align-items:center;
-        gap:12px;
-
-        box-shadow:var(--shadow);
-    }
-
-    .client-item img{
-        width:55px;
-        height:55px;
-        border-radius:50%;
-        object-fit:cover;
-    }
-
-    .client-data{
-        flex:1;
-    }
-
-    .client-data h3{
-        font-size:16px;
-        margin-bottom:4px;
-    }
-
-    .client-data p{
-        font-size:13px;
-        color:#555;
-        margin-bottom:8px;
-    }
-
-    .client-history{
-        display:flex;
-        gap:10px;
-        align-items:center;
-        flex-wrap:wrap;
-    }
-
-    .client-history span{
-        font-size:11px;
-        color:#777;
-    }
-
-    .client-history i{
-        color:var(--primary);
-    }
-
-    .client-status{
-        padding:5px 10px;
-        border-radius:20px;
-        font-size:11px;
-        font-weight:bold;
-    }
-
-    .client-status.active{
-        background:#E8F5E9;
-        color:#6FA56F;
-    }
-
-    .client-status.new{
-        background:#E8F0FF;
-        color:#4285F4;
-    }
-
-    .client-item > i{
-        color:#999;
-        font-size:18px;
-    }
+.sidebar{
+display:none;
 }
-
-
-/* =====================================
-   TELA FINANCEIRO MOBILE
-===================================== */
-
-@media(max-width:768px){
-
-    .financeiro-header-mobile{
-        background:var(--primary);
-        color:white;
-
-        margin:-20px -20px 20px;
-
-        padding:35px 25px 45px;
-
-        display:flex;
-        align-items:center;
-        justify-content:space-between;
-
-        border-radius:0 0 25px 25px;
-    }
-
-    .financeiro-header-mobile h1{
-        font-size:22px;
-    }
-
-    .financeiro-header-mobile i{
-        font-size:22px;
-    }
-
-    .finance-tabs{
-        background:white;
-        border-radius:18px;
-        padding:5px;
-
-        display:flex;
-        justify-content:space-between;
-
-        margin-top:-20px;
-        margin-bottom:20px;
-
-        box-shadow:var(--shadow);
-    }
-
-    .finance-tabs button{
-        border:none;
-        background:none;
-        color:#777;
-
-        font-weight:bold;
-        font-size:13px;
-
-        padding:12px 20px;
-
-        border-radius:25px;
-    }
-
-    .finance-tabs .active{
-        background:var(--primary);
-        color:white;
-    }
-
-    .resumo-financeiro{
-        background:white;
-        border-radius:var(--radius);
-        padding:20px;
-        box-shadow:var(--shadow);
-        margin-bottom:20px;
-    }
-
-    .resumo-financeiro h2{
-        font-size:20px;
-        margin-bottom:5px;
-    }
-
-    .resumo-financeiro > span{
-        color:var(--primary);
-        font-weight:bold;
-        font-size:14px;
-    }
-
-    .faturamento-card{
-        margin-top:20px;
-        background:#F8F8F8;
-        border-radius:18px;
-        padding:20px;
-
-        display:flex;
-        align-items:center;
-        gap:15px;
-    }
-
-    .faturamento-card i{
-        width:50px;
-        height:50px;
-
-        border-radius:50%;
-
-        background:#E8F5E9;
-        color:#6FA56F;
-
-        display:flex;
-        align-items:center;
-        justify-content:center;
-
-        font-size:22px;
-    }
-
-    .faturamento-card p{
-        color:#777;
-        font-size:14px;
-        margin-bottom:5px;
-    }
-
-    .faturamento-card strong{
-        display:block;
-        font-size:25px;
-        color:#4C8B45;
-    }
-
-    .faturamento-card span{
-        font-size:12px;
-        color:#4C8B45;
-    }
-
-    .grafico-faturamento{
-        background:white;
-        border-radius:var(--radius);
-        padding:20px;
-        box-shadow:var(--shadow);
-        margin-bottom:20px;
-    }
-
-    .section-title{
-        display:flex;
-        justify-content:space-between;
-        align-items:center;
-        margin-bottom:20px;
-    }
-
-    .section-title h2{
-        font-size:17px;
-    }
-
-    .section-title button{
-        border:1px solid #eee;
-        background:white;
-        border-radius:10px;
-        padding:8px 12px;
-        font-size:12px;
-    }
-
-    #grafico{
-        height:230px;
-
-        background:
-        linear-gradient(
-            to top,
-            #FAF8F7,
-            white
-        );
-
-        border-radius:15px;
-
-        display:flex;
-        align-items:center;
-        justify-content:center;
-
-        color:#999;
-    }
-
-    .receita-servico{
-        background:white;
-        border-radius:var(--radius);
-        padding:20px;
-        box-shadow:var(--shadow);
-    }
-
-    .receita-servico h2{
-        font-size:18px;
-        margin-bottom:20px;
-    }
-
-    .servico-item{
-        display:flex;
-        justify-content:space-between;
-        align-items:center;
-
-        padding:15px 0;
-
-        border-bottom:1px solid #eee;
-    }
-
-    .servico-item:last-child{
-        border-bottom:none;
-    }
-
-    .servico-item span{
-        font-size:14px;
-    }
-
-    .servico-item strong{
-        color:var(--primary);
-        font-size:16px;
-    }
+.main{
+width:100%;
+padding:20px;
 }
-
-
 /* =====================================
-   FINANCEIRO - GRÁFICOS
+CABEÇALHO HOME
 ===================================== */
-
+.home-header{
+margin-bottom:25px;
+}
+.top-mobile{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:25px;
+}
+.menu-button{
+border:none;
+background:none;
+color:var(--primary);
+font-size:25px;
+}
+.header-right{
+display:flex;
+align-items:center;
+gap:20px;
+color:#555;
+font-size:22px;
+}
+.profile-image{
+width:45px;
+height:45px;
+border-radius:50%;
+object-fit:cover;
+}
+.home-header h1{
+font-size:30px;
+margin-bottom:5px;
+}
+.home-header p{
+color:var(--gray);
+font-size:15px;
+}
+/* =====================================
+CARDS HOME
+===================================== */
+.cards-home{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:15px;
+margin-bottom:25px;
+}
+.cards-home .card{
+background:white;
+border-radius:var(--radius);
+padding:18px 15px;
+box-shadow:var(--shadow);
+}
+.cards-home .card-top{
+display:flex;
+align-items:center;
+gap:12px;
+}
+.cards-home i{
+width:45px;
+height:45px;
+border-radius:50%;
+display:flex;
+justify-content:center;
+align-items:center;
+background:#F8E8EF;
+color:var(--primary);
+}
+.cards-home h3{
+font-size:12px;
+color:#777;
+margin-bottom:8px;
+}
+.cards-home p{
+font-size:22px;
+font-weight:bold;
+margin:0;
+}
+.cards-home span{
+font-size:11px;
+color:#777;
+}
+/* =====================================
+AGENDA HOME
+===================================== */
+.agenda-home{
+background:white;
+border-radius:var(--radius);
+padding:20px;
+box-shadow:var(--shadow);
+margin-bottom:20px;
+}
+.agenda-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:20px;
+}
+.agenda-header h2{
+font-size:18px;
+}
+.agenda-header a{
+color:var(--primary);
+font-weight:bold;
+font-size:14px;
+}
+.cliente-home{
+display:flex;
+align-items:center;
+gap:12px;
+padding:15px 0;
+border-bottom:1px solid #eee;
+}
+.cliente-home:last-child{
+border-bottom:none;
+}
+.cliente-home img{
+width:45px;
+height:45px;
+border-radius:50%;
+object-fit:cover;
+}
+.cliente-info-home{
+flex:1;
+}
+.cliente-info-home h3{
+font-size:15px;
+margin-bottom:5px;
+}
+.cliente-info-home p{
+font-size:12px;
+margin:2px 0;
+color:#555;
+}
+.horario{
+color:var(--primary);
+font-weight:bold;
+font-size:14px;
+}
+.valor-home{
+display:flex;
+flex-direction:column;
+align-items:flex-end;
+gap:6px;
+}
+.valor-home strong{
+font-size:13px;
+}
+.confirmado,
+.pendente{
+padding:4px 9px;
+border-radius:20px;
+font-size:10px;
+}
+.confirmado{
+background:#E8F5E9;
+color:#6FA56F;
+}
+.pendente{
+background:#FFF0DD;
+color:#D9923B;
+}
+/* =====================================
+BOTÃO VER TODOS
+===================================== */
+.btn-ver-todos-agenda{
+border:none;
+background:transparent;
+color:#7b3157;
+font-size:13px;
+font-weight:600;
+cursor:pointer;
+padding:5px 0;
+font-family:inherit;
+}
+.btn-ver-todos-agenda:hover{
+text-decoration:underline;
+}
+/* =====================================
+MODAL DA AGENDA COMPLETA
+===================================== */
+#modalAgendaHoje{
+position:fixed;
+inset:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.45);
+display:flex;
+align-items:center;
+justify-content:center;
+padding:20px;
+box-sizing:border-box;
+z-index:9998;
+opacity:0;
+visibility:hidden;
+transition:
+opacity .2s ease,
+visibility .2s ease;
+}
+#modalAgendaHoje.ativo{
+opacity:1;
+visibility:visible;
+}
+#modalAgendaHoje .modal-conteudo{
+width:100%;
+max-width:430px;
+max-height:85vh;
+background:#fff;
+border-radius:20px;
+padding:22px;
+box-sizing:border-box;
+overflow-y:auto;
+position:relative;
+box-shadow:0 15px 40px rgba(0,0,0,.18);
+}
+#modalAgendaHoje .modal-conteudo h2{
+margin:0 35px 15px 0;
+font-size:20px;
+font-weight:700;
+color:#222;
+}
+#fecharModalAgendaHoje{
+position:absolute;
+top:14px;
+right:16px;
+width:32px;
+height:32px;
+border:none;
+background:transparent;
+font-size:28px;
+line-height:1;
+color:#333;
+cursor:pointer;
+}
+/* =====================================
+ITEM AGENDA COMPLETA
+===================================== */
+.agenda-completa-item{
+padding:16px 0 !important;
+border-bottom:1px solid #eee !important;
+}
+.agenda-completa-item:last-child{
+border-bottom:none !important;
+}
+.agenda-completa-item strong{
+color:#7b3157;
+font-size:15px;
+min-width:45px;
+}
+.agenda-completa-item span{
+color:#222;
+font-size:15px;
+font-weight:600;
+}
+.agenda-completa-item div{
+color:#777;
+}
+/* =====================================
+BOTÃO VER DETALHES
+===================================== */
+.btn-ver-detalhes-agenda{
+width:100%;
+border:none;
+background:#7b3157 !important;
+color:#fff !important;
+padding:10px 14px !important;
+border-radius:8px !important;
+font-family:inherit;
+font-size:13px;
+font-weight:600;
+cursor:pointer;
+transition:
+background .2s ease,
+transform .1s ease;
+}
+.btn-ver-detalhes-agenda:hover{
+background:#662743 !important;
+}
+.btn-ver-detalhes-agenda:active{
+transform:scale(.98);
+}
+/* =====================================
+MODAL DETALHES CLIENTE
+===================================== */
+#modalDetalhesCliente{
+position:fixed;
+inset:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.45);
+display:flex;
+align-items:center;
+justify-content:center;
+padding:20px;
+box-sizing:border-box;
+z-index:9999;
+opacity:0;
+visibility:hidden;
+transition:
+opacity .2s ease,
+visibility .2s ease;
+}
+#modalDetalhesCliente.ativo{
+opacity:1;
+visibility:visible;
+}
+#modalDetalhesCliente .modal-conteudo{
+width:100%;
+max-width:430px;
+max-height:88vh;
+background:#fff;
+border-radius:20px;
+padding:22px;
+box-sizing:border-box;
+overflow-y:auto;
+position:relative;
+box-shadow:0 15px 40px rgba(0,0,0,.18);
+}
+#modalDetalhesCliente .modal-conteudo h2{
+margin:0 35px 18px 0;
+font-size:20px;
+color:#222;
+}
+#fecharModalCliente{
+position:absolute;
+top:14px;
+right:16px;
+width:32px;
+height:32px;
+border:none;
+background:transparent;
+font-size:28px;
+line-height:1;
+color:#333;
+cursor:pointer;
+}
+/* =====================================
+INFORMAÇÕES CLIENTE
+===================================== */
+.detalhe-item{
+padding:11px 0;
+border-bottom:1px solid #eee;
+display:flex;
+flex-direction:column;
+gap:4px;
+}
+.detalhe-item:last-child{
+border-bottom:none;
+}
+.detalhe-item strong{
+font-size:11px;
+font-weight:500;
+color:#777;
+}
+.detalhe-item span{
+font-size:14px;
+color:#222;
+word-break:break-word;
+}
+/* =====================================
+LOCALIZAÇÃO
+===================================== */
+#detalheLocalizacao a{
+display:inline-block;
+color:#7b3157 !important;
+font-weight:600;
+text-decoration:none;
+}
+#detalheLocalizacao a:hover{
+text-decoration:underline;
+}
+/* =====================================
+PRÓXIMO ATENDIMENTO
+===================================== */
+.next-appointment{
+background:white;
+border-radius:var(--radius);
+padding:20px;
+box-shadow:var(--shadow);
+margin-top:20px;
+}
+.next-appointment h3{
+display:flex;
+align-items:center;
+gap:10px;
+font-size:17px;
+margin:0;
+}
+.next-appointment h3 span{
+color:var(--primary);
+font-size:25px;
+}
+.proximo-horario{
+font-size:28px;
+font-weight:bold;
+color:var(--text);
+margin-top:20px;
+}
+.proximo-tempo{
+color:#777;
+font-size:13px;
+margin-top:5px;
+}
+.proximo-cliente{
+display:flex;
+align-items:center;
+gap:12px;
+margin-top:20px;
+}
+.proximo-cliente img{
+width:45px;
+height:45px;
+border-radius:50%;
+object-fit:cover;
+}
+.proximo-cliente .cliente-info-home{
+flex:1;
+}
+.proximo-cliente h4{
+font-size:15px;
+margin:0 0 5px 0;
+}
+.proximo-cliente p{
+font-size:12px;
+color:#555;
+margin:0;
+}
+#proximoValor{
+font-size:14px;
+color:var(--primary);
+white-space:nowrap;
+}
+.next-appointment button{
+width:100%;
+height:42px;
+margin-top:20px;
+border:none;
+border-radius:10px;
+background:var(--primary);
+color:white;
+font-weight:bold;
+cursor:pointer;
+position:relative;
+z-index:5;
+}
+/* =====================================
+MODAL DETALHES
+===================================== */
+.modal-detalhes-cliente{
+position:fixed;
+inset:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.45);
+display:none;
+align-items:center;
+justify-content:center;
+padding:20px;
+box-sizing:border-box;
+z-index:99999;
+}
+.modal-detalhes-cliente.ativo{
+display:flex;
+}
+.modal-conteudo{
+width:100%;
+max-width:420px;
+max-height:90vh;
+overflow-y:auto;
+background:white;
+border-radius:24px;
+padding:25px;
+box-sizing:border-box;
+position:relative;
+}
+.modal-conteudo h2{
+margin-top:0;
+margin-bottom:20px;
+}
+.modal-fechar{
+position:absolute;
+right:15px;
+top:10px;
+border:none;
+background:transparent;
+font-size:30px;
+cursor:pointer;
+z-index:10;
+}
+/* =====================================
+TELA AGENDA MOBILE
+===================================== */
+.agenda-header-mobile{
+background:var(--primary);
+color:white;
+margin:-20px -20px 20px;
+padding:35px 25px 45px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+border-radius:0 0 25px 25px;
+}
+.agenda-header-mobile h1{
+font-size:22px;
+}
+.agenda-header-mobile button{
+border:none;
+background:none;
+color:white;
+font-size:25px;
+}
+.agenda-actions-mobile{
+display:flex;
+gap:18px;
+font-size:22px;
+}
+/* =====================================
+CALENDÁRIO COMPLETO
+===================================== */
+.calendar-toggle{
+margin:15px 0;
+}
+.calendar-toggle button{
+width:100%;
+height:45px;
+border:none;
+border-radius:14px;
+background:var(--primary);
+color:white;
+font-size:14px;
+font-weight:bold;
+display:flex;
+align-items:center;
+justify-content:center;
+gap:10px;
+cursor:pointer;
+}
+.calendar-toggle button i{
+font-size:16px;
+}
+.calendar-full-container{
+display:none;
+width:100%;
+background:white;
+border-radius:18px;
+padding:15px;
+margin:12px 0 18px;
+box-shadow:var(--shadow);
+box-sizing:border-box;
+}
+.calendar-full-container.ativo{
+display:block;
+}
+/* =====================================
+CALENDÁRIO CUSTOMIZADO
+===================================== */
+#calendarAgenda{
+width:100%;
+background:#fff;
+border-radius:18px;
+padding:16px;
+box-sizing:border-box;
+}
+.calendar-agenda-header{
+display:flex;
+align-items:center;
+justify-content:space-between;
+margin-bottom:16px;
+}
+.calendar-agenda-header > div{
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+gap:2px;
+}
+.calendar-agenda-header strong{
+color:var(--primary);
+font-size:17px;
+font-weight:700;
+}
+.calendar-agenda-header span{
+color:#777;
+font-size:12px;
+}
+.calendar-agenda-header button{
+width:34px;
+height:34px;
+border:none;
+border-radius:50%;
+background:#F8E8EF;
+color:var(--primary);
+font-size:23px;
+line-height:1;
+cursor:pointer;
+display:flex;
+align-items:center;
+justify-content:center;
+}
+.calendar-agenda-weekdays{
+display:grid;
+grid-template-columns:repeat(7,1fr);
+gap:2px;
+text-align:center;
+margin-bottom:6px;
+}
+.calendar-agenda-weekdays span{
+color:#777;
+font-size:10px;
+font-weight:700;
+}
+.calendar-agenda-days{
+display:grid;
+grid-template-columns:repeat(7,1fr);
+gap:5px;
+}
+.calendar-day{
+position:relative;
+width:100%;
+height:34px;
+padding:0;
+border:none;
+border-radius:50%;
+background:transparent;
+color:#333;
+font-family:inherit;
+font-size:12px;
+font-weight:600;
+cursor:pointer;
+display:flex;
+align-items:center;
+justify-content:center;
+}
+.calendar-day:hover{
+background:#F8E8EF;
+}
+.calendar-day.active-day{
+background:var(--primary);
+color:#fff;
+}
+.calendar-day.has-agendamento::after{
+content:"";
+position:absolute;
+bottom:1px;
+left:50%;
+width:4px;
+height:4px;
+border-radius:50%;
+background:var(--primary);
+transform:translateX(-50%);
+}
+.calendar-day.active-day.has-agendamento::after{
+background:#fff;
+}
+.calendar-day.vazio{
+pointer-events:none;
+cursor:default;
+background:transparent;
+}
+/* =====================================
+CLIENTES DO DIA
+===================================== */
+.clientes-dia{
+width:100%;
+background:white;
+border-radius:18px;
+padding:18px;
+margin-top:20px;
+box-shadow:var(--shadow);
+box-sizing:border-box;
+}
+.clientes-dia-header{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:8px;
+margin-bottom:15px;
+}
+.clientes-dia-header h2{
+margin:0;
+font-size:18px;
+color:#222;
+}
+.clientes-dia-header span{
+color:#777;
+font-size:12px;
+white-space:nowrap;
+}
+#listaClientesDia{
+width:100%;
+}
+/* =====================================
+CARD CLIENTE DO DIA
+===================================== */
+.cliente-dia-card{
+display:flex;
+align-items:center;
+gap:12px;
+padding:15px 0;
+border-bottom:1px solid #eee;
+}
+.cliente-dia-card:last-child{
+border-bottom:none;
+}
+.cliente-dia-card img{
+width:45px;
+height:45px;
+border-radius:50%;
+object-fit:cover;
+}
+.cliente-dia-info{
+flex:1;
+min-width:0;
+}
+.cliente-dia-info h3{
+font-size:14px;
+margin:0;
+}
+.cliente-dia-info p{
+font-size:12px;
+color:#777;
+margin:3px 0;
+}
+.cliente-dia-valor{
+display:flex;
+flex-direction:column;
+align-items:flex-end;
+}
+.cliente-dia-valor strong{
+color:var(--primary);
+font-size:14px;
+}
+/* =====================================
+CLIENTE AGENDA JS
+===================================== */
+.cliente-agenda-dia{
+display:grid;
+grid-template-columns:
+42px
+minmax(0,1fr)
+auto;
+align-items:center;
+gap:9px;
+padding:13px 0;
+border-bottom:1px solid #eee;
+}
+.cliente-agenda-dia:last-child{
+border-bottom:none;
+}
+.cliente-agenda-hora{
+color:var(--primary);
+font-size:13px;
+font-weight:700;
+}
+.cliente-agenda-info{
+min-width:0;
+display:flex;
+flex-direction:column;
+gap:3px;
+}
+.cliente-agenda-info strong{
+color:#222;
+font-size:12px;
+line-height:1.25;
+word-break:break-word;
+}
+.cliente-agenda-info span{
+color:#777;
+font-size:10px;
+line-height:1.25;
+word-break:break-word;
+}
+.cliente-agenda-valor{
+color:#222;
+font-size:11px;
+font-weight:600;
+white-space:nowrap;
+}
+.btn-detalhes-agenda{
+grid-column:2 / 4;
+width:100%;
+min-height:34px;
+padding:8px 10px;
+border:none;
+border-radius:9px;
+background:var(--primary);
+color:#fff;
+font-family:inherit;
+font-size:10px;
+font-weight:700;
+cursor:pointer;
+}
+.btn-detalhes-agenda:active{
+transform:scale(.98);
+}
+.agenda-sem-clientes{
+padding:25px 10px;
+text-align:center;
+color:#999;
+}
+.agenda-sem-clientes i{
+display:block;
+margin-bottom:8px;
+color:var(--primary);
+font-size:25px;
+}
+.agenda-sem-clientes p{
+margin:0;
+font-size:12px;
+}
+/* =====================================
+STATUS
+===================================== */
+.status-dia{
+padding:4px 10px;
+border-radius:20px;
+font-size:10px;
+}
+.status-confirmado{
+background:#E8F5E9;
+color:#6FA56F;
+}
+.status-pendente{
+background:#FFF3CD;
+color:#B8860B;
+}
+/* =====================================
+CALENDÁRIO SEMANAL
+===================================== */
+.week-calendar{
+background:white;
+border-radius:18px;
+padding:18px;
+margin-top:12px;
+box-shadow:var(--shadow);
+}
+.week-days,
+.week-numbers{
+display:grid;
+grid-template-columns:repeat(7,1fr);
+text-align:center;
+align-items:center;
+}
+.week-days span{
+font-size:13px;
+color:#777;
+font-weight:bold;
+}
+.week-numbers{
+margin-top:15px;
+}
+.week-numbers span{
+display:flex;
+align-items:center;
+justify-content:center;
+width:30px;
+height:30px;
+margin:auto;
+border-radius:50%;
+font-size:12px;
+font-weight:600;
+color:#333;
+cursor:pointer;
+}
+.week-numbers span:hover{
+background:#F8E8EF;
+}
+.week-numbers span.active-day{
+background:var(--primary);
+color:white;
+}
+/* =====================================
+RESUMO DO DIA
+===================================== */
+.agenda-summary{
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:10px;
+padding:15px 5px;
+}
+.agenda-summary > div{
+display:flex;
+align-items:center;
+gap:7px;
+min-width:0;
+}
+.agenda-summary i{
+color:var(--primary);
+font-size:15px;
+}
+.agenda-summary strong{
+font-size:12px;
+color:#333;
+line-height:1.25;
+}
+.agenda-summary > span{
+color:#999;
+font-size:10px;
+white-space:nowrap;
+}
+/* =====================================
+LISTA DE AGENDAMENTOS
+===================================== */
+#listaAgenda{
+width:100%;
+}
+.appointments{
+display:flex;
+flex-direction:column;
+gap:8px;
+}
+.appointment-card{
+background:white;
+border-radius:16px;
+padding:15px;
+display:flex;
+align-items:center;
+gap:12px;
+box-shadow:var(--shadow);
+}
+.appointment-card .time{
+color:var(--primary);
+font-size:15px;
+font-weight:bold;
+width:45px;
+}
+.appointment-card img{
+width:50px;
+height:50px;
+border-radius:50%;
+object-fit:cover;
+}
+.appointment-info{
+flex:1;
+min-width:0;
+}
+.appointment-info h3{
+font-size:15px;
+margin-bottom:5px;
+}
+.appointment-info p{
+font-size:12px;
+margin:3px 0;
+color:#555;
+}
+.appointment-value{
+display:flex;
+flex-direction:column;
+align-items:flex-end;
+gap:6px;
+}
+.appointment-value strong{
+font-size:13px;
+}
+.appointment-card > i{
+color:#999;
+font-size:18px;
+}
+/* =====================================
+ADICIONAR AGENDAMENTO
+===================================== */
+.add-agenda{
+display:flex;
+align-items:center;
+gap:10px;
+background:white;
+border-radius:18px;
+padding:18px;
+margin-top:20px;
+box-shadow:var(--shadow);
+cursor:pointer;
+-webkit-tap-highlight-color:transparent;
+}
+.add-agenda > i{
+color:var(--primary);
+font-size:22px;
+}
+.add-agenda strong{
+flex:1;
+color:var(--primary);
+font-size:12px;
+}
+.add-agenda button{
+width:42px;
+height:42px;
+border:none;
+border-radius:50%;
+background:var(--primary);
+color:white;
+font-size:18px;
+cursor:pointer;
+}
+/* =====================================
+DICA DO DIA
+===================================== */
+.tip-box{
+background:#FFF5F8;
+border-radius:18px;
+padding:18px;
+margin-top:20px;
+display:flex;
+gap:15px;
+}
+.tip-box i{
+color:var(--primary);
+font-size:25px;
+}
+.tip-box strong{
+font-size:14px;
+}
+.tip-box p{
+font-size:13px;
+color:#666;
+line-height:1.5;
+margin-top:5px;
+}
+/* =====================================
+FORMULÁRIO NOVO AGENDAMENTO
+===================================== */
+#modalNovoAgendamento .modal-conteudo{
+padding-bottom:24px;
+}
+.form-agendamento{
+display:flex;
+flex-direction:column;
+gap:7px;
+}
+.form-agendamento label{
+margin-top:6px;
+color:#666;
+font-size:11px;
+font-weight:600;
+}
+.form-agendamento input,
+.form-agendamento select{
+width:100%;
+min-height:42px;
+padding:0 12px;
+box-sizing:border-box;
+border:1px solid #e4e4e4;
+border-radius:10px;
+outline:none;
+background:#fff;
+color:#333;
+font-family:inherit;
+font-size:13px;
+}
+.form-agendamento input:focus,
+.form-agendamento select:focus{
+border-color:var(--primary);
+box-shadow:
+0 0 0 2px rgba(123,49,87,.08);
+}
+.btn-salvar-agendamento{
+width:100%;
+min-height:44px;
+margin-top:12px;
+border:none;
+border-radius:10px;
+background:var(--primary);
+color:#fff;
+font-family:inherit;
+font-size:13px;
+font-weight:700;
+cursor:pointer;
+}
+.btn-salvar-agendamento:disabled{
+opacity:.65;
+cursor:wait;
+}
+/* =====================================
+CELULAR
+===================================== */
+@media(max-width:480px){
+.calendar-full-container{
+margin-top:10px;
+margin-bottom:15px;
+}
+#calendarAgenda{
+padding:14px;
+border-radius:18px;
+}
+.calendar-agenda-header{
+margin-bottom:13px;
+}
+.calendar-agenda-header strong{
+font-size:16px;
+}
+.calendar-agenda-header span{
+font-size:11px;
+}
+.calendar-agenda-header button{
+width:32px;
+height:32px;
+font-size:21px;
+}
+.calendar-agenda-weekdays span{
+font-size:9px;
+}
+.calendar-agenda-days{
+gap:3px;
+}
+.calendar-day{
+height:33px;
+font-size:11px;
+}
+.cliente-agenda-dia{
+grid-template-columns:
+40px
+minmax(0,1fr)
+auto;
+gap:7px;
+padding:12px 0;
+}
+.cliente-agenda-hora{
+font-size:12px;
+}
+.cliente-agenda-info strong{
+font-size:11px;
+}
+.cliente-agenda-info span{
+font-size:9px;
+}
+.cliente-agenda-valor{
+font-size:10px;
+}
+.btn-detalhes-agenda{
+min-height:32px;
+padding:7px;
+font-size:9px;
+}
+.modal-detalhes-cliente{
+padding:10px;
+}
+.modal-detalhes-cliente .modal-conteudo{
+max-height:92vh;
+padding:20px;
+border-radius:18px;
+}
+.modal-detalhes-cliente .modal-conteudo h2{
+font-size:19px;
+}
+#modalAgendaHoje,
+#modalDetalhesCliente{
+padding:10px;
+}
+#modalAgendaHoje .modal-conteudo,
+#modalDetalhesCliente .modal-conteudo{
+max-height:92vh;
+border-radius:18px;
+padding:20px;
+}
+#modalAgendaHoje .modal-conteudo h2,
+#modalDetalhesCliente .modal-conteudo h2{
+font-size:19px;
+}
+.agenda-completa-item{
+padding:14px 0 !important;
+}
+.btn-ver-detalhes-agenda{
+padding:11px !important;
+}
+}
+}
+/* =====================================
+TELA CLIENTES MOBILE
+===================================== */
 @media(max-width:768px){
-
-    .grafico-container{
-        width:100%;
-        height:250px;
-        margin-top:20px;
-
-        background:#FAFAFA;
-
-        border-radius:18px;
-
-        padding:15px;
-    }
-
-    .grafico-container canvas{
-        width:100%!important;
-        height:100%!important;
-    }
-
-    .grafico-servicos{
-        width:100%;
-        height:230px;
-
-        margin:20px 0;
-
-        display:flex;
-        justify-content:center;
-        align-items:center;
-    }
-
-    .grafico-servicos canvas{
-        max-width:100%;
-        max-height:220px;
-    }
-
-    .resumo-financeiro{
-        margin-bottom:20px;
-    }
-
-    .faturamento-card{
-        box-shadow:var(--shadow);
-    }
-
-    .grafico-faturamento{
-        background:white;
-        border-radius:var(--radius);
-        padding:20px;
-
-        box-shadow:var(--shadow);
-
-        margin-bottom:20px;
-    }
-
-    .grafico-faturamento .section-title{
-        display:flex;
-        align-items:center;
-        justify-content:space-between;
-        gap:10px;
-    }
-
-    .grafico-faturamento h2{
-        font-size:17px;
-        color:var(--text);
-    }
-
-    .section-title button{
-        background:#F8E8EF;
-        color:var(--primary);
-
-        border:none;
-
-        padding:8px 12px;
-
-        border-radius:12px;
-
-        font-size:11px;
-
-        font-weight:bold;
-    }
-
-    .receita-servico{
-        background:white;
-        border-radius:var(--radius);
-        padding:20px;
-
-        box-shadow:var(--shadow);
-    }
-
-    .receita-servico h2{
-        font-size:18px;
-        margin-bottom:10px;
-    }
-
-    .servico-item{
-        display:flex;
-        justify-content:space-between;
-        align-items:center;
-
-        padding:14px 0;
-
-        border-bottom:1px solid #eee;
-    }
-
-    .servico-item:last-child{
-        border-bottom:none;
-    }
-
-    .servico-item strong{
-        color:var(--primary);
-        font-size:16px;
-    }
+.clientes-header-mobile{
+background:var(--primary);
+color:white;
+margin:-20px -20px 20px;
+padding:35px 25px 45px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+border-radius:0 0 25px 25px;
+}
+.clientes-header-mobile h1{
+font-size:22px;
+}
+.clientes-header-mobile button{
+background:none;
+border:none;
+color:white;
+font-size:25px;
+}
+.add-client{
+width:42px;
+height:42px;
+border-radius:50%!important;
+background:rgba(255,255,255,.15)!important;
+display:flex;
+align-items:center;
+justify-content:center;
+}
+.search-client{
+background:white;
+height:55px;
+border-radius:15px;
+box-shadow:var(--shadow);
+display:flex;
+align-items:center;
+gap:15px;
+padding:0 18px;
+margin-top:-25px;
+position:relative;
+}
+.search-client i{
+color:#999;
+font-size:20px;
+}
+.search-client input{
+border:none;
+outline:none;
+flex:1;
+font-size:16px;
+color:#555;
+}
+.search-client input::placeholder{
+color:#999;
+}
+.client-filters{
+display:flex;
+justify-content:space-between;
+margin:25px 0;
+background:white;
+border-radius:15px;
+padding:5px;
+}
+.client-filters button{
+border:none;
+background:none;
+color:var(--primary);
+font-weight:bold;
+padding:12px 15px;
+border-radius:25px;
+font-size:13px;
+}
+.client-filters button.active{
+background:var(--primary);
+color:white;
+}
+.client-summary{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:8px;
+margin-bottom:20px;
+}
+.client-card{
+background:white;
+border-radius:15px;
+box-shadow:var(--shadow);
+padding:15px 5px;
+text-align:center;
+}
+.client-card i{
+width:35px;
+height:35px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+margin:auto auto 8px;
+color:var(--primary);
+background:#F8E8EF;
+}
+.client-card span{
+display:block;
+font-size:10px;
+color:#777;
+margin-bottom:5px;
+}
+.client-card strong{
+font-size:20px;
+}
+.client-list{
+display:flex;
+flex-direction:column;
+gap:10px;
+}
+.client-item{
+background:white;
+border-radius:16px;
+padding:15px;
+display:flex;
+align-items:center;
+gap:12px;
+box-shadow:var(--shadow);
+}
+.client-item img{
+width:55px;
+height:55px;
+border-radius:50%;
+object-fit:cover;
+}
+.client-data{
+flex:1;
+}
+.client-data h3{
+font-size:16px;
+margin-bottom:4px;
+}
+.client-data p{
+font-size:13px;
+color:#555;
+margin-bottom:8px;
+}
+.client-history{
+display:flex;
+gap:10px;
+align-items:center;
+flex-wrap:wrap;
+}
+.client-history span{
+font-size:11px;
+color:#777;
+}
+.client-history i{
+color:var(--primary);
+}
+.client-status{
+padding:5px 10px;
+border-radius:20px;
+font-size:11px;
+font-weight:bold;
+}
+.client-status.active{
+background:#E8F5E9;
+color:#6FA56F;
+}
+.client-status.new{
+background:#E8F0FF;
+color:#4285F4;
+}
+.client-item > i{
+color:#999;
+font-size:18px;
+}
+}
+/* =====================================
+TELA FINANCEIRO MOBILE
+===================================== */
+@media(max-width:768px){
+.financeiro-header-mobile{
+background:var(--primary);
+color:white;
+margin:-20px -20px 20px;
+padding:35px 25px 45px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+border-radius:0 0 25px 25px;
+}
+.financeiro-header-mobile h1{
+font-size:22px;
+}
+.financeiro-header-mobile i{
+font-size:22px;
+}
+.finance-tabs{
+background:white;
+border-radius:18px;
+padding:5px;
+display:flex;
+justify-content:space-between;
+margin-top:-20px;
+margin-bottom:20px;
+box-shadow:var(--shadow);
+}
+.finance-tabs button{
+border:none;
+background:none;
+color:#777;
+font-weight:bold;
+font-size:13px;
+padding:12px 20px;
+border-radius:25px;
+}
+.finance-tabs .active{
+background:var(--primary);
+color:white;
+}
+.resumo-financeiro{
+background:white;
+border-radius:var(--radius);
+padding:20px;
+box-shadow:var(--shadow);
+margin-bottom:20px;
+}
+.resumo-financeiro h2{
+font-size:20px;
+margin-bottom:5px;
+}
+.resumo-financeiro > span{
+color:var(--primary);
+font-weight:bold;
+font-size:14px;
+}
+.faturamento-card{
+margin-top:20px;
+background:#F8F8F8;
+border-radius:18px;
+padding:20px;
+display:flex;
+align-items:center;
+gap:15px;
+}
+.faturamento-card i{
+width:50px;
+height:50px;
+border-radius:50%;
+background:#E8F5E9;
+color:#6FA56F;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:22px;
+}
+.faturamento-card p{
+color:#777;
+font-size:14px;
+margin-bottom:5px;
+}
+.faturamento-card strong{
+display:block;
+font-size:25px;
+color:#4C8B45;
+}
+.faturamento-card span{
+font-size:12px;
+color:#4C8B45;
+}
+.grafico-faturamento{
+background:white;
+border-radius:var(--radius);
+padding:20px;
+box-shadow:var(--shadow);
+margin-bottom:20px;
+}
+.section-title{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:20px;
+}
+.section-title h2{
+font-size:17px;
+}
+.section-title button{
+border:1px solid #eee;
+background:white;
+border-radius:10px;
+padding:8px 12px;
+font-size:12px;
+}
+#grafico{
+height:230px;
+background:
+linear-gradient(
+to top,
+#FAF8F7,
+white
+);
+border-radius:15px;
+display:flex;
+align-items:center;
+justify-content:center;
+color:#999;
+}
+.receita-servico{
+background:white;
+border-radius:var(--radius);
+padding:20px;
+box-shadow:var(--shadow);
+}
+.receita-servico h2{
+font-size:18px;
+margin-bottom:20px;
+}
+.servico-item{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:15px 0;
+border-bottom:1px solid #eee;
+}
+.servico-item:last-child{
+border-bottom:none;
+}
+.servico-item span{
+font-size:14px;
+}
+.servico-item strong{
+color:var(--primary);
+font-size:16px;
+}
+}
+/* =====================================
+FINANCEIRO - GRÁFICOS
+===================================== */
+@media(max-width:768px){
+.grafico-container{
+width:100%;
+height:250px;
+margin-top:20px;
+background:#FAFAFA;
+border-radius:18px;
+padding:15px;
+}
+.grafico-container canvas{
+width:100%!important;
+height:100%!important;
+}
+.grafico-servicos{
+width:100%;
+height:230px;
+margin:20px 0;
+display:flex;
+justify-content:center;
+align-items:center;
+}
+.grafico-servicos canvas{
+max-width:100%;
+max-height:220px;
+}
+.resumo-financeiro{
+margin-bottom:20px;
+}
+.faturamento-card{
+box-shadow:var(--shadow);
+}
+.grafico-faturamento{
+background:white;
+border-radius:var(--radius);
+padding:20px;
+box-shadow:var(--shadow);
+margin-bottom:20px;
+}
+.grafico-faturamento .section-title{
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:10px;
+}
+.grafico-faturamento h2{
+font-size:17px;
+color:var(--text);
+}
+.section-title button{
+background:#F8E8EF;
+color:var(--primary);
+border:none;
+padding:8px 12px;
+border-radius:12px;
+font-size:11px;
+font-weight:bold;
+}
+.receita-servico{
+background:white;
+border-radius:var(--radius);
+padding:20px;
+box-shadow:var(--shadow);
+}
+.receita-servico h2{
+font-size:18px;
+margin-bottom:10px;
+}
+.servico-item{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:14px 0;
+border-bottom:1px solid #eee;
+}
+.servico-item:last-child{
+border-bottom:none;
+}
+.servico-item strong{
+color:var(--primary);
+font-size:16px;
+}
+}
+/* =====================================
+HOME - MODAL DETALHES E EDITAR
+FLOW PRO
+===================================== */
+#modalHomeDetalhes,
+#modalHomeEditar{
+position:fixed;
+inset:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.45);
+display:none;
+align-items:center;
+justify-content:center;
+padding:20px;
+box-sizing:border-box;
+z-index:99999;
+}
+#modalHomeDetalhes.ativo,
+#modalHomeEditar.ativo{
+display:flex;
+}
+#modalHomeDetalhes .modal-conteudo,
+#modalHomeEditar .modal-conteudo{
+width:100%;
+max-width:430px;
+max-height:90vh;
+overflow-y:auto;
+background:#fff;
+border-radius:24px;
+padding:25px;
+box-sizing:border-box;
+position:relative;
+box-shadow:0 15px 40px rgba(0,0,0,.20);
+}
+#modalHomeDetalhes h2,
+#modalHomeEditar h2{
+margin:0 35px 20px 0;
+color:#222;
+font-size:20px;
+}
+.modal-fechar{
+position:absolute;
+top:12px;
+right:15px;
+border:none;
+background:none;
+font-size:28px;
+cursor:pointer;
+}
+#modalHomeDetalhes p{
+padding:10px 0;
+margin:0;
+border-bottom:1px solid #eee;
+font-size:14px;
+color:#444;
+}
+#modalHomeEditar label{
+display:block;
+margin-top:10px;
+margin-bottom:5px;
+color:#777;
+font-size:12px;
+font-weight:600;
+}
+#modalHomeEditar input,
+#modalHomeEditar select{
+width:100%;
+height:42px;
+border:1px solid #ddd;
+border-radius:10px;
+padding:0 12px;
+box-sizing:border-box;
+font-family:inherit;
+font-size:14px;
+outline:none;
+}
+#modalHomeEditar input:focus,
+#modalHomeEditar select:focus{
+border-color:var(--primary);
+}
+#modalHomeEditar button{
+width:100%;
+height:44px;
+margin-top:20px;
+border:none;
+border-radius:12px;
+background:var(--primary);
+color:white;
+font-weight:bold;
+cursor:pointer;
+}
+@media(max-width:480px){
+#modalHomeDetalhes,
+#modalHomeEditar{
+padding:12px;
+}
+#modalHomeDetalhes .modal-conteudo,
+#modalHomeEditar .modal-conteudo{
+border-radius:20px;
+padding:20px;
+}
+}
+/* =====================================
+AJUSTES HOME - EDITAR E DETALHES
+FLOW PRO
+===================================== */
+.home-acoes-card,
+.acoes-agenda-home {
+display:flex;
+gap:10px;
+margin-top:12px;
+}
+.home-acoes-card button,
+.acoes-agenda-home button {
+flex:1;
+height:36px;
+border:none;
+border-radius:12px;
+background:#F8E8EF;
+color:var(--primary);
+font-family:inherit;
+font-size:12px;
+font-weight:700;
+cursor:pointer;
+}
+/* =====================================
+MODAIS HOME
+===================================== */
+#modalHomeDetalhes,
+#modalHomeEditar {
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.45);
+display:none;
+align-items:center;
+justify-content:center;
+padding:15px;
+z-index:99999;
+}
+#modalHomeDetalhes.ativo,
+#modalHomeEditar.ativo {
+display:flex;
+}
+#modalHomeDetalhes .modal-conteudo,
+#modalHomeEditar .modal-conteudo {
+width:100%;
+max-width:430px;
+max-height:90vh;
+overflow-y:auto;
+background:#fff;
+border-radius:24px;
+padding:25px;
+position:relative;
+box-shadow:0 20px 50px rgba(0,0,0,.20);
+}
+/* X fechar */
+#modalHomeDetalhes .modal-fechar,
+#modalHomeEditar .modal-fechar {
+position:absolute;
+top:12px;
+right:15px;
+width:35px;
+height:35px;
+border:none;
+background:transparent;
+color:#555;
+font-size:28px;
+cursor:pointer;
+}
+/* Formulário editar */
+#modalHomeEditar input,
+#modalHomeEditar select,
+#modalHomeEditar textarea {
+width:100%;
+border:1px solid #ddd;
+border-radius:12px;
+padding:10px;
+box-sizing:border-box;
+font-family:inherit;
+}
+#modalHomeEditar .btn-salvar {
+width:100%;
+height:44px;
+border:none;
+border-radius:12px;
+margin-top:20px;
+background:var(--primary);
+color:white;
+font-weight:bold;
+}
+@media(max-width:480px){
+#modalHomeDetalhes .modal-conteudo,
+#modalHomeEditar .modal-conteudo {
+padding:20px;
+border-radius:20px;
+}
+}
+/* =====================================
+DETALHES CLIENTE - ESTILO CARD LIMPO
+FLOW PRO
+===================================== */
+#modalHomeDetalhes .modal-conteudo,
+#modalDetalhesCliente .modal-conteudo{
+padding:15px;
+border-radius:18px;
+}
+#modalHomeDetalhes h2,
+#modalDetalhesCliente h2{
+font-size:18px;
+font-weight:700;
+margin-bottom:18px;
+color:#222;
+}
+#modalHomeDetalhes p,
+#modalDetalhesCliente p{
+padding:10px 0;
+margin:0;
+border-bottom:1px solid #eeeeee;
+font-size:13px;
+color:#333;
+}
+#modalHomeDetalhes .detalhe-item,
+#modalDetalhesCliente .detalhe-item{
+padding:10px 0;
+border-bottom:1px solid #eeeeee;
+}
+#modalHomeDetalhes .detalhe-item strong,
+#modalDetalhesCliente .detalhe-item strong{
+font-size:10px;
+font-weight:500;
+color:#888;
+}
+#modalHomeDetalhes .detalhe-item span,
+#modalDetalhesCliente .detalhe-item span{
+font-size:13px;
+color:#222;
+}
+/* Localização */
+#modalHomeDetalhes a,
+#modalDetalhesCliente a{
+color:#1a73e8;
+font-size:13px;
+font-weight:600;
+}
+/* =====================================
+BOTÕES AGENDA HOME
+===================================== */
+.home-acoes-card button,
+.acoes-agenda-home button{
+height:32px;
+border-radius:10px;
+font-size:11px;
+}
+.home-acoes-card button:first-child,
+.acoes-agenda-home button:first-child{
+background:#F8E8EF;
+color:#7b3157;
+}
+/* =====================================
+MODAL EDITAR SEM FAIXA ROXA
+===================================== */
+#modalHomeEditar .modal-conteudo{
+background:white;
+}
+#modalHomeEditar h2{
+color:#222;
+}
+#modalHomeEditar .modal-fechar{
+background:transparent;
+color:#555;
+}
+/* =====================================
+MODAL CONFIRMAR EXCLUSÃO
+===================================== */
+#modalConfirmarExclusao .modal-conteudo{
+background:#fff;
+border-radius:20px;
+padding:22px;
+}
+#modalConfirmarExclusao h2{
+font-size:18px;
+color:#222;
+}
+.acoes-modal{
+display:flex;
+gap:10px;
+margin-top:20px;
+}
+.acoes-modal button{
+flex:1;
+height:40px;
+border:none;
+border-radius:12px;
+font-weight:700;
+cursor:pointer;
+}
+.btn-cancelar-exclusao{
+background:#eee;
+color:#555;
+}
+.btn-confirmar-exclusao{
+background:#b42318;
+color:white;
+}
+/* =====================================
+BOTOES CLIENTE AGENDA - FLOW PRO
+MODELO COMPACTO
+===================================== */
+.acoes-cliente-agenda{
+grid-column:2 / 4;
+display:flex;
+gap:8px;
+width:100%;
+margin-top:8px;
+}
+.acoes-cliente-agenda .btn-detalhes-agenda,
+.acoes-cliente-agenda .btn-editar-agenda,
+.acoes-cliente-agenda .btn-excluir-agenda{
+flex:1;
+width:auto;
+min-height:30px;
+padding:6px 8px;
+border:none;
+border-radius:8px;
+font-family:inherit;
+font-size:9px;
+font-weight:700;
+cursor:pointer;
+white-space:nowrap;
+}
+.acoes-cliente-agenda .btn-detalhes-agenda,
+.acoes-cliente-agenda .btn-editar-agenda,
+.acoes-cliente-agenda .btn-excluir-agenda{
+background:#F8E8EF;
+color:#7b3157;
+}
+.acoes-cliente-agenda button:active{
+transform:scale(.97);
+}
+@media(max-width:480px){
+.acoes-cliente-agenda{
+gap:5px;
+}
+.acoes-cliente-agenda .btn-detalhes-agenda,
+.acoes-cliente-agenda .btn-editar-agenda,
+.acoes-cliente-agenda .btn-excluir-agenda{
+min-height:28px;
+font-size:8px;
+padding:5px;
+}}
+/* =====================================
+AJUSTE MODAL EDITAR AGENDA
+FLOW PRO
+===================================== */
+#modalEditarAgenda .modal-conteudo{
+background:#fff;
+border-radius:22px;
+padding:25px;
+max-width:430px;
+}
+#modalEditarAgenda h2{
+font-size:20px;
+color:#222;
+margin-bottom:20px;
+}
+#modalEditarAgenda label{
+display:block;
+margin-top:10px;
+margin-bottom:5px;
+color:#777;
+font-size:12px;
+font-weight:600;
+}
+#modalEditarAgenda input,
+#modalEditarAgenda select{
+width:100%;
+height:44px;
+border:1px solid #ddd;
+border-radius:12px;
+padding:0 12px;
+box-sizing:border-box;
+font-family:inherit;
+font-size:14px;
+}
+#modalEditarAgenda input:focus,
+#modalEditarAgenda select:focus{
+border-color:var(--primary);
+outline:none;
+}
+#modalEditarAgenda .btn-salvar-agendamento{
+height:48px;
+font-size:14px;
+border-radius:12px;
+margin-top:20px;
+}
+/* =====================================
+BOTOES CLIENTE AGENDA MAIORES
+===================================== */
+.acoes-cliente-agenda{
+grid-column:2 / 4;
+display:flex;
+gap:10px;
+width:100%;
+margin-top:10px;
+}
+.acoes-cliente-agenda .btn-detalhes-agenda,
+.acoes-cliente-agenda .btn-editar-agenda,
+.acoes-cliente-agenda .btn-excluir-agenda{
+flex:1;
+width:auto;
+min-height:38px;
+padding:8px 10px;
+border:none;
+border-radius:10px;
+font-family:inherit;
+font-size:11px;
+font-weight:700;
+cursor:pointer;
+white-space:nowrap;
+}
+.acoes-cliente-agenda .btn-detalhes-agenda,
+.acoes-cliente-agenda .btn-editar-agenda{
+background:#F8E8EF;
+color:#7b3157;
+}
+.acoes-cliente-agenda .btn-excluir-agenda{
+background:#FCE8E6;
+color:#B42318;
+}
+@media(max-width:480px){
+.acoes-cliente-agenda{
+gap:7px;
+}
+.acoes-cliente-agenda .btn-detalhes-agenda,
+.acoes-cliente-agenda .btn-editar-agenda,
+.acoes-cliente-agenda .btn-excluir-agenda{
+min-height:34px;
+font-size:10px;
+padding:7px;
+}
 }
