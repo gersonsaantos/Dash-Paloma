@@ -8,8 +8,6 @@
 const API_AGENDA =
 "https://script.google.com/macros/s/AKfycbwUbF_-HVYBS68Ljs8kBHHGstCNMVNdPuGWJbTiCOyHN-gHw1cL55E68MQDYy3MJDmiXQ/exec";
 // ============================================================
-// VARIÁVEIS
-// ============================================================
 let dataSelecionadaAgenda = new Date();
 let mesCalendario =
 dataSelecionadaAgenda.getMonth();
@@ -1267,6 +1265,12 @@ document.getElementById(
 if (!form) {
 return;
 }
+// Evita registrar o evento de salvar várias vezes
+// quando o modal é recriado pelo sistema
+if(form.dataset.configurado){
+return;
+}
+form.dataset.configurado = "sim";
 form.addEventListener(
 "submit",
 async function (event) {
@@ -1561,7 +1565,7 @@ modal.classList.remove("ativo");
 if(typeof dadosSistema !== "undefined" && dadosSistema.agendamentos){
 dadosSistema.agendamentos =
 dadosSistema.agendamentos.filter(function(cliente){
-return Number(cliente.id) !== Number(id);
+return String(cliente.id) !== String(id);
 });
 }
 mostrarAgendamentosDoDia(dataSelecionadaAgenda);
@@ -1594,6 +1598,6 @@ configurarSalvarFormulario();
 function pegarClientePorIdAgenda(id){
 return (dadosSistema.agendamentos || [])
 .find(function(cliente){
-return Number(cliente.id) === Number(id);
+return String(cliente.id) === String(id);
 });
 }

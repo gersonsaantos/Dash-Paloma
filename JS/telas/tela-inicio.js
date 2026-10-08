@@ -1,3 +1,4 @@
+
 // =====================================
 // TELA INÍCIO - FLOW PRO
 // =====================================
@@ -1187,16 +1188,6 @@ class="btn-detalhes-home"
 data-id="${cliente.id}">
 Detalhes
 </button>
-<button
-class="btn-editar-home"
-data-id="${cliente.id}">
-Editar
-</button>
-<button
-class="btn-excluir-home"
-data-id="${cliente.id}">
-Excluir
-</button>
 </div>
 </div>
 `;
@@ -1269,7 +1260,7 @@ return;
 abrirTodosAgendamentosHoje();
 });
 // =====================================
-// HOME - BOTÕES DETALHES E EDITAR
+// HOME - BOTÃO DETALHES
 // =====================================
 document.addEventListener(
 "click",
@@ -1278,23 +1269,12 @@ const detalhe =
 event.target.closest(".btn-detalhes-home");
 if(detalhe){
 const id =
-Number(detalhe.dataset.id);
+String(detalhe.dataset.id);
 const cliente =
 dadosSistema.agendamentos.find(
-item => item.id === id
+item => String(item.id) === String(id)
 );
 homeAbrirDetalhesCliente(cliente);
-}
-const editar =
-event.target.closest(".btn-editar-home");
-if(editar){
-const id =
-Number(editar.dataset.id);
-const cliente =
-dadosSistema.agendamentos.find(
-item => item.id === id
-);
-homeAbrirEditarCliente(cliente);
 }
 });
 // =====================================
@@ -1321,7 +1301,18 @@ modal.innerHTML = `
 <p><strong>Tamanho:</strong> ${cliente.tamanhoCabelo || "-"}</p>
 <p><strong>Penteado:</strong> ${cliente.penteado || "-"}</p>
 <p><strong>Bairro:</strong> ${cliente.bairro || "-"}</p>
-<p><strong>Localização:</strong> ${cliente.localizacao || "-"}</p>
+<p><strong>Localização:</strong></p>
+${
+cliente.localizacao
+?
+`
+<a href="${cliente.localizacao}" target="_blank" class="btn-localizacao">
+■ Abrir localização
+</a>
+`
+:
+"-"
+}
 <p><strong>Uso de imagem:</strong> ${cliente.autorizacaoImagem || "-"}</p>
 </div>`;
 modal.classList.add("ativo");
@@ -1330,273 +1321,6 @@ function fecharModalHomeDetalhes(){
 const modal = document.getElementById("modalHomeDetalhes");
 if(modal){
 modal.classList.remove("ativo");
-}
-}
-// =====================================
-// HOME - EDITAR
-// =====================================
-function homeAbrirEditarCliente(cliente){
-if(!cliente) return;
-window.clienteEditando = cliente;
-let modal = document.getElementById("modalHomeEditar");
-if(!modal){
-modal = document.createElement("div");
-modal.id = "modalHomeEditar";
-modal.className = "modal-detalhes-cliente";
-document.body.appendChild(modal);
-}
-modal.innerHTML = `
-<div class="modal-conteudo">
-<button class="modal-fechar" onclick="fecharModalHomeEditar()">×</button>
-<h2>Editar agendamento</h2>
-<label>Nome</label>
-<input id="editarNome" value="${cliente.nome || ""}">
-<label>Telefone</label>
-<input id="editarTelefone" value="${cliente.telefone || ""}">
-<label>Data</label>
-<input id="editarData" value="${cliente.data || ""}">
-<label>Horário</label>
-<input id="editarHorario" value="${cliente.horario || ""}">
-<label>Bairro</label>
-<input id="editarBairro" value="${cliente.bairro || ""}">
-<label>Localização</label>
-<input id="editarLocalizacao" value="${cliente.localizacao || ""}">
-<label>Serviço</label>
-<input id="editarServico" value="${cliente.servico || ""}">
-<label>Tamanho do cabelo</label>
-<input id="editarTamanho" value="${cliente.tamanhoCabelo || ""}">
-<label>Penteado</label>
-<input id="editarPenteado" value="${cliente.penteado || ""}">
-<label>Autorização de imagem</label>
-<input id="editarImagem" value="${cliente.autorizacaoImagem || ""}">
-<label>Condição</label>
-<input id="editarCondicao" value="${cliente.condicaoConfirmacao || ""}">
-<button onclick="salvarEdicaoAgendamento()">
-Salvar alterações
-</button>
-</div>
-`;
-modal.classList.add("ativo");
-}
-async function salvarEdicaoAgendamento(){
-const cliente = window.clienteEditando;
-if(!cliente) return;
-const dados = {
-acao:"editar",
-id:cliente.id,
-nome:document.getElementById("editarNome").value,
-telefone:document.getElementById("editarTelefone").value,
-data:document.getElementById("editarData").value,
-horario:document.getElementById("editarHorario").value,
-bairro:document.getElementById("editarBairro").value,
-localizacao:document.getElementById("editarLocalizacao").value,
-servico:document.getElementById("editarServico").value,
-tamanhoCabelo:document.getElementById("editarTamanho").value,
-penteado:document.getElementById("editarPenteado").value,
-autorizacaoImagem:document.getElementById("editarImagem").value,
-condicaoConfirmacao:document.getElementById("editarCondicao").value
-};
-try{
-const resposta = await fetch(
-URL_API,
-{
-method:"POST",
-body:JSON.stringify(dados)
-}
-);
-const retorno = await resposta.json();
-if(retorno.sucesso){
-fecharModalHomeEditar();
-await carregarDados();
-mostrarMensagemSistema(
-"Agendamento atualizado com sucesso!"
-);
-}
-}catch(erro){
-console.error(
-"Erro ao editar agendamento:",
-erro
-);
-mostrarMensagemSistema(
-"Erro ao atualizar agendamento."
-);
-}
-}
-function fecharModalHomeEditar(){
-const modal = document.getElementById("modalHomeEditar");
-if(modal){
-modal.classList.remove("ativo");
-}
-}
-// =====================================
-// BOTAO EXCLUIR - AGENDA HOME
-// =====================================
-document.addEventListener(
-"click",
-async function(event){
-const excluir =
-event.target.closest(
-".btn-excluir-home"
-);
-if(!excluir){
-return;
-}
-const id =
-Number(
-excluir.dataset.id
-);
-const cliente =
-dadosSistema.agendamentos.find(
-item => item.id === id
-);
-if(!cliente){
-return;
-}
-excluirAgendamentoHome(cliente);
-});
-// =====================================
-// EXCLUIR AGENDAMENTO HOME
-// =====================================
-async function excluirAgendamentoHome(cliente){
-if(!cliente){
-return;
-}
-abrirModalConfirmarExclusao(cliente);
-return;
-try{
-const resposta =
-await fetch(
-URL_API,
-{
-method:"POST",
-body:JSON.stringify({
-acao:"excluir",
-id:cliente.id
-})
-}
-);
-const retorno =
-await resposta.json();
-console.log(
-"Resposta exclusão:",
-retorno
-);
-if(retorno.sucesso){
-dadosSistema.agendamentos =
-dadosSistema.agendamentos.filter(
-item =>
-item.id !== cliente.id
-);
-carregarAgendaHoje();
-atualizarCardsInicio();
-carregarProximoAtendimento();
-mostrarMensagemSistema(
-"Agendamento excluído com sucesso!"
-);
-}else{
-mostrarMensagemSistema(
-retorno.erro || "Não foi possível excluir."
-);
-}
-}catch(erro){
-console.error(
-"Erro ao excluir agendamento:",
-erro
-);
-mostrarMensagemSistema(
-"Erro ao excluir agendamento."
-);
-}
-}
-// =====================================
-// MODAL CONFIRMAÇÃO DE EXCLUSÃO
-// =====================================
-function abrirModalConfirmarExclusao(cliente){
-let modal =
-document.getElementById("modalConfirmarExclusao");
-if(!modal){
-modal = document.createElement("div");
-modal.id = "modalConfirmarExclusao";
-modal.className = "modal-detalhes-cliente";
-document.body.appendChild(modal);
-}
-window.clienteExclusao = cliente;
-modal.innerHTML = `
-<div class="modal-conteudo">
-<button
-class="modal-fechar"
-onclick="fecharModalConfirmarExclusao()">
-×
-</button>
-<h2>Confirmar exclusão</h2>
-<p>
-Deseja excluir este agendamento?
-</p>
-<strong>
-${cliente.nome || "-"}
-</strong>
-<div class="acoes-modal">
-<button
-onclick="fecharModalConfirmarExclusao()">
-Cancelar
-</button>
-<button
-onclick="executarExclusaoAgendamento()">
-Excluir
-</button>
-</div>
-</div>
-`;
-modal.classList.add("ativo");
-}
-function fecharModalConfirmarExclusao(){
-const modal =
-document.getElementById("modalConfirmarExclusao");
-if(modal){
-modal.classList.remove("ativo");
-}
-}
-async function executarExclusaoAgendamento(){
-const cliente =
-window.clienteExclusao;
-if(!cliente){
-return;
-}
-try{
-const resposta =
-await fetch(
-URL_API,
-{
-method:"POST",
-body:JSON.stringify({
-acao:"excluir",
-id:cliente.id
-})
-}
-);
-const retorno =
-await resposta.json();
-if(retorno.sucesso){
-dadosSistema.agendamentos =
-dadosSistema.agendamentos.filter(
-item => item.id !== cliente.id
-);
-fecharModalConfirmarExclusao();
-carregarAgendaHoje();
-atualizarCardsInicio();
-carregarProximoAtendimento();
-mostrarMensagemSistema(
-"Agendamento excluído com sucesso!"
-);
-}
-}catch(erro){
-console.error(
-"Erro ao excluir:",
-erro
-);
-mostrarMensagemSistema(
-"Erro ao excluir agendamento."
-);
 }
 }
 // =====================================
