@@ -1,3 +1,4 @@
+
 // ============================================================
 // FLOW PRO
 // TELA AGENDA
@@ -53,30 +54,27 @@ criarCalendarioCompleto();
 criarCalendarioSemanal();
 mostrarAgendamentosDoDia(
 dataSelecionadaAgenda
+
 );
 atualizarResumoDia(
 dataSelecionadaAgenda
 );
-prepararBotaoAdicionar();
-}
+prepararBotaoAdicionar(); }
 // ============================================================
 // FORMATAR DATA PARA COMPARAÇÃO
 // ============================================================
 function normalizarData(data) {
 if (!data) {
-return "";
-}
+return ""; }
 const texto =
 String(data).trim();
 if (!texto) {
-return "";
-}
+return ""; }
 // YYYY-MM-DD
 if (
 /^\d{4}-\d{2}-\d{2}$/.test(texto)
 ) {
-return texto;
-}
+return texto; }
 // DD/MM/YYYY
 if (
 /^\d{1,2}\/\d{1,2}\/\d{4}$/.test(texto)
@@ -89,10 +87,8 @@ partes[2] +
 partes[1].padStart(2, "0") +
 "-" +
 partes[0].padStart(2, "0")
-);
-}
-return texto;
-}
+);}
+return texto; }
 // ============================================================
 // DATA DO OBJETO
 // ============================================================
@@ -113,26 +109,23 @@ ano +
 mes +
 "-" +
 dia
-);
-}
+
+);}
 // ============================================================
 // FORMATAR DATA PARA EXIBIÇÃO
 // ============================================================
 function formatarDataExibicao(data) {
 const partes =
 normalizarData(data)
-.split("-");
 if (partes.length !== 3) {
-return data || "";
-}
+return data || ""; }
 return (
 partes[2] +
 "/" +
 partes[1] +
 "/" +
 partes[0]
-);
-}
+);}
 // ============================================================
 // NOME DO DIA
 // ============================================================
@@ -148,8 +141,7 @@ const nomes = [
 ];
 return nomes[
 data.getDay()
-];
-}
+];}
 // ============================================================
 // NOME DO MÊS
 // ============================================================
@@ -168,17 +160,16 @@ const meses = [
 "Novembro",
 "Dezembro"
 ];
-return meses[mes];
-}
+return meses[mes]; }
 // ============================================================
 // PEGAR AGENDAMENTOS DO DIA
 // ============================================================
 function pegarAgendamentosDoDia(data) {
+
 const dataBusca =
 dataParaString(data);
 return (
-dadosSistema.agendamentos || []
-)
+dadosSistema.agendamentos || [] )
 .filter(function (agendamento) {
 return (
 normalizarData(
@@ -191,11 +182,9 @@ return String(
 a.horario || ""
 ).localeCompare(
 String(
-b.horario || ""
-)
+b.horario || "" )
 );
-});
-}
+}); }
 // ============================================================
 // MOSTRAR AGENDAMENTOS DO DIA
 // ============================================================
@@ -205,8 +194,7 @@ document.getElementById(
 "listaClientesDia"
 );
 if (!lista) {
-return;
-}
+return; }
 const agendamentos =
 pegarAgendamentosDoDia(data);
 lista.innerHTML = "";
@@ -219,8 +207,7 @@ Nenhum agendamento para este dia.
 </p>
 </div>
 `;
-return;
-}
+return; }
 agendamentos.forEach(
 function (cliente, indice) {
 const valor =
@@ -234,53 +221,47 @@ document.createElement(
 item.className =
 "cliente-agenda-dia";
 item.innerHTML = `
+
 <div class="cliente-agenda-hora">
 ${
 cliente.horario ||
-"--:--"
-}
+"--:--" }
 </div>
 <div class="cliente-agenda-info">
 <strong>
 ${
 cliente.nome ||
-"Cliente"
-}
+"Cliente" }
 </strong>
 <span>
 ${
 cliente.servico ||
-"-"
-}
+"-" }
 </span>
 </div>
 <div class="cliente-agenda-valor">
 ${
 valor > 0
 ? formatarMoeda(valor)
-: ""
-}
+: "" }
 </div>
 <div class="acoes-cliente-agenda">
 <button
 type="button"
 class="btn-detalhes-agenda"
-data-id="${cliente.id}"
->
+data-id="${cliente.id}" >
 Detalhes
 </button>
 <button
 type="button"
 class="btn-editar-agenda"
-data-id="${cliente.id}"
->
+data-id="${cliente.id}" >
 Editar
 </button>
 <button
 type="button"
 class="btn-excluir-agenda"
-data-id="${cliente.id}"
->
+data-id="${cliente.id}" >
 Excluir
 </button>
 </div>
@@ -294,10 +275,10 @@ botao.addEventListener(
 function () {
 abrirDetalhesCliente(
 cliente
-);
-}
+);}
 );
 const botaoEditar =
+
 item.querySelector(
 ".btn-editar-agenda"
 );
@@ -306,11 +287,9 @@ botaoEditar.addEventListener(
 "click",
 function(){
 editarClienteAgenda(
-cliente.id
-);
-}
-);
-}
+cliente
+);}
+);}
 const botaoExcluir =
 item.querySelector(
 ".btn-excluir-agenda"
@@ -320,15 +299,11 @@ botaoExcluir.addEventListener(
 "click",
 function(){
 excluirClienteAgenda(
-cliente.id
-);
-}
-);
-}
-lista.appendChild(item);
-}
-);
-}
+cliente
+);}
+);}
+lista.appendChild(item); }
+);}
 // ============================================================
 // ATUALIZAR RESUMO
 // ============================================================
@@ -351,18 +326,15 @@ data.getDate() +
 " de " +
 nomeMes(
 data.getMonth()
-);
-}
+);}
 if (quantidade) {
 quantidade.textContent =
-agendamentos.length +
-(
+agendamentos.length + (
 agendamentos.length === 1
 ? " agendamento"
 : " agendamentos"
-);
-}
-}
+
+);}}
 // ============================================================
 // CALENDÁRIO COMPLETO
 // ============================================================
@@ -372,19 +344,16 @@ document.getElementById(
 "calendarAgenda"
 );
 if (!container) {
-return;
-}
+return; }
 const primeiroDia =
 new Date(
 anoCalendario,
-mesCalendario,
-1
+mesCalendario, 1
 );
 const ultimoDia =
 new Date(
 anoCalendario,
-mesCalendario + 1,
-0
+mesCalendario + 1, 0
 );
 const inicioSemana =
 primeiroDia.getDay();
@@ -395,9 +364,7 @@ let html = `
 <button
 type="button"
 id="mesAnterior"
-aria-label="Mês anterior"
->
-‹
+aria-label="Mês anterior" >‹
 </button>
 <div>
 <strong>
@@ -410,9 +377,7 @@ ${anoCalendario}
 <button
 type="button"
 id="mesProximo"
-aria-label="Próximo mês"
->
-›
+aria-label="Próximo mês" >›
 </button>
 </div>
 <div class="calendar-agenda-weekdays">
@@ -424,6 +389,7 @@ aria-label="Próximo mês"
 <span>S</span>
 <span>S</span>
 </div>
+
 <div class="calendar-agenda-days">
 `;
 // Espaços antes do primeiro dia
@@ -437,8 +403,7 @@ html += `
 type="button"
 class="calendar-day vazio"
 ></button>
-`;
-}
+`;}
 // Dias
 for (
 let dia = 1;
@@ -475,20 +440,16 @@ calendar-day
 ${
 selecionado
 ? "active-day"
-: ""
-}
+: "" }
 ${
 temAgendamento
 ? "has-agendamento"
-: ""
-}
-"
-data-data="${dataString}"
->
+: "" }"
+
+data-data="${dataString}" >
 ${dia}
 </button>
-`;
-}
+`;}
 html += `
 </div>
 `;
@@ -508,37 +469,30 @@ function () {
 mesCalendario--;
 if (mesCalendario < 0) {
 mesCalendario = 11;
-anoCalendario--;
-}
+anoCalendario--; }
 criarCalendarioCompleto();
-};
-}
+};}
 if (proximo) {
 proximo.onclick =
 function () {
 mesCalendario++;
 if (mesCalendario > 11) {
 mesCalendario = 0;
-anoCalendario++;
-}
+anoCalendario++; }
 criarCalendarioCompleto();
-};
-}
+};}
 container
 .querySelectorAll(
-".calendar-day:not(.vazio)"
-)
+".calendar-day:not(.vazio)" )
 .forEach(function (botao) {
 botao.addEventListener(
 "click",
 function () {
 selecionarData(
 botao.dataset.data
+);}
 );
-}
-);
-});
-}
+}); }
 // ============================================================
 // SELECIONAR DATA
 // ============================================================
@@ -547,6 +501,7 @@ const partes =
 dataString.split("-");
 dataSelecionadaAgenda =
 new Date(
+
 Number(partes[0]),
 Number(partes[1]) - 1,
 Number(partes[2])
@@ -562,8 +517,7 @@ dataSelecionadaAgenda
 );
 atualizarResumoDia(
 dataSelecionadaAgenda
-);
-}
+);}
 // ============================================================
 // CALENDÁRIO SEMANAL
 // ============================================================
@@ -573,8 +527,7 @@ document.querySelectorAll(
 ".week-numbers span"
 );
 if (!dias.length) {
-return;
-}
+return; }
 const inicioSemana =
 new Date(
 dataSelecionadaAgenda
@@ -603,22 +556,19 @@ elemento.classList.remove(
 if (
 dataParaString(data) ===
 dataParaString(
-dataSelecionadaAgenda
-)
+dataSelecionadaAgenda )
+
 ) {
 elemento.classList.add(
 "active-day"
-);
-}
+);}
 elemento.onclick =
 function () {
 selecionarData(
 elemento.dataset.data
 );
-};
-}
-);
-}
+};}
+);}
 // ============================================================
 // ABRIR / FECHAR CALENDÁRIO COMPLETO
 // ============================================================
@@ -632,15 +582,13 @@ document.getElementById(
 "calendarFullContainer"
 );
 if (!botao || !calendario) {
-return;
-}
+return; }
 botao.onclick =
 function () {
 calendario.classList.toggle(
 "ativo"
 );
-};
-}
+};}
 configurarBotaoCalendario();
 // ============================================================
 // VALOR DO SERVIÇO
@@ -648,82 +596,154 @@ configurarBotaoCalendario();
 // ============================================================
 // VALOR DO SERVIÇO
 // ============================================================
-function encontrarValorServico(cliente){
-if(
-!dadosSistema ||
-!Array.isArray(dadosSistema.servicos)
-){
-return 0;
-}
-const servicoCliente =
-normalizarTexto(
-cliente.servico
-);
+function fpNormalizarPrecoUI(texto){
+return String(texto || "")
+.trim()
+.toLowerCase()
+.normalize("NFD")
+.replace(/[\u0300-\u036f]/g, "")
+.replace(/\s+/g, " "); }
+function fpValorNumericoUI(valor){
+if(valor === null || valor === undefined || valor === "") return null;
+if(typeof valor === "number") return Math.round(valor * 100) / 100;
+let texto = String(valor).trim().replace(/R\$/g, "").replace(/\s/g, "");
+if(texto.indexOf(",") >= 0){
+texto = texto.replace(/\./g, "").replace(",", "."); }
+const numero = Number(texto);
+return isNaN(numero) ? null : Math.round(numero * 100) / 100; }
+function fpLinhaPrecoUI(principal, variacao, cabelo, tamanho){
+
+if(typeof dadosSistema === "undefined" ||
+!Array.isArray(dadosSistema.servicos)){
+return null; }
+const p = fpNormalizarPrecoUI(principal);
+const v = fpNormalizarPrecoUI(variacao);
+const c = fpNormalizarPrecoUI(cabelo);
+const t = fpNormalizarPrecoUI(tamanho);
+return dadosSistema.servicos.find(function(item){
+const itemPrincipal = fpNormalizarPrecoUI(item.servicoPrincipal || item.nome);
+const itemVariacao = fpNormalizarPrecoUI(item.variacao);
+const itemCabelo = fpNormalizarPrecoUI(item.tipoCabelo);
+const itemTamanho = fpNormalizarPrecoUI(item.tamanho);
+const ativo = item.ativo !== false;
+return ativo &&
+itemPrincipal === p &&
+itemVariacao === v &&
+(itemCabelo === c || itemCabelo === "todos") &&
+(itemTamanho === t || itemTamanho === "todos");
+}) || null; }
+function fpCalcularPrecoUI(cliente){
+cliente = cliente || {};
+const servico = fpNormalizarPrecoUI(cliente.servico);
+const penteado = fpNormalizarPrecoUI(cliente.penteado);
+const combinado = (servico + " " + penteado).trim();
+const tamanhoTexto = fpNormalizarPrecoUI(cliente.tamanhoCabelo);
+let tamanho = "";
+if(tamanhoTexto.indexOf("pequeno") >= 0 || /\bp\b/.test(tamanhoTexto)){
+tamanho = "Pequeno (P)";
+}else if(tamanhoTexto.indexOf("medio") >= 0 || /\bm\b/.test(tamanhoTexto)){
+tamanho = "Médio (M)";
+}else if(tamanhoTexto.indexOf("grande") >= 0 || /\bg\b/.test(tamanhoTexto)){
+tamanho = "Grande (G)"; }
+const temMaquiagem = combinado.indexOf("maquiagem") >= 0;
+const temBabyliss = combinado.indexOf("babyliss") >= 0;
+const temPenteado = combinado.indexOf("penteado") >= 0 ||
+combinado.indexOf("semi-preso") >= 0 ||
+combinado.indexOf("semi preso") >= 0 ||
+combinado.indexOf("coque") >= 0;
 let total = 0;
-// SERVIÇO COM +
-let partes =
-servicoCliente
-.split("+")
-.map(function(item){
-return item.trim();
-})
-.filter(Boolean);
-partes.forEach(function(parte){
-let encontrado =
-dadosSistema.servicos.find(
-function(servico){
-return (
-normalizarTexto(
-servico.nome
-)
-===
-parte
-);
-}
-);
-if(encontrado){
-total +=
-Number(
-encontrado.valor
-);
-}
-});
-// SE NÃO TEM +
-if(total === 0){
-let encontrado =
-dadosSistema.servicos.find(
-function(servico){
-return (
-normalizarTexto(
-servico.nome
-)
-===
-servicoCliente
-);
-}
-);
-if(encontrado){
-total =
-Number(
-encontrado.valor
-);
-}
-}
-return total || 0;
-}
+let itens = [];
+let pendente = false;
+let incompleto = false;
+if(temMaquiagem){
+const linha = fpLinhaPrecoUI("Maquiagem", "Maquiagem", "Todos", "Todos");
+if(!linha || linha.valorPendente || fpNormalizarPrecoUI(linha.tipoCalculo) === "avaliacao"){
+incompleto = true;
+}else{
+const valor = fpValorNumericoUI(linha.valor);
+if(valor === null){ incompleto = true; }
+else { total += valor; itens.push({nome:"Maquiagem", valor:valor}); } }}
+if(temPenteado){
+let variacao = "";
+if(combinado.indexOf("semi-preso") >= 0 || combinado.indexOf("semi preso") >= 0){
+variacao = "Semi-Preso";
+}else if(combinado.indexOf("coque") >= 0){
+
+variacao = "Coque"; }
+let cabelo = "";
+if(combinado.indexOf("cacheado") >= 0){
+cabelo = "Cacheado";
+}else if(combinado.indexOf("liso") >= 0){
+cabelo = "Liso";
+}else{
+/* Compatibilidade com respostas antigas que nao informavam o tipo:
+ o calculo antigo do sistema tratava ausencia de "cacheado" como liso. */
+cabelo = "Liso"; }
+if(!variacao){
+incompleto = true;
+}else{
+const linha = fpLinhaPrecoUI("Penteado", variacao, cabelo, "Todos");
+if(!linha || linha.valorPendente || fpNormalizarPrecoUI(linha.tipoCalculo) === "avaliacao"){
+incompleto = true;
+}else{
+const valor = fpValorNumericoUI(linha.valor);
+if(valor === null){ incompleto = true; }
+else{
+total += valor;
+itens.push({nome:variacao + " " + cabelo, valor:valor});
+if(tamanho === "Grande (G)" &&
+fpNormalizarPrecoUI(linha.regraAdicional).indexOf("+20") >= 0){
+total += 20;
+itens.push({nome:"Adicional cabelo grande", valor:20}); }}}}}
+if(temBabyliss){
+let cabelo = "";
+if(combinado.indexOf("cacheado") >= 0){
+cabelo = "Cacheado";
+}else if(combinado.indexOf("liso") >= 0){
+cabelo = "Liso";
+}else{
+cabelo = "Liso"; }
+if(!tamanho){
+incompleto = true;
+}else{
+const variacao = "Babyliss " + cabelo;
+const linha = fpLinhaPrecoUI("Babyliss", variacao, cabelo, tamanho);
+if(linha && (linha.valorPendente || fpNormalizarPrecoUI(linha.tipoCalculo) === "avaliacao")){
+pendente = true;
+}else if(!linha){
+incompleto = true;
+}else{
+const valor = fpValorNumericoUI(linha.valor);
+if(valor === null){ incompleto = true; }
+else{
+total += valor;
+itens.push({nome:variacao + " " + tamanho, valor:valor}); }}}}
+return {
+status: pendente ? "pendente" : (incompleto || itens.length === 0 ? "incompleto" : "ok"),
+valor: pendente || incompleto || itens.length === 0 ? null : Math.round(total * 100) / 100,
+subtotalConhecido: Math.round(total * 100) / 100,
+itens: itens
+};}
+
+function fpTextoPrecoUI(cliente){
+const resultado = fpCalcularPrecoUI(cliente);
+if(resultado.status === "pendente") return "A avaliar";
+if(resultado.status !== "ok") return "Preço indisponível";
+return formatarMoeda(resultado.valor); }
+// Mantem o nome da funcao usado pelo restante da agenda.
+function encontrarValorServico(cliente){
+const resultado = fpCalcularPrecoUI(cliente);
+return resultado.status === "ok" ? resultado.valor : 0; }
 // ============================================================
 // FORMATAR MOEDA
 // ============================================================
 function formatarMoeda(valor) {
 return Number(valor || 0)
 .toLocaleString(
-"pt-BR",
-{
+"pt-BR", {
 style: "currency",
-currency: "BRL"
-}
-);
-}
+currency: "BRL" }
+);}
 // ============================================================
 // DETALHES DO CLIENTE
 // ============================================================
@@ -744,9 +764,7 @@ modal.innerHTML = `
 <button
 type="button"
 id="fecharModalCliente"
-class="modal-fechar"
->
-×
+class="modal-fechar" >×
 </button>
 <h2>
 Detalhes do atendimento
@@ -761,8 +779,8 @@ modal
 );
 document
 .getElementById(
-"fecharModalCliente"
-)
+
+"fecharModalCliente" )
 .onclick =
 function () {
 modal.classList.remove(
@@ -777,11 +795,8 @@ event.target === modal
 ) {
 modal.classList.remove(
 "ativo"
-);
-}
-}
-);
-}
+);}}
+);}
 const conteudo =
 document.getElementById(
 "conteudoDetalhesCliente"
@@ -797,8 +812,7 @@ Cliente
 </strong>
 <span>
 ${
-cliente.nome || "-"
-}
+cliente.nome || "-" }
 </span>
 </div>
 <div class="detalhe-item">
@@ -807,8 +821,7 @@ Telefone
 </strong>
 <span>
 ${
-cliente.telefone || "-"
-}
+cliente.telefone || "-" }
 </span>
 </div>
 <div class="detalhe-item">
@@ -818,19 +831,17 @@ Data
 <span>
 ${
 formatarDataExibicao(
-cliente.data
-)
-}
+cliente.data )}
 </span>
 </div>
 <div class="detalhe-item">
+
 <strong>
 Horário
 </strong>
 <span>
 ${
-cliente.horario || "-"
-}
+cliente.horario || "-" }
 </span>
 </div>
 <div class="detalhe-item">
@@ -839,8 +850,7 @@ Horário final
 </strong>
 <span>
 ${
-cliente.horaFim || "-"
-}
+cliente.horaFim || "-" }
 </span>
 </div>
 <div class="detalhe-item">
@@ -849,8 +859,7 @@ Serviço
 </strong>
 <span>
 ${
-cliente.servico || "-"
-}
+cliente.servico || "-" }
 </span>
 </div>
 <div class="detalhe-item">
@@ -859,8 +868,7 @@ Tamanho do cabelo
 </strong>
 <span>
 ${
-cliente.tamanhoCabelo || "-"
-}
+cliente.tamanhoCabelo || "-" }
 </span>
 </div>
 <div class="detalhe-item">
@@ -869,8 +877,7 @@ Penteado
 </strong>
 <span>
 ${
-cliente.penteado || "-"
-}
+cliente.penteado || "-" }
 </span>
 </div>
 <div class="detalhe-item">
@@ -879,29 +886,26 @@ Bairro
 </strong>
 <span>
 ${
-cliente.bairro || "-"
-}
+cliente.bairro || "-" }
 </span>
 </div>
 <div class="detalhe-item">
 <strong>
+
 Localização
 </strong>
 ${
 localizacao
 ? `
 <a
+
 href="${localizacao}"
 target="_blank"
-rel="noopener noreferrer"
->
+rel="noopener noreferrer" >
 Abrir localização
-</a>
-`
+</a> `
 : `
-<span>-</span>
-`
-}
+<span>-</span> `}
 </div>
 <div class="detalhe-item">
 <strong>
@@ -911,15 +915,13 @@ Autorização de uso de imagem
 ${
 cliente.autorizacaoImagem ||
 cliente.autorizacao ||
-"-"
-}
+"-" }
 </span>
 </div>
 `;
 modal.classList.add(
 "ativo"
-);
-}
+);}
 // ============================================================
 // PREPARAR BOTÃO ADICIONAR
 // ============================================================
@@ -929,13 +931,11 @@ document.querySelector(
 ".add-agenda"
 );
 if (!area) {
-return;
-}
+return; }
 area.onclick =
 function () {
 abrirModalNovoAgendamento();
-};
-}
+};}
 // ============================================================
 // MODAL NOVO AGENDAMENTO
 // ============================================================
@@ -948,6 +948,7 @@ if (!modal) {
 modal =
 document.createElement(
 "div"
+
 );
 modal.id =
 "modalNovoAgendamento";
@@ -958,17 +959,14 @@ modal.innerHTML = `
 <button
 type="button"
 class="modal-fechar"
-id="fecharNovoAgendamento"
->
-×
+id="fecharNovoAgendamento" >×
 </button>
 <h2>
 Novo agendamento
 </h2>
 <form
 class="form-agendamento"
-id="formNovoAgendamento"
->
+id="formNovoAgendamento" >
 <label>
 Cliente
 </label>
@@ -976,109 +974,68 @@ Cliente
 type="text"
 id="novoCliente"
 placeholder="Nome da cliente"
-required
->
+required >
 <label>
 Telefone
 </label>
 <input
 type="tel"
 id="novoTelefone"
-placeholder="Telefone"
->
+placeholder="Telefone" >
 <label>
 Data
 </label>
 <input
 type="date"
 id="novoData"
-required
->
+required >
 <label>
 Hora inicial
 </label>
 <input
 type="time"
 id="novoHora"
-required
->
+required >
 <label>
 Hora final
 </label>
 <input
 type="time"
-id="novoHoraFim"
->
+id="novoHoraFim" >
 <label>
 Serviço
+
 </label>
 <select
 id="novoServico"
 required
 >
-<option value="">
-Selecione o serviço
-</option>
-<option value="Maquiagem">
-Maquiagem
-</option>
-<option value="Maquiagem + semi-preso">
-Maquiagem + Semi-Preso
-</option>
-<option value="Maquiagem + coque">
-Maquiagem + Coque
-</option>
-<option value="Maquiagem + babyliss pequeno">
-Maquiagem + Babyliss Pequeno
-</option>
-<option value="Maquiagem + babyliss médio">
-Maquiagem + Babyliss Médio
-</option>
-<option value="Maquiagem + babyliss grande">
-Maquiagem + Babyliss Grande
-</option>
+<option value="">Selecione o serviço</option>
+<option value="Maquiagem">Maquiagem</option>
+<option value="Babyliss">Babyliss</option>
+<option value="Penteado">Penteado</option>
+<option value="Maquiagem + Babyliss">Maquiagem + Babyliss</option>
+<option value="Maquiagem + Penteado">Maquiagem + Penteado</option>
 </select>
-<div
-id="campoTamanhoCabelo"
->
-<label>
-Tamanho do cabelo
-</label>
-<select
-id="novoTamanhoCabelo"
->
-<option value="">
-Selecione o tamanho
-</option>
-<option value="Pequeno (P)">
-Pequeno (P)
-</option>
-<option value="Médio (M)">
-Médio (M)
-</option>
-<option value="Grande (G)">
-Grande (G)
-</option>
+<div id="campoTamanhoCabelo" style="display:none;">
+<label for="novoTamanhoCabelo">Tamanho do cabelo</label>
+<select id="novoTamanhoCabelo">
+<option value="">Selecione o tamanho</option>
+<option value="Pequeno (P)">Pequeno (P)</option>
+<option value="Médio (M)">Médio (M)</option>
+<option value="Grande (G)">Grande (G)</option>
 </select>
 </div>
-<div
-id="campoPenteado"
->
-<label>
-Penteado
-</label>
-<select
-id="novoPenteado"
->
-<option value="">
-Selecione o penteado
-</option>
-<option value="Semi-Preso">
-Semi-Preso
-</option>
-<option value="Coque">
-Coque
-</option>
+<div id="campoPenteado" style="display:none;">
+<label for="novoPenteado">Tipo de penteado / Babyliss</label>
+<select id="novoPenteado">
+<option value="">Selecione uma opção</option>
+<option value="Coque Liso" data-categoria="penteado">Coque Liso</option>
+<option value="Coque Cacheado" data-categoria="penteado">Coque Cacheado</option>
+<option value="Semi-Preso Liso" data-categoria="penteado">Semi-Preso Liso</option>
+<option value="Semi-Preso Cacheado" data-categoria="penteado">Semi-Preso Cacheado</option>
+<option value="Babyliss Liso" data-categoria="babyliss">Babyliss Liso</option>
+<option value="Babyliss Cacheado" data-categoria="babyliss">Babyliss Cacheado</option>
 </select>
 </div>
 <label>
@@ -1087,24 +1044,22 @@ Bairro
 <input
 type="text"
 id="novoBairro"
-placeholder="Bairro"
->
+placeholder="Bairro" >
 <label>
 Localização
 </label>
 <input
 type="url"
 id="novoLocalizacao"
-placeholder="Link do Google Maps"
->
+placeholder="Link do Google Maps" >
 <label>
 Autorização de uso de imagem
 </label>
 <select
-id="novoAutorizacao"
->
+id="novoAutorizacao" >
 <option value="">
 Selecione
+
 </option>
 <option value="Sim, Autorizo">
 Sim, Autorizo
@@ -1115,8 +1070,7 @@ Não autorizo
 </select>
 <button
 type="submit"
-class="btn-salvar-agendamento"
->
+class="btn-salvar-agendamento" >
 Salvar agendamento
 </button>
 </form>
@@ -1127,8 +1081,7 @@ modal
 );
 document
 .getElementById(
-"fecharNovoAgendamento"
-)
+"fecharNovoAgendamento" )
 .onclick =
 function () {
 modal.classList.remove(
@@ -1143,12 +1096,9 @@ event.target === modal
 ) {
 modal.classList.remove(
 "ativo"
+);}}
 );
-}
-}
-);
-configurarFormularioNovoAgendamento();
-}
+configurarFormularioNovoAgendamento(); }
 document.getElementById(
 "novoData"
 ).value =
@@ -1157,105 +1107,63 @@ dataSelecionadaAgenda
 );
 modal.classList.add(
 "ativo"
-);
-}
+);}
 // ============================================================
 // CAMPOS DEPENDENTES DO SERVIÇO
 // ============================================================
 function configurarFormularioNovoAgendamento() {
-const servico =
-document.getElementById(
-"novoServico"
-);
-const campoTamanho =
-document.getElementById(
-"campoTamanhoCabelo"
-);
-const campoPenteado =
-document.getElementById(
-"campoPenteado"
-);
-if (!servico) {
+const servico = document.getElementById("novoServico");
+const campoTamanho = document.getElementById("campoTamanhoCabelo");
+const campoPenteado = document.getElementById("campoPenteado");
+
+const tamanho = document.getElementById("novoTamanhoCabelo");
+const detalhe = document.getElementById("novoPenteado");
+if (!servico || !campoTamanho || !campoPenteado || !tamanho || !detalhe) {
 return;
 }
-servico.addEventListener(
-"change",
-function () {
-const valor =
-servico.value
-.toLowerCase();
-const tamanho =
-document.getElementById(
-"novoTamanhoCabelo"
-);
-const penteado =
-document.getElementById(
-"novoPenteado"
-);
-// ==========================
-// SOMENTE MAQUIAGEM
-// ==========================
-if(
-valor === "maquiagem"
-){
-campoTamanho.style.display =
-"none";
-campoPenteado.style.display =
-"none";
-tamanho.value =
-"";
-penteado.value =
-"";
+// Evita registrar o mesmo evento mais de uma vez.
+if (servico.dataset.configurado === "sim") {
+atualizarCamposServico();
+return;
 }
-// ==========================
-// SEMI-PRESO OU COQUE
-// ==========================
-else if(
-valor.includes("semi-preso")
-||
-valor.includes("coque")
-){
-campoTamanho.style.display =
-"block";
-campoPenteado.style.display =
-"block";
-if(
-valor.includes("semi-preso")
-){
-penteado.value =
-"Semi-Preso";
+servico.dataset.configurado = "sim";
+function atualizarCamposServico() {
+const valor = String(servico.value || "").toLowerCase();
+const temBabyliss = valor.includes("babyliss");
+const temPenteado = valor.includes("penteado");
+const temEstilo = temBabyliss || temPenteado;
+const soMaquiagem = valor === "maquiagem";
+campoTamanho.style.display = temEstilo ? "block" : "none";
+campoPenteado.style.display = temEstilo ? "block" : "none";
+tamanho.required = temEstilo;
+detalhe.required = temEstilo;
+if (!temEstilo || soMaquiagem) {
+tamanho.value = "";
+detalhe.value = "";
 }
-if(
-valor.includes("coque")
-){
-penteado.value =
-"Coque";
+Array.from(detalhe.options).forEach(function(opcao) {
+if (!opcao.value) {
+opcao.hidden = false;
+opcao.disabled = false;
+return;
+}
+const categoria = opcao.dataset.categoria || "";
+const mostrar = (temBabyliss && categoria === "babyliss") ||
+(temPenteado && categoria === "penteado");
+opcao.hidden = !mostrar;
+opcao.disabled = !mostrar;
+});
+if (detalhe.selectedOptions.length &&
+detalhe.selectedOptions[0].disabled) {
+detalhe.value = "";
 }
 }
-// ==========================
-// BABYLISS
-// ==========================
-else if(
-valor.includes("babyliss")
-){
-campoTamanho.style.display =
-"block";
-campoPenteado.style.display =
-"none";
-penteado.value =
-"";
-}
-else {
-campoTamanho.style.display =
-"none";
-campoPenteado.style.display =
-"none";
-}
-}
-);
+servico.addEventListener("change", atualizarCamposServico);
+atualizarCamposServico();
 }
 // ============================================================
 // SALVAR NOVO AGENDAMENTO
+
 // ============================================================
 function configurarSalvarFormulario() {
 const form =
@@ -1263,13 +1171,11 @@ document.getElementById(
 "formNovoAgendamento"
 );
 if (!form) {
-return;
-}
+return; }
 // Evita registrar o evento de salvar várias vezes
 // quando o modal é recriado pelo sistema
 if(form.dataset.configurado){
-return;
-}
+return; }
 form.dataset.configurado = "sim";
 form.addEventListener(
 "submit",
@@ -1313,6 +1219,7 @@ document.getElementById(
 "novoPenteado"
 ).value,
 bairro:
+
 document.getElementById(
 "novoBairro"
 ).value.trim(),
@@ -1330,20 +1237,12 @@ true;
 botao.textContent =
 "Salvando...";
 try {
-/*
-* IMPORTANTE:
-*
-* O seu Apps Script atual possui
-* apenas doGet().
-*
-* Portanto, esta parte só funcionará
-* depois que adicionarmos um doPost()
-* ao Apps Script.
-*/
+/* Envia os dados para a API do Flow Pro.
+ A coluna Serviço guarda a categoria escolhida; a coluna Penteado
+ guarda a opção detalhada (Coque Liso, Babyliss Cacheado etc.). */
 const resposta =
 await fetch(
-API_AGENDA,
-{
+API_AGENDA, {
 method: "POST",
 headers: {
 "Content-Type":
@@ -1351,9 +1250,7 @@ headers: {
 },
 body:
 JSON.stringify(
-agendamento
-)
-}
+agendamento )}
 );
 const resultado =
 await resposta.json();
@@ -1366,8 +1263,7 @@ alert(
 );
 document
 .getElementById(
-"modalNovoAgendamento"
-)
+"modalNovoAgendamento" )
 .classList.remove(
 "ativo"
 );
@@ -1378,8 +1274,8 @@ typeof carregarDados ===
 await carregarDados();
 document.dispatchEvent(
 new Event("dadosCarregados")
-);
-}
+);}
+
 } else {
 throw new Error(
 resultado &&
@@ -1394,42 +1290,38 @@ console.error(
 erro
 );
 alert(
-"O formulário está pronto, mas o Apps Script ainda precisa receber afunção de gravação."
+"Não foi possível salvar o agendamento. Confira a conexão com a API e tente novamente."
 );
 } finally {
 botao.disabled =
 false;
 botao.textContent =
-"Salvar agendamento";
-}
-}
-);
-}
+"Salvar agendamento"; }}
+);}
 // ============================================================
 // OBSERVAR CRIAÇÃO DO MODAL
 // ============================================================
 const observadorAgenda =
 new MutationObserver(
 function () {
-configurarSalvarFormulario();
-}
+configurarSalvarFormulario(); }
 );
 observadorAgenda.observe(
-document.body,
-{
+document.body, {
 childList: true,
-subtree: true
-}
+subtree: true }
 );
 // ============================================================
 // MODAL EDITAR CLIENTE
 // ============================================================
-function editarClienteAgenda(id){
-const cliente = pegarClientePorIdAgenda(id);
-clienteEditandoAgenda = cliente;
+function editarClienteAgenda(clienteOuId){
+const cliente = (clienteOuId && typeof clienteOuId === "object")
+? clienteOuId
+: pegarClientePorIdAgenda(clienteOuId);
 if(!cliente){
-return;
-}
+return; }
+const id = cliente.id || "";
+clienteEditandoAgenda = cliente;
 let modal =
 document.getElementById("modalEditarAgenda");
 if(!modal){
@@ -1439,9 +1331,12 @@ modal.className="modal-detalhes-cliente";
 modal.innerHTML=`
 <div class="modal-conteudo">
 <button class="modal-fechar" id="fecharEditarAgenda">×</button>
+
 <h2>Editar agendamento</h2>
 <form id="formEditarAgenda">
 <input id="editarId" type="hidden">
+<input id="editarOrigem" type="hidden">
+<input id="editarLinhaPlanilha" type="hidden">
 <label>Cliente</label>
 <input id="editarNome">
 <label>Telefone</label>
@@ -1466,9 +1361,10 @@ document.body.appendChild(modal);
 document.getElementById("fecharEditarAgenda").onclick=function(){
 modal.classList.remove("ativo");
 };
-configurarFormularioEditarAgenda();
-}
+configurarFormularioEditarAgenda(); }
 document.getElementById("editarId").value=cliente.id || id;
+document.getElementById("editarOrigem").value=cliente.origem || "";
+document.getElementById("editarLinhaPlanilha").value=cliente.linhaPlanilha || "";
 document.getElementById("editarNome").value=cliente.nome || "";
 document.getElementById("editarTelefone").value=cliente.telefone || "";
 document.getElementById("editarData").value=normalizarData(cliente.data);
@@ -1476,21 +1372,23 @@ document.getElementById("editarHorario").value=cliente.horario || "";
 document.getElementById("editarServico").value=cliente.servico || "";
 document.getElementById("editarBairro").value=cliente.bairro || "";
 document.getElementById("editarLocalizacao").value=cliente.localizacao || "";
-modal.classList.add("ativo");
-}
+modal.classList.add("ativo"); }
 function configurarFormularioEditarAgenda(){
 const form=document.getElementById("formEditarAgenda");
 if(!form || form.dataset.configurado){
-return;
-}
+return; }
 form.dataset.configurado="sim";
 form.addEventListener("submit",async function(e){
 e.preventDefault();
+try {
 const dados={
 acao:"editar",
 id:document.getElementById("editarId").value,
+origem:document.getElementById("editarOrigem").value || clienteEditandoAgenda?.origem || "",
+linhaPlanilha:Number(document.getElementById("editarLinhaPlanilha").value) || clienteEditandoAgenda?.linhaPlanilha || null,
 nome:document.getElementById("editarNome").value,
 telefone:document.getElementById("editarTelefone").value,
+
 data:document.getElementById("editarData").value,
 horario:document.getElementById("editarHorario").value,
 horaFim: clienteEditandoAgenda?.horaFim || "",
@@ -1502,28 +1400,37 @@ clienteEditandoAgenda?.autorizacao || "",
 bairro:document.getElementById("editarBairro").value,
 localizacao:document.getElementById("editarLocalizacao").value
 };
-await fetch(API_AGENDA,{
+const resposta = await fetch(API_AGENDA,{
 method:"POST",
 headers:{
 "Content-Type":"text/plain;charset=utf-8"
 },
 body:JSON.stringify(dados)
 });
+const resultado = await resposta.json();
+if(!resultado || !resultado.sucesso){
+throw new Error(resultado && resultado.erro ? resultado.erro : "Não foi possível editar o agendamento.");
+}
 document.getElementById("modalEditarAgenda").classList.remove("ativo");
 if(typeof carregarDados==="function"){
 await carregarDados();
 document.dispatchEvent(new Event("dadosCarregados"));
 }
-});
+} catch(erro) {
+console.error("Erro ao editar agendamento:", erro);
+alert("Não foi possível salvar as alterações. Confira a origem do agendamento e tente novamente.");
 }
+}); }
 // ============================================================
 // MODAL EXCLUIR CLIENTE
 // ============================================================
-function excluirClienteAgenda(id){
-const cliente=pegarClientePorIdAgenda(id);
+function excluirClienteAgenda(clienteOuId){
+const cliente = (clienteOuId && typeof clienteOuId === "object")
+? clienteOuId
+: pegarClientePorIdAgenda(clienteOuId);
 if(!cliente){
-return;
-}
+return; }
+const id = cliente.id || "";
 let modal=document.getElementById("modalExcluirAgenda");
 if(!modal){
 modal=document.createElement("div");
@@ -1538,12 +1445,12 @@ modal.innerHTML=`
 Cancelar
 </button>
 <button id="confirmarExcluirAgenda">
+
 Excluir
 </button>
 </div>
 </div>`;
-document.body.appendChild(modal);
-}
+document.body.appendChild(modal); }
 document.getElementById("textoExcluirAgenda").textContent =
 "Deseja excluir "+cliente.nome+"?";
 modal.classList.add("ativo");
@@ -1551,39 +1458,51 @@ document.getElementById("cancelarExcluirAgenda").onclick=function(){
 modal.classList.remove("ativo");
 };
 document.getElementById("confirmarExcluirAgenda").onclick=async function(){
-await fetch(API_AGENDA,{
+try {
+const resposta = await fetch(API_AGENDA,{
 method:"POST",
 headers:{
 "Content-Type":"text/plain;charset=utf-8"
 },
 body:JSON.stringify({
 acao:"excluir",
-id:id
+id:id,
+origem:cliente.origem || "",
+linhaPlanilha:cliente.linhaPlanilha || null
 })
 });
-modal.classList.remove("ativo");
-if(typeof dadosSistema !== "undefined" && dadosSistema.agendamentos){
-dadosSistema.agendamentos =
-dadosSistema.agendamentos.filter(function(cliente){
-return String(cliente.id) !== String(id);
-});
+const resultado = await resposta.json();
+if(!resultado || !resultado.sucesso){
+throw new Error(resultado && resultado.erro ? resultado.erro : "Não foi possível excluir o agendamento.");
 }
+modal.classList.remove("ativo");
+if(typeof carregarDados === "function"){
+await carregarDados();
+document.dispatchEvent(new Event("dadosCarregados"));
+}else if(typeof dadosSistema !== "undefined" && dadosSistema.agendamentos){
+dadosSistema.agendamentos = dadosSistema.agendamentos.filter(function(item){
+if(item === cliente) return false;
+const mesmaOrigem = String(item.origem || "") === String(cliente.origem || "");
+const mesmaLinha = Number(item.linhaPlanilha || 0) === Number(cliente.linhaPlanilha || 0);
+if(mesmaOrigem && cliente.linhaPlanilha && mesmaLinha) return false;
+return !(mesmaOrigem && String(item.id || "") === String(id || "") && !cliente.linhaPlanilha);
+});
 mostrarAgendamentosDoDia(dataSelecionadaAgenda);
 atualizarResumoDia(dataSelecionadaAgenda);
-if(typeof atualizarCardsInicio==="function"){
-atualizarCardsInicio();
+if(typeof atualizarCardsInicio==="function") atualizarCardsInicio();
+if(typeof carregarAgendaHoje==="function") carregarAgendaHoje();
+if(typeof carregarProximoAtendimento==="function") carregarProximoAtendimento();
 }
-if(typeof carregarAgendaHoje==="function"){
-carregarAgendaHoje();
-}
-if(typeof carregarProximoAtendimento==="function"){
-carregarProximoAtendimento();
+} catch(erro) {
+console.error("Erro ao excluir agendamento:", erro);
+alert("Não foi possível excluir o agendamento. Confira os dados e tente novamente.");
 }
 };
 }
 // ============================================================
 // INICIALIZAÇÃO FINAL
 // ============================================================
+
 setTimeout(
 function () {
 configurarBotaoCalendario();

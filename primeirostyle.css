@@ -1,3 +1,4 @@
+
 /* ==========================
 RESET
 ========================== */
@@ -58,8 +59,8 @@ SIDEBAR
  margin-right:12px;
 }
 .sidebar li:hover{
- background:rgba(255,255,255,.15);
-}
+
+ background:rgba(255,255,255,.15); }
 .sidebar button{
  margin-top:40px;
  width:100%;
@@ -68,42 +69,35 @@ SIDEBAR
  border-radius:12px;
  background:white;
  color:var(--primary);
- font-weight:bold;
-}
+ font-weight:bold; }
 /* ==========================
 MAIN
 ========================== */
 .main{
  flex:1;
- padding:35px;
-}
+ padding:35px; }
 header h1{
  font-size:32px;
- margin-bottom:8px;
-}
+ margin-bottom:8px; }
 header p{
  color:var(--gray);
- margin-bottom:30px;
-}
+ margin-bottom:30px; }
 /* ==========================
 CARDS TOPO
 ========================== */
 .cards{
  display:grid;
  grid-template-columns:repeat(4,1fr);
- gap:20px;
-}
+ gap:20px; }
 .card{
  background:white;
  padding:22px;
  border-radius:16px;
- box-shadow:var(--shadow);
-}
+ box-shadow:var(--shadow); }
 .card-top{
  display:flex;
  align-items:center;
- gap:15px;
-}
+ gap:15px; }
 .card i{
  width:45px;
  height:45px;
@@ -112,17 +106,15 @@ CARDS TOPO
  align-items:center;
  justify-content:center;
  background:#F8E8EF;
- color:var(--primary);
-}
+ color:var(--primary); }
 .card h3{
  font-size:13px;
- color:#777;
-}
+ color:#777; }
+
 .card p{
  font-size:20px;
  font-weight:bold;
- color:var(--primary);
-}
+ color:var(--primary); }
 /* ==========================
 AGENDA + CALENDÁRIO
 ========================== */
@@ -131,77 +123,65 @@ AGENDA + CALENDÁRIO
  grid-template-columns:3fr 1fr;
  gap:25px;
  margin-top:30px;
- align-items:start;
-}
+ align-items:start; }
 /* AGENDA */
 .agenda-title{
  display:flex;
  justify-content:space-between;
  align-items:center;
  margin-bottom:20px;
- margin-left: 15px;
-}
+ margin-left: 15px; }
 .agenda-title h2{
- font-size:18px;
-}
+ font-size:18px; }
 .agenda-title p{
  font-size:12px;
- color:#777;
-}
+ color:#777; }
 .agenda-actions{
  display:flex;
  gap:8px;
  margin-right:25px; /* move para esquerda */
- margin-top:10px; /* move para baixo */
-}
+ margin-top:10px; /* move para baixo */ }
 .agenda-actions button{
  height:25px;
  padding:0 15px;
  border-radius:10px;
  border:1px solid #eee;
  background:white;
- color:var(--primary);
-}
+ color:var(--primary); }
 .item{
  display:grid;
  grid-template-columns:60px 190px 190px 90px;
  align-items:center;
  gap:15px;
  padding:20px 0;
- border-bottom:1px solid #eee;
-}
+ border-bottom:1px solid #eee; }
 .horario{
  color:var(--primary);
- font-weight:bold;
-}
+ font-weight:bold; }
 .cliente{
  display:flex;
  align-items:center;
  gap:10px;
+
 }
 .cliente img{
  width:40px;
  height:40px;
  border-radius:50%;
- object-fit:cover;
-}
+ object-fit:cover; }
 .cliente h3{
- font-size:14px;
-}
+ font-size:14px; }
 .cliente p{
  font-size:12px;
- color:#777;
-}
+ color:#777; }
 .servicos{
  display:flex;
  flex-direction:column;
- gap:8px;
-}
+ gap:8px; }
 .servico{
  font-size:13px;
  position:relative;
- padding-left:15px;
-}
+ padding-left:15px; }
 .servico:before{
  content:"";
  width:7px;
@@ -210,73 +190,58 @@ AGENDA + CALENDÁRIO
  position:absolute;
  left:0;
  top:50%;
- transform:translateY(-50%);
-}
+ transform:translateY(-50%); }
 .maquiagem:before{
- background:#C94F7C;
-}
+ background:#C94F7C; }
 .penteado:before{
- background:#D9A441;
-}
+ background:#D9A441; }
 .financeiro{
  display:flex;
  flex-direction:column;
- gap:8px;
-}
+ gap:8px; }
 .status{
  padding:5px 10px;
  border-radius:20px;
  font-size:11px;
- text-align:center;
-}
+ text-align:center; }
 .confirmado{
  background:#E8F5E9;
- color:#6FA56F;
-}
+ color:#6FA56F; }
 /* ==========================
 CALENDÁRIO
 ========================== */
 .calendar-box{
  background:white;
+
  padding:20px;
  border-radius:18px;
  box-shadow:var(--shadow);
- width:340px;
-}
+ width:340px; }
 .calendar-box h2{
  font-size:20px;
- margin-bottom:15px;
-}
+ margin-bottom:15px; }
 #calendar{
- width:100%;
-}
+ width:100%; }
 .fc-toolbar-title{
  font-size:18px!important;
- color:var(--primary);
-}
+ color:var(--primary); }
 .fc-button-primary{
  background:var(--primary)!important;
- border-color:var(--primary)!important;
-}
+ border-color:var(--primary)!important; }
 .fc-button{
  padding:5px 6px!important;
- font-size:10px!important;
-}
+ font-size:10px!important; }
 .fc-col-header-cell{
  height:35px!important;
- width:40px!important;
-}
+ width:40px!important; }
 .fc-col-header-cell-cushion{
 padding:8px 0!important;
-font-size:15px!important;
-}
+font-size:15px!important; }
 .fc-daygrid-day-number{
 font-size:15px!important;
-padding:0px!important;
-}
+padding:0px!important; }
 .fc-daygrid-day-frame{
-min-height:30px!important;
-}
+min-height:30px!important; }
 /* ==========================
 WIDGETS INFERIORES
 ========================== */
@@ -284,20 +249,18 @@ WIDGETS INFERIORES
  display:grid;
  grid-template-columns:1fr 1fr;
  gap:25px;
- margin-top:25px;
-}
+ margin-top:25px; }
 /* PRÓXIMO */
 .next-box{
  background:white;
  padding:20px;
  border-radius:18px;
- box-shadow:var(--shadow);
-}
+ box-shadow:var(--shadow); }
 .next-header{
  display:flex;
  align-items:center;
- gap:10px;
-}
+ gap:10px; }
+
 .clock-icon{
  width:25px;
  height:25px;
@@ -306,39 +269,30 @@ WIDGETS INFERIORES
  display:flex;
  justify-content:center;
  align-items:center;
- color:var(--primary);
-}
+ color:var(--primary); }
 .next-hour{
- margin-top:20px;
-}
+ margin-top:20px; }
 .next-hour h1{
- font-size:30px;
-}
+ font-size:30px; }
 .next-hour span{
  font-size:12px;
- color:#777;
-}
+ color:#777; }
 .next-client{
  display:flex;
  align-items:center;
  gap:10px;
- margin-top:20px;
-}
+ margin-top:20px; }
 .next-client img{
  width:42px;
  height:42px;
- border-radius:50%;
-}
+ border-radius:50%; }
 .client-info{
- flex:1;
-}
+ flex:1; }
 .client-info h4{
- font-size:14px;
-}
+ font-size:14px; }
 .client-info p{
  font-size:11px;
- color:#777;
-}
+ color:#777; }
 .next-button{
  margin-top:20px;
  width:160px;
@@ -346,21 +300,19 @@ WIDGETS INFERIORES
  border:none;
  border-radius:10px;
  background:var(--primary);
- color:white;
-}
+ color:white; }
 /* RESUMO */
 .monthly-summary{
  background:white;
  padding:20px;
  border-radius:18px;
- box-shadow:var(--shadow);
-}
+ box-shadow:var(--shadow); }
 .summary-header{
  display:flex;
  align-items:center;
+
  gap:10px;
- margin-bottom:20px;
-}
+ margin-bottom:20px; }
 .summary-icon{
  width:25px;
  height:25px;
@@ -369,55 +321,44 @@ WIDGETS INFERIORES
  border-radius:50%;
  display:flex;
  align-items:center;
- justify-content:center;
-}
+ justify-content:center; }
 .summary-item{
  display:flex;
  justify-content:space-between;
  padding:14px 0;
- border-bottom:1px solid #eee;
-}
+ border-bottom:1px solid #eee; }
 .summary-item span{
  color:#777;
- font-size:12px;
-}
+ font-size:12px; }
 .summary-item strong{
- font-size:14px;
-}
+ font-size:14px; }
 .report-button{
  margin-top:18px;
  width:100%;
  border:none;
  background:none;
  color:var(--primary);
- font-weight:bold;
-}
+ font-weight:bold; }
 /* ==========================
 RESPONSIVO
 ========================== */
 @media(max-width:1200px){
 .cards{
-grid-template-columns:repeat(2,1fr);
-}
+grid-template-columns:repeat(2,1fr); }
 .main-dashboard{
-grid-template-columns:1fr;
-}
-}
+grid-template-columns:1fr; }}
 @media(max-width:900px){
 .sidebar{
-display:none;
-}
+display:none; }
 .cards,
 .widgets-row,
 .reports-row{
-grid-template-columns:1fr;
-}
+grid-template-columns:1fr; }
 .item{
-grid-template-columns:1fr;
-}
-}
+grid-template-columns:1fr; }}
 /* =====================================
 LOCALIZAÇÃO - BOTÃO MAPS/WAZE
+Flow Pro • Página 8
 FLOW PRO
 ===================================== */
 .btn-localizacao{
@@ -434,8 +375,185 @@ FLOW PRO
  font-size:13px;
  font-weight:700;
  text-decoration:none !important;
- transition:.2s;
-}
+ transition:.2s; }
 .btn-localizacao:hover{
- background:#efd4df;
+ background:#efd4df; }
+/* ==========================================================
+ FLOW PRO — TELA CLIENTES (HTML simplificado)
+ Estilos isolados: não alteram as telas Início e Agenda.
+ ========================================================== */
+#clientes .clientes-header-mobile {
+ display: flex;
+ align-items: center;
+ gap: 12px;
+ margin-bottom: 24px; }
+#clientes .clientes-header-mobile h1 {
+ margin: 0;
+ color: var(--primary, #6B304F);
+ font-size: 30px;
+ line-height: 1.2; }
+#clientes .clientes-header-mobile .menu-button {
+ display: none; }
+#clientes .search-client {
+ display: flex;
+ align-items: center;
+ gap: 12px;
+ width: 100%;
+ max-width: 680px;
+ min-height: 54px;
+ margin: 0 0 24px;
+ padding: 0 18px;
+ background: var(--card, #fff);
+ border: 1px solid #eee5e9;
+ border-radius: 14px;
+ box-shadow: 0 5px 18px rgba(50, 20, 36, 0.04);
+ color: var(--primary, #6B304F); }
+
+#clientes .search-client i {
+ flex: 0 0 auto;
+ font-size: 17px; }
+#clientes .search-client input {
+ width: 100%;
+ min-width: 0;
+ min-height: 50px;
+ padding: 12px 0;
+ border: 0;
+ outline: 0;
+ background: transparent;
+ color: var(--text, #252525);
+ font: inherit;
+ font-size: 14px; }
+#clientes .search-client input::placeholder {
+ color: #999099; }
+#clientes .search-client:focus-within {
+ border-color: var(--primary-light, #B76E8A);
+ box-shadow: 0 0 0 3px rgba(183, 110, 138, 0.13); }
+#clientes .client-summary {
+ display: grid;
+ grid-template-columns: repeat(2, minmax(0, 1fr));
+ gap: 18px;
+ margin: 0 0 28px; }
+#clientes .client-card {
+ display: grid;
+ grid-template-columns: 46px minmax(0, 1fr);
+ grid-template-rows: auto auto;
+ align-items: center;
+ column-gap: 14px;
+ row-gap: 5px;
+ min-height: 104px;
+ padding: 20px;
+ background: var(--card, #fff);
+ border: 1px solid #f0e8ec;
+ border-radius: var(--radius, 18px);
+ box-shadow: var(--shadow, 0 8px 25px rgba(0,0,0,.05)); }
+#clientes .client-card > i {
+ grid-column: 1;
+ grid-row: 1 / span 2;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ width: 44px;
+ height: 44px;
+ border-radius: 50%;
+ background: #F8E8EF;
+ color: var(--primary, #6B304F);
+
+ font-size: 17px; }
+#clientes .client-card > span {
+ grid-column: 2;
+ align-self: end;
+ color: var(--gray, #777);
+ font-size: 13px;
+ line-height: 1.35; }
+#clientes .client-card > strong {
+ grid-column: 2;
+ align-self: start;
+ color: var(--primary, #6B304F);
+ font-size: 25px;
+ line-height: 1.15;
+ font-weight: 750; }
+#clientes .client-list {
+ display: flex;
+ flex-direction: column;
+ gap: 10px;
+ width: 100%; }
+#clientes .client-result {
+ display: flex;
+ align-items: center;
+ width: 100%;
+ min-height: 76px;
+ padding: 17px 20px;
+ background: var(--card, #fff);
+ border: 1px solid #f0e8ec;
+ border-radius: 14px;
+ box-shadow: 0 4px 14px rgba(50, 20, 36, 0.035);
+ transition: border-color .18s ease, box-shadow .18s ease; }
+#clientes .client-result:hover {
+ border-color: #e4c5d3;
+ box-shadow: 0 6px 18px rgba(50, 20, 36, 0.07); }
+#clientes .client-data {
+ min-width: 0; }
+#clientes .client-name {
+ margin: 0 0 5px;
+ color: var(--text, #252525);
+ font-size: 15px;
+ line-height: 1.35;
+ font-weight: 700;
+ overflow-wrap: anywhere; }
+#clientes .client-phone {
+ margin: 0;
+
+ color: var(--gray, #777);
+ font-size: 13px;
+ line-height: 1.4;
+ overflow-wrap: anywhere; }
+#clientes .client-empty-state {
+ margin: 0;
+ padding: 24px 20px;
+ color: var(--gray, #777);
+ background: var(--card, #fff);
+ border: 1px dashed #e5d7de;
+ border-radius: 14px;
+ text-align: center;
+ font-size: 14px;
+ line-height: 1.5; }
+/* Ajustes responsivos exclusivos da tela Clientes */
+@media (max-width: 900px) {
+ #clientes .clientes-header-mobile .menu-button {
+ display: inline-flex;
+ align-items: center;
+ justify-content: center;
+ width: 42px;
+ height: 42px;
+ border: 0;
+ border-radius: 12px;
+ background: #F8E8EF;
+ color: var(--primary, #6B304F);
+ cursor: pointer;
+ }
+ #clientes .clientes-header-mobile h1 {
+ font-size: 26px;
+ } }
+@media (max-width: 600px) {
+ #clientes .client-summary {
+ grid-template-columns: 1fr;
+ gap: 12px;
+ }
+ #clientes .client-card {
+ min-height: 92px;
+ padding: 16px;
+ }
+ #clientes .search-client {
+ min-height: 50px;
+ margin-bottom: 18px;
+ padding: 0 14px;
+ }
+ #clientes .search-client input {
+ font-size: 13px;
+ }
+ #clientes .client-result {
+
+ min-height: 70px;
+ padding: 15px;
+ }
 }
