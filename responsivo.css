@@ -1,4 +1,3 @@
-
 /* ==========================
 MENU MOBILE INFERIOR
 ========================== */
@@ -57,7 +56,6 @@ HOME MOBILE - AGENDA PRO
 ===================================== */
 .pagina{
 display:none;
-
 }
 .pagina.ativa{
 display:block; }
@@ -105,7 +103,6 @@ margin-bottom:5px; }
 color:var(--gray);
 font-size:15px; }
 /* =====================================
-
 CARDS HOME
 ===================================== */
 .cards-home{
@@ -156,7 +153,6 @@ display:flex;
 justify-content:space-between;
 align-items:center;
 margin-bottom:20px;
-
 }
 .agenda-header h2{
 font-size:18px; }
@@ -203,7 +199,6 @@ padding:4px 9px;
 border-radius:20px;
 font-size:10px; }
 .confirmado{
-
 background:#E8F5E9;
 color:#6FA56F; }
 .pendente{
@@ -305,7 +300,6 @@ font-family:inherit;
 font-size:13px;
 font-weight:600;
 cursor:pointer;
-
 transition:
 background .2s ease,
 transform .1s ease; }
@@ -357,7 +351,6 @@ top:14px;
 right:16px;
 width:32px;
 height:32px;
-
 border:none;
 background:transparent;
 font-size:28px;
@@ -408,7 +401,6 @@ align-items:center;
 gap:10px;
 font-size:17px;
 margin:0;
-
 }
 .next-appointment h3 span{
 color:var(--primary);
@@ -457,7 +449,6 @@ font-weight:bold;
 cursor:pointer;
 position:relative;
 z-index:5; }
-
 /* =====================================
 MODAL DETALHES
 ===================================== */
@@ -510,7 +501,6 @@ align-items:center;
 justify-content:space-between;
 border-radius:0 0 25px 25px; }
 .agenda-header-mobile h1{
-
 font-size:22px; }
 .agenda-header-mobile button{
 border:none;
@@ -561,7 +551,6 @@ width:100%;
 background:#fff;
 border-radius:18px;
 padding:16px;
-
 box-sizing:border-box; }
 .calendar-agenda-header{
 display:flex;
@@ -611,7 +600,6 @@ gap:5px; }
 .calendar-day{
 position:relative;
 width:100%;
-
 height:34px;
 padding:0;
 border:none;
@@ -663,7 +651,6 @@ justify-content:space-between;
 align-items:center;
 gap:8px;
 margin-bottom:15px;
-
 }
 .clientes-dia-header h2{
 margin:0;
@@ -711,7 +698,6 @@ font-size:14px; }
 /* =====================================
 CLIENTE AGENDA JS
 ===================================== */
-
 .cliente-agenda-dia{
 display:grid;
 grid-template-columns:
@@ -762,7 +748,6 @@ font-size:10px;
 font-weight:700;
 cursor:pointer; }
 .btn-detalhes-agenda:active{
-
 transform:scale(.98); }
 .agenda-sem-clientes{
 padding:25px 10px;
@@ -810,7 +795,6 @@ color:#777;
 font-weight:bold; }
 .week-numbers{
 margin-top:15px; }
-
 .week-numbers span{
 display:flex;
 align-items:center;
@@ -860,7 +844,6 @@ LISTA DE AGENDAMENTOS
 width:100%; }
 .appointments{
 display:flex;
-
 flex-direction:column;
 gap:8px; }
 .appointment-card{
@@ -909,7 +892,6 @@ display:flex;
 align-items:center;
 gap:10px;
 background:white;
-
 border-radius:18px;
 padding:18px;
 margin-top:20px;
@@ -959,7 +941,6 @@ FORMULÁRIO NOVO AGENDAMENTO
 padding-bottom:24px; }
 .form-agendamento{
 display:flex;
-
 flex-direction:column;
 gap:7px; }
 .form-agendamento label{
@@ -1010,7 +991,6 @@ margin-bottom:15px; }
 #calendarAgenda{
 padding:14px;
 border-radius:18px; }
-
 .calendar-agenda-header{
 margin-bottom:13px; }
 .calendar-agenda-header strong{
@@ -1054,7 +1034,6 @@ max-height:92vh;
 padding:20px;
 border-radius:18px; }
 .modal-detalhes-cliente .modal-conteudo h2{
-
 font-size:19px; }
 #modalAgendaHoje,
 #modalDetalhesCliente{
@@ -1101,7 +1080,6 @@ align-items:center;
 justify-content:center; }
 .search-client{
 background:white;
-
 height:55px;
 border-radius:15px;
 box-shadow:var(--shadow);
@@ -1151,7 +1129,6 @@ border-radius:15px;
 box-shadow:var(--shadow);
 padding:15px 5px;
 text-align:center; }
-
 .client-card i{
 width:35px;
 height:35px;
@@ -1200,7 +1177,6 @@ display:flex;
 gap:10px;
 align-items:center;
 flex-wrap:wrap; }
-
 .client-history span{
 font-size:11px;
 color:#777; }
@@ -1248,7 +1224,6 @@ margin-bottom:20px;
 box-shadow:var(--shadow); }
 .finance-tabs button{
 border:none;
-
 background:none;
 color:#777;
 font-weight:bold;
@@ -1298,7 +1273,6 @@ display:block;
 font-size:25px;
 color:#4C8B45; }
 .faturamento-card span{
-
 font-size:12px;
 color:#4C8B45; }
 .grafico-faturamento{
@@ -1348,7 +1322,6 @@ align-items:center;
 padding:15px 0;
 border-bottom:1px solid #eee; }
 .servico-item:last-child{
-
 border-bottom:none; }
 .servico-item span{
 font-size:14px; }
@@ -1395,7 +1368,6 @@ align-items:center;
 justify-content:space-between;
 gap:10px; }
 .grafico-faturamento h2{
-
 font-size:17px;
 color:var(--text); }
 .section-title button{
@@ -1445,7 +1417,6 @@ z-index:99999; }
 #modalHomeDetalhes.ativo,
 #modalHomeEditar.ativo{
 display:flex;
-
 }
 #modalHomeDetalhes .modal-conteudo,
 #modalHomeEditar .modal-conteudo{
@@ -1498,7 +1469,6 @@ font-size:14px;
 outline:none; }
 #modalHomeEditar input:focus,
 #modalHomeEditar select:focus{
-
 border-color:var(--primary); }
 #modalHomeEditar button{
 width:100%;
@@ -1550,7 +1520,6 @@ background:rgba(0,0,0,.45);
 display:none;
 align-items:center;
 justify-content:center;
-
 padding:15px;
 z-index:99999; }
 #modalHomeDetalhes.ativo,
@@ -1603,7 +1572,6 @@ font-weight:bold; }
 #modalHomeDetalhes .modal-conteudo,
 #modalHomeEditar .modal-conteudo {
 padding:20px;
-
 border-radius:20px; }}
 /* =====================================
 DETALHES CLIENTE - ESTILO CARD LIMPO
@@ -1653,7 +1621,6 @@ BOTÕES AGENDA HOME
 height:32px;
 border-radius:10px;
 font-size:11px;
-
 }
 .home-acoes-card button:first-child,
 .acoes-agenda-home button:first-child{
@@ -1702,7 +1669,6 @@ MODELO COMPACTO
 ===================================== */
 .acoes-cliente-agenda{
 grid-column:2 / 4;
-
 display:flex;
 gap:8px;
 width:100%;
@@ -1754,7 +1720,6 @@ margin-bottom:20px; }
 #modalEditarAgenda label{
 display:block;
 margin-top:10px;
-
 margin-bottom:5px;
 color:#777;
 font-size:12px;
@@ -1806,7 +1771,6 @@ white-space:nowrap; }
 background:#F8E8EF;
 color:#7b3157; }
 .acoes-cliente-agenda .btn-excluir-agenda{
-
 background:#FCE8E6;
 color:#B42318; }
 @media(max-width:480px){
@@ -1857,7 +1821,6 @@ padding:7px; }}
  #financeiro .financeiro-titulo { flex: 1; min-width: 0; }
  #financeiro .financeiro-eyebrow {
  margin: 0 0 4px;
-
  color: rgba(255,255,255,.76);
  font-size: 9px;
  font-weight: 700;
@@ -1913,7 +1876,6 @@ padding:7px; }}
  align-items: center;
  justify-content: space-between;
  gap: 12px;
-
  margin-bottom: 14px;
  }
  #financeiro .financeiro-section-heading > div { min-width: 0; }
@@ -1971,7 +1933,6 @@ padding:7px; }}
  width: 46px;
  height: 46px;
  align-items: center;
-
  justify-content: center;
  color: #fff;
  background: #6B304F;
@@ -2029,7 +1990,6 @@ padding:7px; }}
  font-size: 13px;
  }
  #financeiro .mini-card-icon--expense { color: #B14E65; background: #FBECEF; }
-
  #financeiro .mini-card-icon--balance { color: #497F67; background: #EAF5EF; }
  #financeiro .mini-card-label { color: #887B84; font-size: 10px; }
  #financeiro .financeiro-mini-card strong {
@@ -2086,7 +2046,6 @@ padding:7px; }}
  margin-bottom: 10px;
  }
  #financeiro .grafico-faturamento .section-title > div { min-width: 0; }
-
  #financeiro .grafico-faturamento .section-title button {
  display: inline-flex;
  align-items: center;
@@ -2144,7 +2103,6 @@ padding:7px; }}
  gap: 9px;
  min-width: 0;
  color: #5C4B55;
-
  font-size: 12px;
  line-height: 1.35;
  }
@@ -2202,7 +2160,6 @@ padding:7px; }}
  background: #FCFAFB;
  border: 1px dashed #E8D8E0;
  border-radius: 14px;
-
  }
  #financeiro .financeiro-empty-icon {
  display: flex;
@@ -2260,7 +2217,6 @@ padding:7px; }}
  }
  #financeiro .financeiro-report-button span { display: grid; flex: 1; gap: 4px; min-width: 0; }
  #financeiro .financeiro-report-button strong { color: #563047; font-size: 12px; }
-
  #financeiro .financeiro-report-button small { color: #8A7D85; font-size: 10px; }
  #financeiro .financeiro-report-button > i:last-child { font-size: 12px; }
  #financeiro button { cursor: pointer; -webkit-tap-highlight-color: transparent; }
@@ -2274,4 +2230,147 @@ padding:7px; }}
  #financeiro .financeiro-mini-card { padding: 10px 8px; column-gap: 7px; }
  #financeiro .financeiro-mini-card strong { font-size: 13px; }
  #financeiro .financeiro-anual-content strong { font-size: 21px; }
+}
+/* ==========================================================
+ FLOW PRO — FINANCEIRO | NOVO DESIGN CONTÍNUO
+ Estilos isolados em #financeiro para preservar as demais telas.
+ ========================================================== */
+#financeiro { color:#29232A; }
+#financeiro .financeiro-header-mobile {
+ display:flex; align-items:center; gap:13px; margin:-35px -35px 24px;
+ padding:22px 26px; min-height:104px; color:#fff;
+ background:linear-gradient(115deg,#54233E,#783B59 72%,#8B4D68);
+}
+#financeiro .financeiro-brand { display:flex; flex:1; flex-direction:column; gap:2px; }
+#financeiro .financeiro-brand-name { font-size:27px; font-weight:300; letter-spacing:1.2px; }
+#financeiro .financeiro-brand-name b { color:#E9B8CB; font-weight:500; }
+#financeiro .financeiro-brand-tagline { font-size:9px; letter-spacing:2px; color:#F0DDE6; }
+#financeiro .financeiro-header-actions { display:flex; align-items:center; gap:16px; }
+#financeiro .financeiro-header-actions button { border:0; background:transparent; color:#fff; font-size:22px; }
+#financeiro .financeiro-header-actions .profile-image { width:43px; height:43px; border-radius:50%; object-fit:cover; }
+#financeiro .financeiro-intro { margin-bottom:22px; }
+#financeiro .financeiro-intro h1 { margin:0 0 8px; color:#421A31; font-size:30px; line-height:1.15; }
+#financeiro .financeiro-intro > p:last-child { max-width:560px; margin:0; color:#765D6A; font-size:15px; line-height:1.5; }
+#financeiro .financeiro-section-card { margin:0 0 22px; padding:24px; background:#fff; border:1px solid #F0E7EC; border-radius:22px; box-shadow:0 7px 24px rgba(65,27,47,.055); }
+#financeiro .financeiro-kicker { margin:0 0 6px; color:#A4778C; font-size:10px; font-weight:800; letter-spacing:1.2px; }
+#financeiro .financeiro-section-heading { display:flex; align-items:center; justify-content:space-between; gap:14px; margin-bottom:17px; }
+#financeiro .financeiro-section-heading h2 { margin:0; color:#321D29; font-size:21px; line-height:1.25; }
+#financeiro .financeiro-filtros { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:18px 0 10px; }
+#financeiro .financeiro-select-wrap, #financeiro .financeiro-ano-select { display:flex; align-items:center; gap:10px; min-height:54px; padding:0 15px; color:#6B304F; background:#fff; border:1px solid #F0E4EA; border-radius:13px; }
+#financeiro .financeiro-select-wrap select, #financeiro .financeiro-ano-select select { flex:1; min-width:0; width:100%; border:0; outline:0; appearance:none; background:transparent; color:#30252B; font:inherit; font-size:14px; }
+#financeiro .financeiro-select-wrap .fa-chevron-down, #financeiro .financeiro-ano-select .fa-chevron-down { font-size:11px; pointer-events:none; }
+#financeiro .financeiro-mes-label { margin:0 0 12px; color:#8B7B84; font-size:12px; }
+#financeiro .financeiro-indicadores { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
+#financeiro .financeiro-indicador { display:flex; min-width:0; flex-direction:column; align-items:flex-start; padding:20px; border-radius:18px; }
+#financeiro .financeiro-indicador.recebido { background:#EFF8F2; }
+#financeiro .financeiro-indicador.previsto { background:#FFF6E9; }
+#financeiro .financeiro-indicador.despesas { background:#FCECEF; }
+#financeiro .financeiro-indicador.resultado { background:#F4ECF2; }
+#financeiro .indicador-icone { display:flex; width:48px; height:48px; align-items:center; justify-content:center; margin-bottom:14px; border-radius:14px; background:rgba(255,255,255,.62); font-size:21px; }
+#financeiro .recebido .indicador-icone { color:#159447; }
+#financeiro .previsto .indicador-icone { color:#D98A16; }
+#financeiro .despesas .indicador-icone { color:#D52D5B; }
+#financeiro .resultado .indicador-icone { color:#743657; }
+#financeiro .indicador-label { margin-bottom:7px; color:#614A56; font-size:13px; }
+#financeiro .financeiro-indicador strong { color:#351B29; font-size:clamp(18px,2.5vw,25px); line-height:1.2; overflow-wrap:anywhere; }
+#financeiro .financeiro-indicador.recebido strong { color:#185B37; }
+#financeiro .financeiro-indicador.previsto strong { color:#854A08; }
+#financeiro .financeiro-indicador.despesas strong { color:#8E2142; }
+#financeiro .financeiro-indicador small { margin-top:8px; color:#806E78; font-size:11px; line-height:1.4; }
+#financeiro .financeiro-report-button { display:flex; align-items:center; gap:14px; width:100%; margin-top:20px; padding:17px 19px; text-align:left; color:#fff; background:#6B304F; border:0; border-radius:15px; }
+#financeiro .financeiro-report-button > i:first-child { font-size:25px; }
+#financeiro .financeiro-report-button span { display:grid; flex:1; gap:4px; min-width:0; }
+#financeiro .financeiro-report-button strong { color:inherit; font-size:15px; }
+#financeiro .financeiro-report-button small { color:rgba(255,255,255,.76); font-size:11px; }
+#financeiro .financeiro-report-button > i:last-child { font-size:14px; }
+#financeiro .financeiro-periodo-grafico { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin:18px 0 22px; padding:4px; background:#FAF3F6; border-radius:13px; }
+#financeiro .financeiro-periodo-grafico button { min-height:43px; border:0; border-radius:10px; color:#754A60; background:transparent; font:inherit; font-weight:700; }
+#financeiro .financeiro-periodo-grafico button.active { color:#fff; background:#6B304F; }
+#financeiro .grafico-container { height:270px; padding:12px 8px; }
+#financeiro .grafico-container canvas { width:100% !important; height:100% !important; }
+#financeiro .grafico-legenda { display:flex; justify-content:center; gap:25px; padding:15px 0 22px; color:#493842; font-size:13px; font-weight:600; }
+#financeiro .grafico-legenda span { display:flex; align-items:center; gap:8px; }
+#financeiro .grafico-legenda i, #financeiro .servico-dot, #financeiro .categoria-dot { display:inline-block; width:11px; height:11px; border-radius:50%; }
+#financeiro .legenda-receita { background:#70C99B; }
+#financeiro .legenda-despesa { background:#E86D91; }
+#financeiro .financeiro-subsecao { padding-top:22px; border-top:1px solid #F0E8EC; }
+#financeiro .receita-procedimento-layout { display:grid; grid-template-columns:minmax(150px, .9fr) minmax(0,1.1fr); align-items:center; gap:22px; }
+#financeiro .grafico-servicos { height:220px; min-width:0; }
+#financeiro .grafico-servicos canvas { width:100% !important; height:100% !important; }
+#financeiro .receita-procedimento-legenda { min-width:0; }
+#financeiro .servico-item, #financeiro .categoria-despesa-item { display:flex; justify-content:space-between; align-items:center; gap:10px; padding:11px 0; border-bottom:1px solid #F1E9ED; }
+#financeiro .servico-item:last-child, #financeiro .categoria-despesa-item:last-child { border-bottom:0; }
+#financeiro .servico-item-name, #financeiro .categoria-despesa-item span { display:flex; align-items:center; gap:9px; color:#51414A; font-size:13px; }
+#financeiro .servico-item strong, #financeiro .categoria-despesa-item strong { color:#34232C; font-size:13px; white-space:nowrap; }
+#financeiro .servico-dot--one { background:#6B304F; } #financeiro .servico-dot--two { background:#B66F8B; } #financeiro .servico-dot--three { background:#E88AA6; } #financeiro .servico-dot--four { background:#F3C5D2; }
+#financeiro .financeiro-section-description { margin:0 0 18px; color:#81737C; font-size:13px; line-height:1.55; }
+#financeiro .financeiro-form-inline { display:grid; gap:16px; }
+#financeiro .financeiro-form-inline label { display:grid; gap:8px; color:#392A32; font-size:14px; font-weight:600; }
+#financeiro .financeiro-form-inline input, #financeiro .financeiro-form-inline select, #financeiro .financeiro-form-inline textarea { width:100%; min-height:54px; padding:13px 15px; border:1px solid #E9DCE3; border-radius:13px; outline:0; background:#fff;
+color:#33252E; font:inherit; font-size:15px; }
+#financeiro .financeiro-form-inline textarea { min-height:90px; resize:vertical; }
+#financeiro .financeiro-form-inline input:focus, #financeiro .financeiro-form-inline select:focus, #financeiro .financeiro-form-inline textarea:focus { border-color:#B66F8B; box-shadow:0 0 0 3px rgba(182,111,139,.12); }
+#financeiro .financeiro-form-inline input::placeholder, #financeiro .financeiro-form-inline textarea::placeholder { color:#B49AA7; }
+#financeiro .financeiro-submit-despesa { min-height:56px; margin-top:4px; border:0; border-radius:14px; background:#6B304F; color:#fff; font:inherit; font-size:16px; font-weight:750; }
+#financeiro .financeiro-despesa-total { display:flex; align-items:center; justify-content:space-between; padding:14px 16px; border-radius:13px; background:#FAF5F7; color:#75636D; font-size:13px; }
+#financeiro .financeiro-despesa-total strong { color:#51223B; font-size:19px; }
+#financeiro .financeiro-despesa-chart { height:230px; margin:12px auto; max-width:360px; }
+#financeiro .financeiro-despesa-chart canvas { width:100% !important; height:100% !important; }
+#financeiro .categoria-dot { flex:0 0 11px; }
+#financeiro .cat-gasolina { background:#6289D1; } #financeiro .cat-produtos { background:#B66F8B; } #financeiro .cat-manutencao { background:#E77C9D; } #financeiro .cat-alimentacao { background:#F2A18D; } #financeiro .cat-outros { background:#F4C5D0; }
+#financeiro .financeiro-link-relatorio { color:#6B304F; background:#fff; border:1px solid #EEDFE7; }
+#financeiro .financeiro-link-relatorio small { color:#8A7D85; }
+#financeiro .financeiro-empty-state { display:flex; align-items:center; flex-direction:column; padding:18px 12px; text-align:center; background:#FCFAFB; border:1px dashed #E8D8E0; border-radius:14px; }
+#financeiro .financeiro-empty-icon { display:flex; width:38px; height:38px; align-items:center; justify-content:center; margin-bottom:9px; color:#8B5470; background:#F4E6EC; border-radius:12px; }
+#financeiro .financeiro-empty-state strong { color:#5A3A4B; font-size:13px; }
+#financeiro .financeiro-empty-state p { max-width:260px; margin:6px 0 0; color:#8A7D85; font-size:12px; line-height:1.5; }
+#financeiro .financeiro-despesas-lista { margin-top:12px; }
+#financeiro .financeiro-anual-lista { display:grid; gap:12px; }
+#financeiro .financeiro-anual-linha { display:flex; align-items:center; gap:14px; padding:16px; border-radius:15px; }
+#financeiro .financeiro-anual-linha > div { display:grid; gap:5px; }
+#financeiro .financeiro-anual-linha span:not(.anual-icone) { color:#5F4B56; font-size:13px; }
+#financeiro .financeiro-anual-linha strong { color:#421F32; font-size:20px; }
+#financeiro .anual-icone { display:flex; flex:0 0 46px; width:46px; height:46px; align-items:center; justify-content:center; border-radius:13px; background:rgba(255,255,255,.65); font-size:19px; }
+#financeiro .anual-recebido { background:#EFF8F2; } #financeiro .anual-recebido .anual-icone { color:#159447; }
+#financeiro .anual-previsto { background:#FFF6E9; } #financeiro .anual-previsto .anual-icone { color:#D98A16; }
+#financeiro .anual-despesas { background:#FCECEF; } #financeiro .anual-despesas .anual-icone { color:#D52D5B; }
+#financeiro .anual-resultado { background:#F4ECF2; } #financeiro .anual-resultado .anual-icone { color:#743657; }
+#financeiro .financeiro-ano-select { display:flex; align-items:center; gap:8px; padding:8px 11px; border:1px solid #EFE3E9; border-radius:10px; color:#6B304F; }
+#financeiro .financeiro-ano-select select { border:0; appearance:none; background:transparent; color:#392A32; font:inherit; font-weight:700; }
+#financeiro .financeiro-helper { margin:12px 0 0; color:#8A7D85; font-size:11px; line-height:1.5; }
+@media (max-width:768px) {
+ #financeiro { padding-bottom:28px; }
+ #financeiro .financeiro-header-mobile { margin:-20px -20px 22px; padding:24px 20px 30px; min-height:100px; border-radius:0 0 23px 23px; }
+ #financeiro .financeiro-header-mobile .menu-button { display:inline-flex; flex:0 0 38px; width:38px; height:38px; align-items:center; justify-content:center; border:0; background:transparent; color:#fff; font-size:23px; }
+ #financeiro .financeiro-brand-name { font-size:24px; }
+ #financeiro .financeiro-header-actions { gap:12px; }
+ #financeiro .financeiro-header-actions button { font-size:20px; }
+ #financeiro .financeiro-header-actions .profile-image { width:39px; height:39px; }
+ #financeiro .financeiro-section-card { margin-bottom:16px; padding:18px; border-radius:19px; }
+ #financeiro .financeiro-intro h1 { font-size:27px; }
+ #financeiro .financeiro-intro > p:last-child { font-size:14px; }
+ #financeiro .financeiro-indicador { padding:15px; min-height:190px; }
+ #financeiro .indicador-icone { width:43px; height:43px; margin-bottom:12px; }
+ #financeiro .indicador-label { font-size:12px; }
+ #financeiro .financeiro-indicador strong { font-size:clamp(16px,4.7vw,21px); }
+ #financeiro .financeiro-indicador small { font-size:10px; }
+ #financeiro .financeiro-report-button { padding:15px; }
+ #financeiro .financeiro-report-button strong { font-size:13px; }
+ #financeiro .grafico-container { height:235px; }
+ #financeiro .receita-procedimento-layout { grid-template-columns:1fr; gap:8px; }
+ #financeiro .grafico-servicos { height:205px; max-width:260px; width:100%; margin:0 auto; }
+ #financeiro .receita-procedimento-legenda { display:grid; grid-template-columns:1fr 1fr; column-gap:16px; }
+ #financeiro .servico-item { padding:9px 0; }
+ #financeiro .servico-item-name { font-size:11px; }
+ #financeiro .financeiro-section-heading h2 { font-size:19px; }
+ #financeiro .financeiro-despesa-chart { height:205px; }
+ #financeiro .financeiro-anual-linha { padding:14px; }
+ #financeiro .financeiro-anual-linha strong { font-size:18px; }
+}
+@media (max-width:380px) {
+ #financeiro .financeiro-section-card { padding:15px; }
+ #financeiro .financeiro-indicadores { gap:9px; }
+ #financeiro .financeiro-indicador { padding:12px; min-height:178px; }
+ #financeiro .financeiro-indicador strong { font-size:16px; }
+ #financeiro .receita-procedimento-legenda { grid-template-columns:1fr; }
 }
