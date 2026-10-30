@@ -1,4 +1,3 @@
-
 // =====================================
 // TELA INÍCIO - FLOW PRO
 // =====================================
@@ -56,13 +55,13 @@ hoje.toLocaleDateString(
 {
 weekday: "long",
 day: "numeric",
-
 month: "long",
 year: "numeric",
 timeZone: "America/Sao_Paulo" }
 );
 elemento.innerHTML =
 dataFormatada.charAt(0).toUpperCase() +
+
 dataFormatada.slice(1); }
 // =====================================
 // PEGAR DATA ATUAL DE BRASÍLIA
@@ -112,9 +111,7 @@ const tentativa =
 new Date(texto);
 if(isNaN(tentativa.getTime())){
 return null; }
-return tentativa;
-
-}
+return tentativa; }
 // =====================================
 // NORMALIZAR TEXTO
 // =====================================
@@ -135,6 +132,7 @@ let texto =
 String(valor)
 .trim()
 .replace("R$", "")
+
 .trim();
 // Formato brasileiro
 // Exemplo: 1.850,00
@@ -170,7 +168,6 @@ function fpLinhaPrecoUI(principal, variacao, cabelo, tamanho){
 if(typeof dadosSistema === "undefined" ||
 !Array.isArray(dadosSistema.servicos)){
 return null; }
-
 const p = fpNormalizarPrecoUI(principal);
 const v = fpNormalizarPrecoUI(variacao);
 const c = fpNormalizarPrecoUI(cabelo);
@@ -207,6 +204,7 @@ combinado.indexOf("semi-preso") >= 0 ||
 combinado.indexOf("semi preso") >= 0 ||
 combinado.indexOf("coque") >= 0;
 let total = 0;
+
 let itens = [];
 let pendente = false;
 let incompleto = false;
@@ -228,7 +226,6 @@ let cabelo = "";
 if(combinado.indexOf("cacheado") >= 0){
 cabelo = "Cacheado";
 }else if(combinado.indexOf("liso") >= 0){
-
 cabelo = "Liso";
 }else{
 /* Compatibilidade com respostas antigas que nao informavam o tipo:
@@ -279,6 +276,7 @@ valor: pendente || incompleto || itens.length === 0 ? null : Math.round(total * 
 subtotalConhecido: Math.round(total * 100) / 100,
 itens: itens
 };}
+
 function fpTextoPrecoUI(cliente){
 const resultado = fpCalcularPrecoUI(cliente);
 if(resultado.status === "pendente") return "A avaliar";
@@ -286,7 +284,6 @@ if(resultado.status !== "ok") return "Preço indisponível";
 return formatarMoeda(resultado.valor); }
 function encontrarValorServicoHome(nomeServico, tamanhoCabelo, penteado){
 const cliente = (nomeServico && typeof nomeServico === "object")
-
 ? nomeServico
 : {servico:nomeServico, tamanhoCabelo:tamanhoCabelo, penteado:penteado};
 const resultado = fpCalcularPrecoUI(cliente);
@@ -344,13 +341,13 @@ document.getElementById(
 "atendimentosHoje"
 );
 if(elementoAtendimentos){
-
 elementoAtendimentos.innerText =
 atendimentosHoje.length; }
 // ==================================
 // FATURAMENTO DO DIA
 // ==================================
 let faturamentoHoje = 0;
+
 atendimentosHoje.forEach(
 cliente => {
 faturamentoHoje +=
@@ -402,7 +399,6 @@ const proximosAgendamentos =
 agendamentos.filter(
 cliente => {
 const dataCliente =
-
 criarDataSegura(
 cliente.data
 );
@@ -423,6 +419,7 @@ return false; }
 if(
 mesCliente !== mesAtual
 ){
+
 return false; }
 // Hoje ou data futura
 if(
@@ -459,7 +456,6 @@ cliente.nome || ""
 const elementoClientes =
 document.getElementById(
 "clientesCadastradas"
-
 );
 if(elementoClientes){
 elementoClientes.innerText =
@@ -495,6 +491,7 @@ if(!lista) return;
 console.log(
 "Atualizando agenda..."
 );
+
 if(
 !dadosSistema ||
 !dadosSistema.agendamentos
@@ -517,7 +514,6 @@ pegarDataBrasilia();
 // FILTRAR HOJE
 // ==================================
 const clientesHoje =
-
 agendamentos.filter(
 cliente => {
 return cliente.data === dataHoje; }
@@ -567,6 +563,7 @@ cliente.tamanhoCabelo,
 cliente.penteado
 );
 lista.innerHTML += `
+
 <div class="cliente-home">
 <div class="horario">
 ${cliente.horario || "--:--"}
@@ -575,7 +572,6 @@ ${cliente.horario || "--:--"}
 src="assets/Avatares/cliente01 (27).jpg"
 alt="${cliente.nome}" >
 <div class="cliente-info-home">
-
 <h3>
 ${cliente.nome}
 </h3>
@@ -633,12 +629,12 @@ nomeElemento.innerText =
 servicoElemento.innerText =
 "--";
 if(valorElemento){
-
 valorElemento.innerText =
 "R$ 0,00"; }
 return; }
 const agendamentos =
 dadosSistema.agendamentos;
+
 // ==================================
 // DATA E HORA ATUAL DE BRASÍLIA
 // ==================================
@@ -691,7 +687,6 @@ return (
 cliente.horario >= horaAtual
 );
 });
-
 // ==================================
 // ORDENAR POR DATA E HORA
 // ==================================
@@ -711,6 +706,7 @@ if(futuros.length === 0){
 horarioElemento.innerText =
 "--:--";
 tempoElemento.innerText =
+
 "Nenhum atendimento próximo";
 nomeElemento.innerText =
 "Agenda encerrada";
@@ -749,7 +745,6 @@ proximo.servico ||
 "Serviço não informado";
 // ==================================
 // PREENCHER VALOR
-
 // ==================================
 if(valorElemento){
 const valor =
@@ -783,6 +778,7 @@ if(
 !data ||
 !horario
 ){
+
 return ""; }
 const partesData =
 data.split("-");
@@ -807,7 +803,6 @@ const atendimento =
 new Date(
 ano,
 mes,
-
 dia,
 hora,
 minuto, 0
@@ -854,7 +849,8 @@ if(!cliente){
 return; }
 let modal =
 document.getElementById(
-"modalDetalhesCliente"
+"modalDetalhesProximo"
+
 );
 // ==================================
 // CRIAR MODAL
@@ -865,8 +861,7 @@ document.createElement(
 "div"
 );
 modal.id =
-
-"modalDetalhesCliente";
+"modalDetalhesProximo";
 modal.className =
 "modal-detalhes-cliente";
 modal.innerHTML = `
@@ -874,7 +869,7 @@ modal.innerHTML = `
 <button
 type="button"
 class="modal-fechar"
-id="fecharModalCliente" >×
+id="fecharModalProximo" >×
 </button>
 <h2>
 Detalhes do atendimento
@@ -924,9 +919,9 @@ Horário
 <span id="detalhePenteado"></span>
 </div>
 <div class="detalhe-item">
-
 <strong>Bairro</strong>
 <span id="detalheBairro"></span>
+
 </div>
 <div class="detalhe-item">
 <strong>Localização</strong>
@@ -950,7 +945,7 @@ modal
 // ==================================
 document
 .getElementById(
-"fecharModalCliente" )
+"fecharModalProximo" )
 .addEventListener(
 "click",
 fecharDetalhesProximo
@@ -982,7 +977,6 @@ document.getElementById(
 ).innerText =
 formatarDataDetalhes(
 cliente.data
-
 );
 document.getElementById(
 "detalheHorario"
@@ -999,6 +993,7 @@ cliente.servico || "-";
 document.getElementById(
 "detalheCabelo"
 ).innerText =
+
 cliente.tamanhoCabelo || "-";
 document.getElementById(
 "detalhePenteado"
@@ -1037,9 +1032,8 @@ modal.classList.add(
 function fecharDetalhesProximo(){
 const modal =
 document.getElementById(
-"modalDetalhesCliente"
+"modalDetalhesProximo"
 );
-
 if(modal){
 modal.classList.remove(
 "ativo"
@@ -1071,6 +1065,7 @@ if(
 !dadosSistema ||
 !Array.isArray(dadosSistema.agendamentos)
 ){
+
 return; }
 const hoje =
 pegarDataBrasilia();
@@ -1097,7 +1092,6 @@ modal =
 document.createElement(
 "div"
 );
-
 modal.id =
 "modalTodosAgenda";
 modal.className =
@@ -1143,6 +1137,7 @@ ${cliente.servico}
 </span>
 <br>
 <b>
+
 ${formatarMoeda(valor)}
 </b>
 </div>
@@ -1154,7 +1149,6 @@ Detalhes
 </button>
 </div>
 </div>
-
 `;}
 );
 html += `
@@ -1212,9 +1206,9 @@ function(event){
 const botao =
 event.target.closest(
 "#verTodosAgenda"
-
 );
 if(!botao){
+
 return; }
 abrirTodosAgendamentosHoje();
 });
@@ -1261,7 +1255,8 @@ modal.innerHTML = `
 <p><strong>Localização:</strong></p>
 ${
 cliente.localizacao ?`
-<a href="${cliente.localizacao}" target="_blank" class="btn-localizacao"> ■ Abrir localização
+<a href="${cliente.localizacao}" target="_blank" class="btn-localizacao">
+■ Abrir localização
 </a> `:
 "-" }
 <p><strong>Uso de imagem:</strong> ${cliente.autorizacaoImagem || "-"}</p>
@@ -1270,7 +1265,6 @@ modal.classList.add("ativo"); }
 function fecharModalHomeDetalhes(){
 const modal = document.getElementById("modalHomeDetalhes");
 if(modal){
-
 modal.classList.remove("ativo"); }}
 // =====================================
 // MENSAGEM DO SISTEMA
@@ -1287,6 +1281,7 @@ mensagem.id =
 "mensagemSistemaFlow";
 mensagem.className =
 "mensagem-sistema-flow";
+
 document.body.appendChild(
 mensagem
 );

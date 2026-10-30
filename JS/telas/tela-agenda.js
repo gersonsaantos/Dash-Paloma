@@ -1,4 +1,3 @@
-
 // ============================================================
 // FLOW PRO
 // TELA AGENDA
@@ -54,7 +53,6 @@ criarCalendarioCompleto();
 criarCalendarioSemanal();
 mostrarAgendamentosDoDia(
 dataSelecionadaAgenda
-
 );
 atualizarResumoDia(
 dataSelecionadaAgenda
@@ -63,6 +61,7 @@ prepararBotaoAdicionar(); }
 // ============================================================
 // FORMATAR DATA PARA COMPARAÇÃO
 // ============================================================
+
 function normalizarData(data) {
 if (!data) {
 return ""; }
@@ -109,7 +108,6 @@ ano +
 mes +
 "-" +
 dia
-
 );}
 // ============================================================
 // FORMATAR DATA PARA EXIBIÇÃO
@@ -135,6 +133,7 @@ const nomes = [
 "Segunda-feira",
 "Terça-feira",
 "Quarta-feira",
+
 "Quinta-feira",
 "Sexta-feira",
 "Sábado"
@@ -165,7 +164,6 @@ return meses[mes]; }
 // PEGAR AGENDAMENTOS DO DIA
 // ============================================================
 function pegarAgendamentosDoDia(data) {
-
 const dataBusca =
 dataParaString(data);
 return (
@@ -207,6 +205,7 @@ Nenhum agendamento para este dia.
 </p>
 </div>
 `;
+
 return; }
 agendamentos.forEach(
 function (cliente, indice) {
@@ -221,7 +220,6 @@ document.createElement(
 item.className =
 "cliente-agenda-dia";
 item.innerHTML = `
-
 <div class="cliente-agenda-hora">
 ${
 cliente.horario ||
@@ -278,8 +276,8 @@ cliente
 );}
 );
 const botaoEditar =
-
 item.querySelector(
+
 ".btn-editar-agenda"
 );
 if(botaoEditar){
@@ -333,7 +331,6 @@ agendamentos.length + (
 agendamentos.length === 1
 ? " agendamento"
 : " agendamentos"
-
 );}}
 // ============================================================
 // CALENDÁRIO COMPLETO
@@ -352,6 +349,7 @@ mesCalendario, 1
 );
 const ultimoDia =
 new Date(
+
 anoCalendario,
 mesCalendario + 1, 0
 );
@@ -389,7 +387,6 @@ aria-label="Próximo mês" >›
 <span>S</span>
 <span>S</span>
 </div>
-
 <div class="calendar-agenda-days">
 `;
 // Espaços antes do primeiro dia
@@ -424,6 +421,7 @@ dataParaString(
 dataSelecionadaAgenda
 );
 const temAgendamento =
+
 (dadosSistema.agendamentos || [])
 .some(function (item) {
 return (
@@ -445,7 +443,6 @@ ${
 temAgendamento
 ? "has-agendamento"
 : "" }"
-
 data-data="${dataString}" >
 ${dia}
 </button>
@@ -496,12 +493,12 @@ botao.dataset.data
 // ============================================================
 // SELECIONAR DATA
 // ============================================================
+
 function selecionarData(dataString) {
 const partes =
 dataString.split("-");
 dataSelecionadaAgenda =
 new Date(
-
 Number(partes[0]),
 Number(partes[1]) - 1,
 Number(partes[2])
@@ -557,7 +554,6 @@ if (
 dataParaString(data) ===
 dataParaString(
 dataSelecionadaAgenda )
-
 ) {
 elemento.classList.add(
 "active-day"
@@ -568,6 +564,7 @@ selecionarData(
 elemento.dataset.data
 );
 };}
+
 );}
 // ============================================================
 // ABRIR / FECHAR CALENDÁRIO COMPLETO
@@ -612,7 +609,6 @@ texto = texto.replace(/\./g, "").replace(",", "."); }
 const numero = Number(texto);
 return isNaN(numero) ? null : Math.round(numero * 100) / 100; }
 function fpLinhaPrecoUI(principal, variacao, cabelo, tamanho){
-
 if(typeof dadosSistema === "undefined" ||
 !Array.isArray(dadosSistema.servicos)){
 return null; }
@@ -640,6 +636,7 @@ const combinado = (servico + " " + penteado).trim();
 const tamanhoTexto = fpNormalizarPrecoUI(cliente.tamanhoCabelo);
 let tamanho = "";
 if(tamanhoTexto.indexOf("pequeno") >= 0 || /\bp\b/.test(tamanhoTexto)){
+
 tamanho = "Pequeno (P)";
 }else if(tamanhoTexto.indexOf("medio") >= 0 || /\bm\b/.test(tamanhoTexto)){
 tamanho = "Médio (M)";
@@ -668,7 +665,6 @@ let variacao = "";
 if(combinado.indexOf("semi-preso") >= 0 || combinado.indexOf("semi preso") >= 0){
 variacao = "Semi-Preso";
 }else if(combinado.indexOf("coque") >= 0){
-
 variacao = "Coque"; }
 let cabelo = "";
 if(combinado.indexOf("cacheado") >= 0){
@@ -712,6 +708,7 @@ if(linha && (linha.valorPendente || fpNormalizarPrecoUI(linha.tipoCalculo) === "
 pendente = true;
 }else if(!linha){
 incompleto = true;
+
 }else{
 const valor = fpValorNumericoUI(linha.valor);
 if(valor === null){ incompleto = true; }
@@ -724,7 +721,6 @@ valor: pendente || incompleto || itens.length === 0 ? null : Math.round(total * 
 subtotalConhecido: Math.round(total * 100) / 100,
 itens: itens
 };}
-
 function fpTextoPrecoUI(cliente){
 const resultado = fpCalcularPrecoUI(cliente);
 if(resultado.status === "pendente") return "A avaliar";
@@ -750,7 +746,7 @@ currency: "BRL" }
 function abrirDetalhesCliente(cliente) {
 let modal =
 document.getElementById(
-"modalDetalhesCliente"
+"modalDetalhesAgenda"
 );
 if (!modal) {
 modal =
@@ -758,12 +754,14 @@ document.createElement(
 "div"
 );
 modal.id =
-"modalDetalhesCliente";
+"modalDetalhesAgenda";
+modal.className =
+"modal-detalhes-cliente";
 modal.innerHTML = `
 <div class="modal-conteudo">
 <button
 type="button"
-id="fecharModalCliente"
+id="fecharModalAgenda"
 class="modal-fechar" >×
 </button>
 <h2>
@@ -779,9 +777,9 @@ modal
 );
 document
 .getElementById(
-
-"fecharModalCliente" )
+"fecharModalAgenda" )
 .onclick =
+
 function () {
 modal.classList.remove(
 "ativo"
@@ -835,7 +833,6 @@ cliente.data )}
 </span>
 </div>
 <div class="detalhe-item">
-
 <strong>
 Horário
 </strong>
@@ -854,6 +851,7 @@ cliente.horaFim || "-" }
 </span>
 </div>
 <div class="detalhe-item">
+
 <strong>
 Serviço
 </strong>
@@ -891,14 +889,12 @@ cliente.bairro || "-" }
 </div>
 <div class="detalhe-item">
 <strong>
-
 Localização
 </strong>
 ${
 localizacao
 ? `
 <a
-
 href="${localizacao}"
 target="_blank"
 rel="noopener noreferrer" >
@@ -926,6 +922,7 @@ modal.classList.add(
 // PREPARAR BOTÃO ADICIONAR
 // ============================================================
 function prepararBotaoAdicionar() {
+
 const area =
 document.querySelector(
 ".add-agenda"
@@ -948,7 +945,6 @@ if (!modal) {
 modal =
 document.createElement(
 "div"
-
 );
 modal.id =
 "modalNovoAgendamento";
@@ -998,18 +994,17 @@ id="novoHora"
 required >
 <label>
 Hora final
+
 </label>
 <input
 type="time"
 id="novoHoraFim" >
 <label>
 Serviço
-
 </label>
 <select
 id="novoServico"
-required
->
+required >
 <option value="">Selecione o serviço</option>
 <option value="Maquiagem">Maquiagem</option>
 <option value="Babyliss">Babyliss</option>
@@ -1059,7 +1054,6 @@ Autorização de uso de imagem
 id="novoAutorizacao" >
 <option value="">
 Selecione
-
 </option>
 <option value="Sim, Autorizo">
 Sim, Autorizo
@@ -1070,6 +1064,7 @@ Não autorizo
 </select>
 <button
 type="submit"
+
 class="btn-salvar-agendamento" >
 Salvar agendamento
 </button>
@@ -1115,17 +1110,14 @@ function configurarFormularioNovoAgendamento() {
 const servico = document.getElementById("novoServico");
 const campoTamanho = document.getElementById("campoTamanhoCabelo");
 const campoPenteado = document.getElementById("campoPenteado");
-
 const tamanho = document.getElementById("novoTamanhoCabelo");
 const detalhe = document.getElementById("novoPenteado");
 if (!servico || !campoTamanho || !campoPenteado || !tamanho || !detalhe) {
-return;
-}
+return; }
 // Evita registrar o mesmo evento mais de uma vez.
 if (servico.dataset.configurado === "sim") {
 atualizarCamposServico();
-return;
-}
+return; }
 servico.dataset.configurado = "sim";
 function atualizarCamposServico() {
 const valor = String(servico.value || "").toLowerCase();
@@ -1139,14 +1131,13 @@ tamanho.required = temEstilo;
 detalhe.required = temEstilo;
 if (!temEstilo || soMaquiagem) {
 tamanho.value = "";
-detalhe.value = "";
-}
+detalhe.value = ""; }
 Array.from(detalhe.options).forEach(function(opcao) {
+
 if (!opcao.value) {
 opcao.hidden = false;
 opcao.disabled = false;
-return;
-}
+return; }
 const categoria = opcao.dataset.categoria || "";
 const mostrar = (temBabyliss && categoria === "babyliss") ||
 (temPenteado && categoria === "penteado");
@@ -1155,15 +1146,11 @@ opcao.disabled = !mostrar;
 });
 if (detalhe.selectedOptions.length &&
 detalhe.selectedOptions[0].disabled) {
-detalhe.value = "";
-}
-}
+detalhe.value = ""; }}
 servico.addEventListener("change", atualizarCamposServico);
-atualizarCamposServico();
-}
+atualizarCamposServico(); }
 // ============================================================
 // SALVAR NOVO AGENDAMENTO
-
 // ============================================================
 function configurarSalvarFormulario() {
 const form =
@@ -1214,12 +1201,12 @@ tamanhoCabelo:
 document.getElementById(
 "novoTamanhoCabelo"
 ).value,
+
 penteado:
 document.getElementById(
 "novoPenteado"
 ).value,
 bairro:
-
 document.getElementById(
 "novoBairro"
 ).value.trim(),
@@ -1275,17 +1262,16 @@ await carregarDados();
 document.dispatchEvent(
 new Event("dadosCarregados")
 );}
-
 } else {
 throw new Error(
 resultado &&
 resultado.erro
 ? resultado.erro
 : "Não foi possível salvar."
-);
-}
+);}
 } catch (erro) {
 console.error(
+
 "Erro ao salvar agendamento:",
 erro
 );
@@ -1331,7 +1317,6 @@ modal.className="modal-detalhes-cliente";
 modal.innerHTML=`
 <div class="modal-conteudo">
 <button class="modal-fechar" id="fecharEditarAgenda">×</button>
-
 <h2>Editar agendamento</h2>
 <form id="formEditarAgenda">
 <input id="editarId" type="hidden">
@@ -1358,6 +1343,7 @@ Salvar alterações
 </div>
 `;
 document.body.appendChild(modal);
+
 document.getElementById("fecharEditarAgenda").onclick=function(){
 modal.classList.remove("ativo");
 };
@@ -1388,7 +1374,6 @@ origem:document.getElementById("editarOrigem").value || clienteEditandoAgenda?.o
 linhaPlanilha:Number(document.getElementById("editarLinhaPlanilha").value) || clienteEditandoAgenda?.linhaPlanilha || null,
 nome:document.getElementById("editarNome").value,
 telefone:document.getElementById("editarTelefone").value,
-
 data:document.getElementById("editarData").value,
 horario:document.getElementById("editarHorario").value,
 horaFim: clienteEditandoAgenda?.horaFim || "",
@@ -1409,17 +1394,14 @@ body:JSON.stringify(dados)
 });
 const resultado = await resposta.json();
 if(!resultado || !resultado.sucesso){
-throw new Error(resultado && resultado.erro ? resultado.erro : "Não foi possível editar o agendamento.");
-}
+throw new Error(resultado && resultado.erro ? resultado.erro : "Não foi possível editar o agendamento."); }
 document.getElementById("modalEditarAgenda").classList.remove("ativo");
 if(typeof carregarDados==="function"){
 await carregarDados();
-document.dispatchEvent(new Event("dadosCarregados"));
-}
+document.dispatchEvent(new Event("dadosCarregados")); }
 } catch(erro) {
 console.error("Erro ao editar agendamento:", erro);
-alert("Não foi possível salvar as alterações. Confira a origem do agendamento e tente novamente.");
-}
+alert("Não foi possível salvar as alterações. Confira a origem do agendamento e tente novamente."); }
 }); }
 // ============================================================
 // MODAL EXCLUIR CLIENTE
@@ -1430,6 +1412,7 @@ const cliente = (clienteOuId && typeof clienteOuId === "object")
 : pegarClientePorIdAgenda(clienteOuId);
 if(!cliente){
 return; }
+
 const id = cliente.id || "";
 let modal=document.getElementById("modalExcluirAgenda");
 if(!modal){
@@ -1445,7 +1428,6 @@ modal.innerHTML=`
 Cancelar
 </button>
 <button id="confirmarExcluirAgenda">
-
 Excluir
 </button>
 </div>
@@ -1473,8 +1455,7 @@ linhaPlanilha:cliente.linhaPlanilha || null
 });
 const resultado = await resposta.json();
 if(!resultado || !resultado.sucesso){
-throw new Error(resultado && resultado.erro ? resultado.erro : "Não foi possível excluir o agendamento.");
-}
+throw new Error(resultado && resultado.erro ? resultado.erro : "Não foi possível excluir o agendamento."); }
 modal.classList.remove("ativo");
 if(typeof carregarDados === "function"){
 await carregarDados();
@@ -1491,14 +1472,11 @@ mostrarAgendamentosDoDia(dataSelecionadaAgenda);
 atualizarResumoDia(dataSelecionadaAgenda);
 if(typeof atualizarCardsInicio==="function") atualizarCardsInicio();
 if(typeof carregarAgendaHoje==="function") carregarAgendaHoje();
-if(typeof carregarProximoAtendimento==="function") carregarProximoAtendimento();
-}
+if(typeof carregarProximoAtendimento==="function") carregarProximoAtendimento(); }
 } catch(erro) {
 console.error("Erro ao excluir agendamento:", erro);
-alert("Não foi possível excluir o agendamento. Confira os dados e tente novamente.");
-}
-};
-}
+alert("Não foi possível excluir o agendamento. Confira os dados e tente novamente."); }
+};}
 // ============================================================
 // INICIALIZAÇÃO FINAL
 // ============================================================
