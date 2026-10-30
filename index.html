@@ -56,11 +56,11 @@
       <!-- ==================================
  CONTEÚDO PRINCIPAL
 ================================== -->
+
       <main class="main">
         <!-- ==========================
  TELA HOME
 ========================== -->
-
         <section class="pagina ativa" id="home">
           <!-- CABEÇALHO HOME -->
           <header class="home-header">
@@ -125,7 +125,6 @@
             </div>
           </section>
           <!-- ==========================
-
  <!==========================
  AGENDA DO DIA
 ========================== -->
@@ -156,7 +155,7 @@
 ===================================== -->
           <div class="next-appointment">
             <h3>
-              <span>■</span>
+              <span> ■</span>
               Próximo atendimento
             </h3>
             <!-- HORÁRIO -->
@@ -174,7 +173,6 @@
               <strong id="proximoValor"> R$ 0,00 </strong>
             </div>
             <!-- BOTÃO -->
-
             <button id="verDetalhesProximo" type="button">Ver detalhes</button>
           </div>
         </section>
@@ -288,6 +286,7 @@
               <span>Total de clientes</span>
               <strong id="totalClientes">—</strong>
             </div>
+
             <div class="client-card">
               <i class="fa-solid fa-user-plus" aria-hidden="true"></i>
               <span>Novas neste mês</span>
@@ -311,60 +310,223 @@
         </section>
         <section class="pagina" id="financeiro">
           <header class="financeiro-header-mobile">
-            <button class="menu-button">
-              <i class="fa-solid fa-bars"> </i>
+            <button class="menu-button" type="button" aria-label="Abrir menu">
+              <i class="fa-solid fa-bars"></i>
             </button>
-            <h1>Financeiro</h1>
-            <i class="fa-solid fa-filter"> </i>
+            <div class="financeiro-titulo">
+              <p class="financeiro-eyebrow">PALOMA LIMA BEAUTY</p>
+              <h1>Financeiro</h1>
+            </div>
+            <button
+              class="financeiro-filter-button"
+              type="button"
+              aria-label="Filtros financeiros"
+            >
+              <i class="fa-solid fa-sliders"></i>
+            </button>
           </header>
-          <div class="finance-tabs">
-            <button class="active">Resumo</button>
-            <button>Transações</button>
-            <button>Relatórios</button>
+          <div
+            class="finance-tabs"
+            role="tablist"
+            aria-label="Seções do financeiro"
+          >
+            <button
+              class="active"
+              type="button"
+              role="tab"
+              aria-selected="true"
+            >
+              Resumo
+            </button>
+            <button type="button" role="tab" aria-selected="false">
+              Transações
+            </button>
+            <button type="button" role="tab" aria-selected="false">
+              Relatórios
+            </button>
           </div>
-          <section class="resumo-financeiro">
-            <h2>Resumo do mês</h2>
-            <span> Julho 2026 </span>
-            <div class="faturamento-card">
-              <i class="fa-solid fa-chart-line"> </i>
+          <section class="resumo-financeiro financeiro-section-card">
+            <div class="financeiro-section-heading">
               <div>
-                <p>Faturamento</p>
-                <strong> R$ 6.450,00 </strong>
-                <span> ↑ 15% vs. Jun/2026 </span>
+                <p class="financeiro-kicker">VISÃO GERAL</p>
+                <h2>Resumo do mês</h2>
+              </div>
+              <button class="financeiro-periodo" type="button">
+                <i class="fa-regular fa-calendar"></i>
+                <span>Este mês</span>
+                <i class="fa-solid fa-chevron-down"></i>
+              </button>
+            </div>
+            <p class="financeiro-mes-label">Outubro 2026</p>
+            <div class="faturamento-card">
+              <div class="financeiro-metric-icon">
+                <i class="fa-solid fa-arrow-trend-up"></i>
+              </div>
+              <div class="financeiro-metric-copy">
+                <p>Receitas recebidas</p>
+                <strong>R$ 0,00</strong>
+                <span class="financeiro-metric-note"
+                  >Valores reais aparecerão após a integração</span
+                >
               </div>
             </div>
+            <div class="financeiro-mini-metrics">
+              <article class="financeiro-mini-card">
+                <span class="mini-card-icon mini-card-icon--expense"
+                  ><i class="fa-solid fa-arrow-trend-down"></i
+                ></span>
+                <span class="mini-card-label">Despesas</span>
+                <strong>R$ 0,00</strong>
+              </article>
+              <article class="financeiro-mini-card">
+                <span class="mini-card-icon mini-card-icon--balance"
+                  ><i class="fa-solid fa-wallet"></i
+                ></span>
+                <span class="mini-card-label">Resultado</span>
+                <strong>R$ 0,00</strong>
+              </article>
+            </div>
           </section>
-          <section class="grafico-faturamento">
+          <section class="financeiro-anual financeiro-section-card">
+            <div class="financeiro-section-heading">
+              <div>
+                <p class="financeiro-kicker">ACOMPANHAMENTO</p>
+                <h2>Visão do ano</h2>
+              </div>
+              <span class="financeiro-ano-pill">2026</span>
+            </div>
+            <div class="financeiro-anual-content">
+              <div>
+                <span class="financeiro-muted-label">Receitas no ano</span>
+                <strong>R$ 0,00</strong>
+              </div>
+              <div class="financeiro-anual-icon">
+                <i class="fa-solid fa-chart-column"></i>
+              </div>
+            </div>
+            <p class="financeiro-helper">
+              O total anual será calculado com base nos recebimentos
+              registrados.
+            </p>
+          </section>
+          <section class="grafico-faturamento financeiro-section-card">
             <div class="section-title">
-              <h2>Faturamento dos últimos meses</h2>
-              <button>Últimos 6 meses</button>
+              <div>
+                <p class="financeiro-kicker">ENTRADAS AO LONGO DO TEMPO</p>
+                <h2>Faturamento mensal</h2>
+              </div>
+              <button type="button">
+                Últimos 6 meses <i class="fa-solid fa-chevron-down"></i>
+              </button>
             </div>
-            <!-- Aqui futuramente entra o gráfico -->
             <div class="grafico-container">
-              <canvas id="graficoFaturamento"></canvas>
+              <canvas
+                id="graficoFaturamento"
+                aria-label="Gráfico de faturamento mensal"
+              ></canvas>
             </div>
           </section>
-          <section class="receita-servico">
-            <h2>Receita por serviço</h2>
+          <section class="receita-servico financeiro-section-card">
+            <div class="financeiro-section-heading">
+              <div>
+                <p class="financeiro-kicker">DESEMPENHO DOS SERVIÇOS</p>
+                <h2>Receita por procedimento</h2>
+              </div>
+            </div>
+            <p class="financeiro-section-description">
+              Veja quais serviços geram mais receita no período selecionado.
+            </p>
             <div class="grafico-servicos">
-              <canvas id="graficoServicos"></canvas>
+              <canvas
+                id="graficoServicos"
+                aria-label="Gráfico de receita por procedimento"
+              ></canvas>
             </div>
             <div class="servico-item">
-              <span> Maquiagem Social </span>
-              <strong> 45% </strong>
+              <span class="servico-item-name"
+                ><i class="servico-dot servico-dot--one"></i>Maquiagem</span
+              >
+              <strong>—</strong>
             </div>
             <div class="servico-item">
-              <span> Penteado </span>
-              <strong> 25% </strong>
+              <span class="servico-item-name"
+                ><i class="servico-dot servico-dot--two"></i>Penteado</span
+              >
+              <strong>—</strong>
             </div>
             <div class="servico-item">
-              <span> Maquiagem + Penteado </span>
-              <strong> 17% </strong>
+              <span class="servico-item-name"
+                ><i class="servico-dot servico-dot--three"></i>Maquiagem +
+                penteado</span
+              >
+              <strong>—</strong>
             </div>
             <div class="servico-item">
-              <span> Outros </span>
-              <strong> 13% </strong>
+              <span class="servico-item-name"
+                ><i class="servico-dot servico-dot--four"></i>Outros
+                procedimentos</span
+              >
+              <strong>—</strong>
             </div>
+            <p class="financeiro-demo-note">
+              Os percentuais serão exibidos após conectar os lançamentos reais.
+            </p>
+          </section>
+          <section class="financeiro-despesas financeiro-section-card">
+            <div class="financeiro-section-heading">
+              <div>
+                <p class="financeiro-kicker">CONTROLE DE SAÍDAS</p>
+                <h2>Despesas do mês</h2>
+              </div>
+              <button class="financeiro-add-button" type="button">
+                <i class="fa-solid fa-plus"></i> Adicionar
+              </button>
+            </div>
+            <p class="financeiro-section-description">
+              Registre combustível, reposição de produtos e outros gastos.
+            </p>
+            <div class="financeiro-despesa-total">
+              <span>Total de despesas</span>
+              <strong>R$ 0,00</strong>
+            </div>
+            <div class="financeiro-despesa-chart">
+              <canvas
+                id="graficoDespesas"
+                aria-label="Gráfico de despesas por categoria"
+              ></canvas>
+            </div>
+            <div class="financeiro-empty-state">
+              <span class="financeiro-empty-icon"
+                ><i class="fa-solid fa-receipt"></i
+              ></span>
+              <strong>Nenhuma despesa registrada</strong>
+              <p>
+                Quando você adicionar um gasto, ele aparecerá aqui por
+                categoria.
+              </p>
+            </div>
+          </section>
+          <section class="financeiro-relatorios financeiro-section-card">
+            <div class="financeiro-section-heading">
+              <div>
+                <p class="financeiro-kicker">ORGANIZAÇÃO CONTÁBIL</p>
+                <h2>Relatórios</h2>
+              </div>
+              <i class="fa-solid fa-file-pdf financeiro-report-icon"></i>
+            </div>
+
+            <p class="financeiro-section-description">
+              Prepare um demonstrativo por período com receitas, despesas e
+              formas de pagamento.
+            </p>
+            <button class="financeiro-report-button" type="button">
+              <i class="fa-solid fa-file-arrow-down"></i>
+              <span
+                ><strong>Gerar relatório em PDF</strong
+                ><small>Receitas, despesas e movimentações</small></span
+              >
+              <i class="fa-solid fa-chevron-right"></i>
+            </button>
           </section>
         </section>
       </main>
@@ -405,5 +567,6 @@
     <script src="JS/telas/tela-inicio.js"></script>
     <script src="JS/telas/tela-agenda.js"></script>
     <script src="JS/telas/tela-clientes.js"></script>
+    <script src="JS/telas/tela-financeiro.js"></script>
   </body>
 </html>
