@@ -1,19 +1,18 @@
 
 /* =========================================================
    FLOW PRO — FINANCEIRO MOBILE
-   Versão inicial para testes locais.
-   Os dados ficam salvos neste navegador.
-   A integração com o Google Sheets será feita separadamente.
+   Versão integrada à API 4.5 / Google Sheets.
    ========================================================= */
 
 (function () {
   "use strict";
 
-  const STORAGE_KEY = "flowpro_financeiro_prototipo_v1";
-
   const state = {
     receitas: [],
     despesas: [],
+    agendamentos: [],
+    pagamentos: [],
+    carregado: false,
     mes: new Date().getMonth(),
     ano: new Date().getFullYear(),
     periodo: "mes",
@@ -51,46 +50,66 @@
     return new Date(ano, mes - 1, dia).toLocaleDateString("pt-BR");
   };
 
-  function lerDados() {
-    try {
-      const dados = JSON.parse(
-        localStorage.getItem(STORAGE_KEY) || "{}"
-      );
-
-      state.receitas = Array.isArray(dados.receitas)
-        ? dados.receitas
-        : [];
-
-      state.despesas = Array.isArray(dados.despesas)
-        ? dados.despesas
-        : [];
-    } catch (erro) {
-      console.warn(
-        "Não foi possível carregar os dados financeiros.",
-        erro
-      );
-
-      state.receitas = [];
-      state.despesas = [];
-    }
+  function numero(valor) {
+    if (typeof valor === "number") return Number.isFinite(valor) ? valor : 0;
+    const texto = String(valor ?? "").trim().replace(/\./g, "").replace(",", ".");
+    const n = Number(texto);
+    return Number.isFinite(n) ? n : 0;
   }
 
-  function salvarDados() {
-    try {
-      localStorage.setItem(
-        STORAGE_KEY,
-        JSON.stringify({
-          receitas: state.receitas,
-          despesas: state.despesas
-        })
-      );
-    } catch (erro) {
-      console.error("Erro ao salvar os dados locais:", erro);
+  function normalizarPagamento(item) {
+    const status = String(item.status || "").trim().toLowerCase();
+    return {
+      id: item.id || "",
+      idAgendamento: item.idAgendamento || "",
+      cliente: item.cliente || "",
+      data: dataISO(item.data),
+      valor: numero(item.valor),
+      pagamento: item.formaPagamento || "",
+      tipoRecebimento: item.tipoPagamento || "",
+      origem: item.origem || "",
+      status: status === "recebido" ? "Recebido" : (item.status || ""),
+      observacoes: item.observacao || "",
+      servico: ""
+    };
+  }
 
-      alert(
-        "Não foi possível salvar os dados neste navegador."
-      );
-    }
+  function normalizarDespesa(item) {
+    return {
+      id: item.id || "",
+      data: dataISO(item.data),
+      descricao: item.descricao || "",
+      categoria: item.categoria || "Outras despesas",
+      valor: numero(item.valor),
+      pagamento: item.formaPagamento || "",
+      observacoes: item.observacao || ""
+    };
+  }
+
+  function sincronizarDados() {
+    // dadosSistema é declarado com "let" no api.js; nesse caso,
+    // existe no escopo global do JavaScript, mas não como window.dadosSistema.
+    const dados = (typeof dadosSistema !== "undefined" && dadosSistema)
+      ? dadosSistema
+      : (window.dadosSistema || {});
+    state.agendamentos = Array.isArray(dados.agendamentos) ? dados.agendamentos : [];
+    state.pagamentos = Array.isArray(dados.pagamentos) ? dados.pagamentos : [];
+    state.despesas = Array.isArray(dados.despesas) ? dados.despesas.map(normalizarDespesa) : [];
+
+    const agendamentosPorId = new Map(
+      state.agendamentos.map((a) => [String(a.id || ""), a])
+    );
+
+    state.receitas = state.pagamentos
+      .map(normalizarPagamento)
+      .filter((p) => p.status === "Recebido" && p.valor > 0)
+      .map((p) => {
+        const agendamento = agendamentosPorId.get(String(p.idAgendamento)) || {};
+        p.servico = agendamento.servico || "Serviço não informado";
+        return p;
+      });
+
+    state.carregado = true;
   }
 
   function elemento(seletor, raiz = document) {
@@ -125,29 +144,30 @@
 
   function totais() {
     const receitas = registrosNoPeriodo(state.receitas).filter(
-      (item) =>
-        item.status !== "Estornado" &&
-        item.status !== "Reembolsado"
+      (item) => item.status === "Recebido"
     );
-
     const despesas = registrosNoPeriodo(state.despesas);
 
-    const totalReceitas = receitas.reduce(
-      (soma, item) => soma + Number(item.valor || 0),
-      0
-    );
+    const agendamentosPeriodo = state.agendamentos.filter((item) => {
+      const data = dataISO(item.data);
+      if (!data) return false;
+      const [ano, mes] = data.split("-").map(Number);
+      return state.periodo === "ano"
+        ? ano === state.ano
+        : ano === state.ano && mes - 1 === state.mes;
+    });
 
-    const totalDespesas = despesas.reduce(
-      (soma, item) => soma + Number(item.valor || 0),
-      0
-    );
+    const totalReceitas = receitas.reduce((soma, item) => soma + numero(item.valor), 0);
+    const totalDespesas = despesas.reduce((soma, item) => soma + numero(item.valor), 0);
+    const totalPrevisto = agendamentosPeriodo.reduce((soma, item) => {
+      const saldo = numero(item.saldoPendente);
+      const total = numero(item.valorTotal);
+      const recebido = numero(item.valorRecebido);
+      const pendente = saldo > 0 ? saldo : Math.max(0, total - recebido);
+      return soma + (total > 0 ? pendente : 0);
+    }, 0);
 
-    return {
-      receitas,
-      despesas,
-      totalReceitas,
-      totalDespesas
-    };
+    return { receitas, despesas, totalReceitas, totalDespesas, totalPrevisto };
   }
 
   function nomePeriodo() {
@@ -188,83 +208,58 @@
   }
 
   function injetarAvisoPrototipo() {
-    if (elemento("#financeiro-aviso-prototipo")) return;
-
-    const secao = elemento("#financeiro");
-
-    if (!secao) return;
-
-    const aviso = document.createElement("div");
-
-    aviso.id = "financeiro-aviso-prototipo";
-    aviso.setAttribute("role", "status");
-
-    aviso.textContent =
-      "Modo de teste: os lançamentos ficam salvos somente neste navegador.";
-
-    aviso.style.cssText =
-      "margin:0 0 14px;padding:10px 12px;border-radius:12px;" +
-      "background:#FFF4D9;color:#78551A;font-size:11px;" +
-      "line-height:1.45;border:1px solid #F0DCA8;";
-
-    const abas = elemento(".finance-tabs", secao);
-
-    if (abas) {
-      abas.insertAdjacentElement("afterend", aviso);
-    } else {
-      secao.prepend(aviso);
-    }
+    const aviso = elemento("#financeiro-aviso-prototipo");
+    if (aviso) aviso.remove();
   }
 
   function adicionarSeletorPeriodo() {
-    const botao = elemento(
-      ".financeiro-periodo",
-      elemento("#financeiro")
-    );
+    const secao = elemento("#financeiro");
+    const mesSelect = elemento("#financeiroMes", secao);
+    const anoSelect = elemento("#financeiroAno", secao);
 
-    if (!botao || botao.dataset.bound === "1") return;
-
-    botao.dataset.bound = "1";
-
-    botao.addEventListener("click", () => {
-      const opcao = prompt(
-        "Digite M para escolher um mês ou A para consultar o ano:",
-        state.periodo === "ano" ? "A" : "M"
-      );
-
-      if (!opcao) return;
-
-      if (opcao.trim().toUpperCase() === "A") {
-        state.periodo = "ano";
+    if (mesSelect && mesSelect.dataset.bound !== "1") {
+      mesSelect.dataset.bound = "1";
+      mesSelect.value = String(state.mes);
+      mesSelect.addEventListener("change", () => {
+        state.mes = Number(mesSelect.value);
+        state.periodo = "mes";
         renderizar();
-        return;
-      }
+      });
+    }
 
-      const entrada = prompt(
-        "Informe o mês e o ano no formato MM/AAAA:",
-        `${String(state.mes + 1).padStart(2, "0")}/${state.ano}`
-      );
+    if (anoSelect && anoSelect.dataset.bound !== "1") {
+      anoSelect.dataset.bound = "1";
+      anoSelect.value = String(state.ano);
+      anoSelect.addEventListener("change", () => {
+        state.ano = Number(anoSelect.value);
+        renderizar();
+      });
+    }
 
-      if (!entrada) return;
+    const botao = elemento(".financeiro-periodo", secao);
+    if (botao) botao.style.display = "none";
 
-      const correspondencia = entrada.match(
-        /^\s*(\d{1,2})\s*\/\s*(\d{4})\s*$/
-      );
+    const anualSelect = elemento(".financeiro-ano-select select", secao);
+    if (anualSelect && anualSelect.dataset.bound !== "1") {
+      anualSelect.dataset.bound = "1";
+      anualSelect.value = String(state.ano);
+      anualSelect.addEventListener("change", () => {
+        state.ano = Number(anualSelect.value);
+        renderizar();
+      });
+    }
 
-      if (
-        !correspondencia ||
-        Number(correspondencia[1]) < 1 ||
-        Number(correspondencia[1]) > 12
-      ) {
-        alert("Período inválido. Use MM/AAAA.");
-        return;
-      }
-
-      state.mes = Number(correspondencia[1]) - 1;
-      state.ano = Number(correspondencia[2]);
-      state.periodo = "mes";
-
-      renderizar();
+    todos(".financeiro-periodo-grafico button", secao).forEach((b, i) => {
+      if (b.dataset.bound === "1") return;
+      b.dataset.bound = "1";
+      b.addEventListener("click", () => {
+        state.periodo = i === 1 ? "ano" : "mes";
+        todos(".financeiro-periodo-grafico button", secao).forEach((x, j) => {
+          x.classList.toggle("active", j === i);
+          x.setAttribute("aria-pressed", j === i ? "true" : "false");
+        });
+        renderizar();
+      });
     });
   }
 
@@ -306,10 +301,6 @@
         ][indice] || "resumo";
 
         atualizarAbas(state.tab);
-
-        if (state.tab === "transacoes") {
-          abrirModalLancamento("receita");
-        }
 
         if (state.tab === "relatorios") {
           gerarRelatorio();
@@ -380,8 +371,11 @@
     return overlay;
   }
 
-  function abrirModalLancamento(tipo = "receita") {
-    const receita = tipo === "receita";
+  function abrirModalLancamento(tipo = "despesa") {
+    if (tipo === "receita") {
+      alert("Os recebimentos são registrados pela Agenda e aparecem automaticamente no Financeiro. Isso evita lançamentos duplicados.");
+      return;
+    }
 
     const categorias = [
       "Gasolina/combustível",
@@ -396,162 +390,89 @@
     ];
 
     const opcoesCategorias = categorias
-      .map((categoria) =>
-        `<option value="${escapar(categoria)}">${escapar(categoria)}</option>`
-      )
+      .map((categoria) => `<option value="${escapar(categoria)}">${escapar(categoria)}</option>`)
       .join("");
 
-    const overlay = modalBase(
-      receita ? "Registrar recebimento" : "Adicionar despesa",
-      `
+    const overlay = modalBase("Adicionar despesa", `
       <form id="financeiro-form-lancamento" style="display:grid;gap:12px;">
-
         <label style="display:grid;gap:6px;font-size:12px;color:#6A5963;">
           Data
           <input name="data" type="date" value="${hojeISO()}" required style="${estiloCampo()}">
         </label>
-
-        ${
-          receita
-            ? `
-              <label style="display:grid;gap:6px;font-size:12px;color:#6A5963;">
-                Nome da cliente
-                <input name="cliente" maxlength="120" placeholder="Nome da cliente" required style="${estiloCampo()}">
-              </label>
-
-              <label style="display:grid;gap:6px;font-size:12px;color:#6A5963;">
-                Serviço
-                <input name="servico" maxlength="120" placeholder="Ex.: Maquiagem + penteado" required style="${estiloCampo()}">
-              </label>
-            `
-            : `
-              <label style="display:grid;gap:6px;font-size:12px;color:#6A5963;">
-                Categoria
-                <select name="categoria" required style="${estiloCampo()}">
-                  <option value="">Selecione</option>
-                  ${opcoesCategorias}
-                </select>
-              </label>
-
-              <label style="display:grid;gap:6px;font-size:12px;color:#6A5963;">
-                Descrição
-                <input name="descricao" maxlength="160" placeholder="Detalhe do gasto" required style="${estiloCampo()}">
-              </label>
-            `
-        }
-
+        <label style="display:grid;gap:6px;font-size:12px;color:#6A5963;">
+          Categoria
+          <select name="categoria" required style="${estiloCampo()}">
+            <option value="">Selecione</option>${opcoesCategorias}
+          </select>
+        </label>
+        <label style="display:grid;gap:6px;font-size:12px;color:#6A5963;">
+          Descrição
+          <input name="descricao" maxlength="160" placeholder="Detalhe do gasto" required style="${estiloCampo()}">
+        </label>
         <label style="display:grid;gap:6px;font-size:12px;color:#6A5963;">
           Valor (R$)
           <input name="valor" type="number" min="0.01" step="0.01" inputmode="decimal" placeholder="0,00" required style="${estiloCampo()}">
         </label>
-
         <label style="display:grid;gap:6px;font-size:12px;color:#6A5963;">
           Forma de pagamento
-          <select name="pagamento" required style="${estiloCampo()}">
+          <select name="formaPagamento" required style="${estiloCampo()}">
             <option value="">Selecione</option>
-            <option>Pix</option>
-            <option>Dinheiro</option>
-            <option>Cartão de débito</option>
-            <option>Cartão de crédito</option>
+            <option>Pix</option><option>Dinheiro</option>
+            <option>Cartão de débito</option><option>Cartão de crédito</option>
             <option>Transferência</option>
           </select>
         </label>
-
-        ${
-          receita
-            ? `
-              <label style="display:grid;gap:6px;font-size:12px;color:#6A5963;">
-                Tipo de recebimento
-                <select name="tipoRecebimento" style="${estiloCampo()}">
-                  <option>Pagamento integral</option>
-                  <option>Sinal</option>
-                  <option>Saldo</option>
-                  <option>Outro</option>
-                </select>
-              </label>
-            `
-            : `
-              <label style="display:grid;gap:6px;font-size:12px;color:#6A5963;">
-                Fornecedor (opcional)
-                <input name="fornecedor" maxlength="120" placeholder="Nome do fornecedor" style="${estiloCampo()}">
-              </label>
-
-              <label style="display:grid;gap:6px;font-size:12px;color:#6A5963;">
-                Comprovante ou link (opcional)
-                <input name="comprovante" maxlength="500" placeholder="Link do comprovante" style="${estiloCampo()}">
-              </label>
-            `
-        }
-
         <label style="display:grid;gap:6px;font-size:12px;color:#6A5963;">
           Observações (opcional)
-          <textarea name="observacoes" rows="2" maxlength="500" placeholder="Observações" style="${estiloCampo()}"></textarea>
+          <textarea name="observacao" rows="2" maxlength="500" placeholder="Observações" style="${estiloCampo()}"></textarea>
         </label>
-
         <button type="submit" style="padding:14px;border:0;border-radius:13px;background:#6B304F;color:#fff;font-weight:750;font-size:14px;">
-          Salvar lançamento de teste
+          Salvar despesa
         </button>
-
         <p style="margin:0;color:#8A7D85;font-size:10px;line-height:1.45;">
-          Os dados desta versão ficam salvos somente neste navegador.
+          A despesa será registrada na planilha e ficará disponível nos dispositivos conectados.
         </p>
       </form>
-      `
-    );
+    `);
 
     elemento("#financeiro-form-lancamento", overlay)
-      .addEventListener("submit", (evento) => {
+      .addEventListener("submit", async (evento) => {
         evento.preventDefault();
-
         const formulario = evento.currentTarget;
-
-        const dados = Object.fromEntries(
-          new FormData(formulario).entries()
-        );
-
-        const valor = Number(dados.valor);
+        const botao = formulario.querySelector('button[type="submit"]');
+        const dados = Object.fromEntries(new FormData(formulario).entries());
+        const valor = numero(dados.valor);
 
         if (!Number.isFinite(valor) || valor <= 0) {
           alert("Informe um valor maior que zero.");
           return;
         }
-
-        const registro = {
-          id: `${receita ? "REC" : "DES"}-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`,
-          data: dados.data,
-          valor,
-          pagamento: dados.pagamento,
-          observacoes: dados.observacoes || "",
-          criadoEm: new Date().toISOString()
-        };
-
-        if (receita) {
-          registro.cliente = (dados.cliente || "").trim();
-          registro.servico = (dados.servico || "").trim();
-          registro.tipoRecebimento =
-            dados.tipoRecebimento || "Pagamento integral";
-          registro.status = "Recebido";
-
-          state.receitas.push(registro);
-        } else {
-          registro.categoria = dados.categoria;
-          registro.descricao = (dados.descricao || "").trim();
-          registro.fornecedor = (dados.fornecedor || "").trim();
-          registro.comprovante = (dados.comprovante || "").trim();
-
-          state.despesas.push(registro);
+        if (typeof registrarDespesaAPI !== "function") {
+          alert("A função de integração da API não foi carregada. Confira o api.js.");
+          return;
         }
 
-        salvarDados();
-        fecharModal();
-
-        state.tab = "resumo";
-        atualizarAbas("resumo");
-        renderizar();
-
-        alert(
-          "Lançamento salvo neste navegador. Ainda não foi enviado à planilha."
-        );
+        botao.disabled = true;
+        botao.textContent = "Salvando...";
+        try {
+          await registrarDespesaAPI({
+            data: dados.data,
+            descricao: dados.descricao.trim(),
+            categoria: dados.categoria,
+            valor,
+            formaPagamento: dados.formaPagamento,
+            observacao: dados.observacao || ""
+          });
+          fecharModal();
+          sincronizarDados();
+          renderizar();
+          alert("Despesa registrada na planilha com sucesso.");
+        } catch (erro) {
+          console.error("Erro ao registrar despesa:", erro);
+          alert("Não foi possível registrar a despesa: " + (erro.message || erro));
+          botao.disabled = false;
+          botao.textContent = "Salvar despesa";
+        }
       });
   }
 
@@ -579,61 +500,39 @@
 
   function atualizarResumo() {
     const resumo = totais();
+    atualizarValor(".financeiro-recebido-valor", moeda(resumo.totalReceitas));
+    atualizarValor(".financeiro-previsto-valor", moeda(resumo.totalPrevisto));
+    atualizarValor(".financeiro-despesas-valor", moeda(resumo.totalDespesas));
+    atualizarValor(".financeiro-resultado-valor", moeda(resumo.totalReceitas - resumo.totalDespesas));
 
-    atualizarValor(
-      ".faturamento-card .financeiro-metric-copy strong",
-      moeda(resumo.totalReceitas)
-    );
+    const anualReceitas = state.receitas
+      .filter((item) => item.data && Number(item.data.slice(0, 4)) === state.ano && item.status === "Recebido")
+      .reduce((soma, item) => soma + numero(item.valor), 0);
+    const anualDespesas = state.despesas
+      .filter((item) => item.data && Number(item.data.slice(0, 4)) === state.ano)
+      .reduce((soma, item) => soma + numero(item.valor), 0);
+    const anualPrevisto = state.agendamentos
+      .filter((item) => item.data && Number(dataISO(item.data).slice(0, 4)) === state.ano)
+      .reduce((soma, item) => {
+        const total = numero(item.valorTotal);
+        const recebido = numero(item.valorRecebido);
+        const saldo = numero(item.saldoPendente);
+        return soma + (total > 0 ? (saldo > 0 ? saldo : Math.max(0, total - recebido)) : 0);
+      }, 0);
 
-    const indicadores = todos(
-      ".financeiro-mini-card strong",
-      elemento("#financeiro")
-    );
-
-    if (indicadores[0]) {
-      indicadores[0].textContent = moeda(resumo.totalDespesas);
+    atualizarValor(".financeiro-anual-recebido", moeda(anualReceitas));
+    const anual = elemento(".financeiro-anual-content");
+    if (anual) {
+      const valores = todos(".financeiro-anual-linha strong", anual);
+      if (valores[1]) valores[1].textContent = moeda(anualPrevisto);
+      if (valores[2]) valores[2].textContent = moeda(anualDespesas);
+      if (valores[3]) valores[3].textContent = moeda(anualReceitas - anualDespesas);
     }
 
-    if (indicadores[1]) {
-      indicadores[1].textContent = moeda(
-        resumo.totalReceitas - resumo.totalDespesas
-      );
-    }
+    atualizarValor(".financeiro-despesa-total strong", moeda(resumo.totalDespesas));
 
-    const receitasAnuais = state.receitas
-      .filter((item) => {
-        if (!item.data) return false;
-
-        return (
-          Number(item.data.slice(0, 4)) === state.ano &&
-          item.status !== "Estornado" &&
-          item.status !== "Reembolsado"
-        );
-      })
-      .reduce(
-        (soma, item) => soma + Number(item.valor || 0),
-        0
-      );
-
-    atualizarValor(
-      ".financeiro-anual-content strong",
-      moeda(receitasAnuais)
-    );
-
-    atualizarValor(
-      ".financeiro-despesa-total strong",
-      moeda(resumo.totalDespesas)
-    );
-
-    const estadoVazio = elemento(
-      ".financeiro-empty-state",
-      elemento("#financeiro")
-    );
-
-    if (estadoVazio) {
-      estadoVazio.style.display =
-        resumo.despesas.length > 0 ? "none" : "flex";
-    }
+    const estadoVazio = elemento(".financeiro-empty-state", elemento("#financeiro"));
+    if (estadoVazio) estadoVazio.style.display = resumo.despesas.length > 0 ? "none" : "flex";
 
     renderizarListaServicos(resumo.receitas);
     renderizarListaDespesas(resumo.despesas);
@@ -721,14 +620,16 @@
       }
 
       if (valor) {
-        valor.textContent =
-          `${moeda(item[1])} · ${percentual(
-            item[1],
-            receitas.reduce(
-              (soma, receita) => soma + Number(receita.valor || 0),
-              0
-            )
-          )}`;
+        const totalRecebidoProcedimentos = receitas.reduce(
+          (soma, receita) => soma + numero(receita.valor),
+          0
+        );
+
+        // Exibe somente a participação percentual de cada procedimento.
+        valor.textContent = percentual(
+          numero(item[1]),
+          totalRecebidoProcedimentos
+        );
       }
     });
   }
@@ -802,182 +703,82 @@
 
   function atualizarGraficos() {
     if (typeof Chart === "undefined") {
-      console.warn(
-        "Chart.js não foi encontrado. Os gráficos não serão exibidos."
-      );
+      console.warn("Chart.js não foi encontrado. Os gráficos não serão exibidos.");
       return;
     }
 
-    const resumo = totais();
+    const labels = [];
+    const receitas = [];
+    const despesas = [];
+    const quantidade = state.periodo === "ano" ? 12 : 6;
 
-    const meses = [];
-    const valoresMensais = [];
-
-    for (let i = 5; i >= 0; i--) {
+    for (let i = quantidade - 1; i >= 0; i--) {
       const data = new Date(
         state.ano,
-        state.mes - i,
+        state.periodo === "ano" ? 11 - i : state.mes - i,
         1
       );
-
       const ano = data.getFullYear();
       const mes = data.getMonth();
+      labels.push(data.toLocaleDateString("pt-BR", { month: "short" }).replace(".", ""));
 
-      meses.push(
-        data.toLocaleDateString("pt-BR", {
-          month: "short"
-        }).replace(".", "")
-      );
-
-      const total = state.receitas
-        .filter((receita) => {
-          if (
-            !receita.data ||
-            receita.status === "Estornado" ||
-            receita.status === "Reembolsado"
-          ) {
-            return false;
-          }
-
-          const [anoReceita, mesReceita] =
-            receita.data.split("-").map(Number);
-
-          return (
-            anoReceita === ano &&
-            mesReceita - 1 === mes
-          );
+      const somaMes = (lista) => lista
+        .filter((item) => {
+          if (!item.data) return false;
+          const [a, m] = item.data.split("-").map(Number);
+          return a === ano && m - 1 === mes;
         })
-        .reduce(
-          (soma, receita) => soma + Number(receita.valor || 0),
-          0
-        );
+        .reduce((soma, item) => soma + numero(item.valor), 0);
 
-      valoresMensais.push(total);
+      receitas.push(somaMes(state.receitas.filter((p) => p.status === "Recebido")));
+      despesas.push(somaMes(state.despesas));
     }
 
     criarGrafico("faturamento", "graficoFaturamento", {
       type: "bar",
-
       data: {
-        labels: meses,
-
-        datasets: [{
-          label: "Receitas recebidas",
-          data: valoresMensais,
-          backgroundColor: "#B66F8B",
-          borderRadius: 7,
-          maxBarThickness: 28
-        }]
+        labels,
+        datasets: [
+          { label: "Receitas recebidas", data: receitas, backgroundColor: "#B66F8B", borderRadius: 7, maxBarThickness: 28 },
+          { label: "Despesas", data: despesas, backgroundColor: "#E7A36F", borderRadius: 7, maxBarThickness: 28 }
+        ]
       },
-
       options: {
         responsive: true,
         maintainAspectRatio: false,
-
         plugins: {
-          legend: {
-            display: false
-          },
-
-          tooltip: {
-            callbacks: {
-              label: (contexto) => moeda(contexto.raw)
-            }
-          }
+          legend: { display: false },
+          tooltip: { callbacks: { label: (contexto) => `${contexto.dataset.label}: ${moeda(contexto.raw)}` } }
         },
-
         scales: {
-          x: {
-            grid: {
-              display: false
-            },
-
-            ticks: {
-              color: "#8A7D85",
-              font: {
-                size: 10
-              }
-            }
-          },
-
-          y: {
-            beginAtZero: true,
-
-            grid: {
-              color: "#F1E9ED"
-            },
-
-            ticks: {
-              color: "#8A7D85",
-              font: {
-                size: 9
-              },
-
-              callback: (valor) => `R$ ${valor}`
-            }
-          }
+          x: { grid: { display: false }, ticks: { color: "#8A7D85", font: { size: 10 } } },
+          y: { beginAtZero: true, grid: { color: "#F1E9ED" }, ticks: { color: "#8A7D85", font: { size: 9 }, callback: (valor) => `R$ ${valor}` } }
         }
       }
     });
 
+    const resumo = totais();
     const servicos = new Map();
-
-    resumo.receitas.forEach((receita) => {
-      const nome = receita.servico || "Serviço não informado";
-
-      servicos.set(
-        nome,
-        (servicos.get(nome) || 0) + Number(receita.valor || 0)
-      );
+    resumo.receitas.forEach((pagamento) => {
+      const nome = pagamento.servico || "Serviço não informado";
+      servicos.set(nome, (servicos.get(nome) || 0) + numero(pagamento.valor));
     });
-
-    const itensServicos = Array.from(servicos.entries())
-      .sort((a, b) => b[1] - a[1]);
+    const itensServicos = Array.from(servicos.entries()).sort((a, b) => b[1] - a[1]);
 
     criarGrafico("servicos", "graficoServicos", {
       type: "doughnut",
-
       data: {
         labels: itensServicos.map((item) => item[0]),
-
-        datasets: [{
-          data: itensServicos.map((item) => item[1]),
-
-          backgroundColor: [
-            "#6B304F",
-            "#B66F8B",
-            "#D9A7BA",
-            "#E8D8E0",
-            "#C9A5B6",
-            "#8A536D"
-          ],
-
-          borderWidth: 2,
-          borderColor: "#FFFFFF",
-          hoverOffset: 4
-        }]
+        datasets: [{ data: itensServicos.map((item) => item[1]), backgroundColor: ["#6B304F", "#B66F8B", "#D9A7BA", "#E8D8E0", "#C9A5B6", "#8A536D"], borderWidth: 2, borderColor: "#FFFFFF", hoverOffset: 4 }]
       },
-
       options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        cutout: "66%",
-
+        responsive: true, maintainAspectRatio: false, cutout: "66%",
         plugins: {
-          legend: {
-            display: false
-          },
-
+          legend: { display: false },
           tooltip: {
             callbacks: {
-              label: (contexto) => {
-                const valor = Number(contexto.raw || 0);
-
-                return `${contexto.label}: ${moeda(valor)} (${percentual(
-                  valor,
-                  resumo.totalReceitas
-                )})`;
-              }
+              label: (contexto) =>
+                `${contexto.label}: ${percentual(numero(contexto.raw), resumo.totalReceitas)}`
             }
           }
         }
@@ -985,89 +786,95 @@
     });
 
     const categorias = new Map();
-
     resumo.despesas.forEach((despesa) => {
       const categoria = despesa.categoria || "Outras despesas";
-
-      categorias.set(
-        categoria,
-        (categorias.get(categoria) || 0) +
-          Number(despesa.valor || 0)
-      );
+      categorias.set(categoria, (categorias.get(categoria) || 0) + numero(despesa.valor));
     });
-
-    const itensDespesas = Array.from(categorias.entries())
-      .sort((a, b) => b[1] - a[1]);
+    const itensDespesas = Array.from(categorias.entries()).sort((a, b) => b[1] - a[1]);
 
     criarGrafico("despesas", "graficoDespesas", {
       type: "doughnut",
-
       data: {
         labels: itensDespesas.map((item) => item[0]),
-
-        datasets: [{
-          data: itensDespesas.map((item) => item[1]),
-
-          backgroundColor: [
-            "#6B304F",
-            "#B66F8B",
-            "#D9A7BA",
-            "#E8D8E0",
-            "#C9A5B6",
-            "#8A536D",
-            "#A7B8A8"
-          ],
-
-          borderWidth: 2,
-          borderColor: "#FFFFFF"
-        }]
+        datasets: [{ data: itensDespesas.map((item) => item[1]), backgroundColor: ["#6B304F", "#B66F8B", "#D9A7BA", "#E8D8E0", "#C9A5B6", "#8A536D", "#A7B8A8"], borderWidth: 2, borderColor: "#FFFFFF" }]
       },
-
       options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        cutout: "62%",
-
-        plugins: {
-          legend: {
-            position: "bottom",
-
-            labels: {
-              boxWidth: 9,
-              boxHeight: 9,
-              padding: 12,
-
-              font: {
-                size: 10
-              }
-            }
-          },
-
-          tooltip: {
-            callbacks: {
-              label: (contexto) =>
-                `${contexto.label}: ${moeda(contexto.raw)}`
-            }
-          }
-        }
+        responsive: true, maintainAspectRatio: false, cutout: "62%",
+        plugins: { legend: { position: "bottom", labels: { boxWidth: 9, boxHeight: 9, padding: 12, font: { size: 10 } } }, tooltip: { callbacks: { label: (contexto) => `${contexto.label}: ${moeda(contexto.raw)}` } } }
       }
     });
   }
 
   function configurarBotaoDespesa() {
-    const botao = elemento(
-      ".financeiro-add-button",
-      elemento("#financeiro")
-    );
+    const formulario = elemento("#financeiro-form-despesa", elemento("#financeiro"));
+    if (!formulario || formulario.dataset.bound === "1") return;
 
-    if (!botao || botao.dataset.bound === "1") {
-      return;
+    formulario.dataset.bound = "1";
+
+    const campoData = formulario.querySelector('[name="data"]');
+    if (campoData && !campoData.value) campoData.value = hojeISO();
+
+    // A versão original do formulário não tinha descrição nem forma de pagamento.
+    // Incluímos os campos sem alterar o HTML nem a identidade visual.
+    if (!formulario.querySelector('[name="descricao"]')) {
+      const label = document.createElement("label");
+      label.innerHTML = 'Descrição<input name="descricao" type="text" maxlength="160" placeholder="Ex.: Compra de produtos" required>';
+      formulario.insertBefore(label, formulario.querySelector(".financeiro-submit-despesa"));
     }
 
-    botao.dataset.bound = "1";
+    if (!formulario.querySelector('[name="formaPagamento"]')) {
+      const label = document.createElement("label");
+      label.innerHTML = `
+        Forma de pagamento
+        <select name="formaPagamento" required>
+          <option value="">Selecione</option>
+          <option>Pix</option>
+          <option>Dinheiro</option>
+          <option>Cartão de débito</option>
+          <option>Cartão de crédito</option>
+          <option>Transferência</option>
+        </select>`;
+      formulario.insertBefore(label, formulario.querySelector(".financeiro-submit-despesa"));
+    }
 
-    botao.addEventListener("click", () => {
-      abrirModalLancamento("despesa");
+    formulario.addEventListener("submit", async (evento) => {
+      evento.preventDefault();
+      const botao = formulario.querySelector(".financeiro-submit-despesa");
+      const dados = Object.fromEntries(new FormData(formulario).entries());
+      const valor = numero(dados.valor);
+
+      if (!dados.categoria || !dados.descricao.trim() || !dados.data || !dados.formaPagamento || valor <= 0) {
+        alert("Preencha categoria, descrição, data, valor e forma de pagamento.");
+        return;
+      }
+      if (typeof registrarDespesaAPI !== "function") {
+        alert("A integração com a API não foi carregada. Confira o api.js.");
+        return;
+      }
+
+      botao.disabled = true;
+      botao.textContent = "Salvando...";
+      try {
+        await registrarDespesaAPI({
+          data: dados.data,
+          descricao: dados.descricao.trim(),
+          categoria: dados.categoria,
+          valor,
+          formaPagamento: dados.formaPagamento,
+          observacao: dados.observacoes || ""
+        });
+        sincronizarDados();
+        renderizar();
+        formulario.reset();
+        if (campoData) campoData.value = hojeISO();
+        alert("Despesa registrada na planilha com sucesso.");
+      } catch (erro) {
+        console.error("Erro ao registrar despesa:", erro);
+        alert("Não foi possível registrar a despesa: " + (erro.message || erro));
+      } finally {
+        botao.disabled = false;
+        botao.textContent = "Adicionar Despesa";
+      }
     });
   }
 
@@ -1084,6 +891,15 @@
     botao.dataset.bound = "1";
 
     botao.addEventListener("click", gerarRelatorio);
+
+    const botaoAnual = elemento(".financeiro-report-anual", elemento("#financeiro"));
+    if (botaoAnual && botaoAnual.dataset.bound !== "1") {
+      botaoAnual.dataset.bound = "1";
+      botaoAnual.addEventListener("click", () => {
+        state.periodo = "ano";
+        gerarRelatorio();
+      });
+    }
   }
 
   function gerarRelatorio() {
@@ -1135,6 +951,29 @@
             font: 12px Arial, sans-serif;
             color: #2e2630;
             padding: 24px;
+          }
+
+          .btn-voltar-flowpro {
+            position: fixed;
+            top: 14px;
+            right: 18px;
+            z-index: 9999;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 15px;
+            border: 0;
+            border-radius: 999px;
+            background: #6B304F;
+            color: #fff;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 3px 12px rgba(50, 20, 38, .18);
+          }
+
+          .btn-voltar-flowpro:hover {
+            background: #54233D;
           }
 
           h1, h2 {
@@ -1197,14 +1036,25 @@
           }
 
           @media print {
-            button {
-              display: none;
+            .btn-voltar-flowpro {
+              display: none !important;
             }
           }
         </style>
       </head>
 
       <body>
+        <button
+          type="button"
+          class="btn-voltar-flowpro"
+          onclick="voltarAoFlowPro()"
+          aria-label="Fechar relatório e voltar ao Flow Pro"
+          title="Voltar ao Flow Pro"
+        >
+          <span aria-hidden="true">×</span>
+          Voltar ao Flow Pro
+        </button>
+
         <h1>Flow Pro — Relatório Financeiro</h1>
 
         <p>
@@ -1279,6 +1129,18 @@
         </footer>
 
         <script>
+          function voltarAoFlowPro() {
+            // O relatório é aberto pelo próprio Flow Pro em uma nova aba/janela.
+            // Primeiro tentamos fechá-la; se o navegador impedir, voltamos no histórico.
+            window.close();
+
+            setTimeout(function () {
+              if (!window.closed) {
+                window.history.back();
+              }
+            }, 150);
+          }
+
           window.onload = function () {
             window.print();
           };
@@ -1301,7 +1163,7 @@
 
     if (!secao) return;
 
-    lerDados();
+    sincronizarDados();
     injetarAvisoPrototipo();
     adicionarSeletorPeriodo();
     adicionarNavegacaoAbas();
@@ -1309,10 +1171,13 @@
     configurarBotaoRelatorio();
     renderizar();
 
-    document.addEventListener("dadosCarregados", renderizar);
+    document.addEventListener("dadosCarregados", () => {
+      sincronizarDados();
+      renderizar();
+    });
 
     console.info(
-      "Flow Pro Financeiro iniciado em modo de teste local."
+      "Flow Pro Financeiro iniciado com integração Google Sheets."
     );
   }
 
@@ -1335,30 +1200,12 @@
 
     gerarRelatorio,
 
-    limparDadosLocais: () => {
-      if (
-        !confirm(
-          "Isso apagará todos os lançamentos de teste deste navegador. Continuar?"
-        )
-      ) {
-        return;
-      }
-
-      state.receitas = [];
-      state.despesas = [];
-
-      salvarDados();
+    atualizar: async () => {
+      if (typeof carregarDados === "function") await carregarDados();
+      sincronizarDados();
       renderizar();
     },
 
-    exportarDadosTeste: () =>
-      JSON.stringify(
-        {
-          receitas: state.receitas,
-          despesas: state.despesas
-        },
-        null,
-        2
-      )
+    obterResumo: () => totais()
   };
 })();
