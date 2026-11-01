@@ -2374,3 +2374,230 @@ color:#33252E; font:inherit; font-size:15px; }
  #financeiro .financeiro-indicador strong { font-size:16px; }
  #financeiro .receita-procedimento-legenda { grid-template-columns:1fr; }
 }
+/* ==========================================================
+   FLOW PRO — FINANCEIRO DENTRO DA AGENDA
+   Componentes isolados para não alterar as demais telas.
+   ========================================================== */
+#agenda .cliente-agenda-dia.cliente-agenda-financeiro{
+  display:grid;
+  grid-template-columns:48px minmax(0,1fr) auto;
+  align-items:start;
+  gap:10px 12px;
+  padding:17px 0;
+}
+#agenda .cliente-agenda-financeiro .cliente-agenda-hora{
+  padding-top:7px;
+  font-size:14px;
+}
+#agenda .cliente-agenda-financeiro .cliente-agenda-info{
+  padding-top:5px;
+}
+#agenda .agenda-card-top-actions{
+  position:relative;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end;
+  gap:6px;
+  min-width:112px;
+}
+#agenda .agenda-status-financeiro{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:90px;
+  padding:6px 12px;
+  border-radius:20px;
+  font-size:11px;
+  font-weight:700;
+  white-space:nowrap;
+}
+#agenda .agenda-status-financeiro.parcial{background:#E1F4FC;color:#168BC4;}
+#agenda .agenda-status-financeiro.pendente{background:#FFF0DD;color:#D98219;}
+#agenda .agenda-status-financeiro.quitado{background:#E2F5E7;color:#159447;}
+#agenda .agenda-status-financeiro.cancelado{background:#F1E8EC;color:#7A5365;}
+#agenda .agenda-valor-total{font-size:14px;color:#252525;white-space:nowrap;}
+#agenda .agenda-menu-toggle{
+  position:absolute;
+  top:0;
+  right:-2px;
+  transform:translateX(100%);
+  width:32px;
+  height:32px;
+  border:0;
+  border-radius:50%;
+  background:#FAF4F7;
+  color:#666;
+  cursor:pointer;
+}
+#agenda .agenda-menu-opcoes{
+  position:absolute;
+  z-index:30;
+  top:38px;
+  right:0;
+  min-width:190px;
+  padding:6px;
+  border:1px solid #F0E5EA;
+  border-radius:13px;
+  background:#fff;
+  box-shadow:0 10px 28px rgba(40,20,30,.15);
+}
+#agenda .agenda-menu-opcoes[hidden]{display:none;}
+#agenda .agenda-menu-opcoes button{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  width:100%;
+  min-height:39px;
+  padding:8px 10px;
+  border:0;
+  border-radius:8px;
+  background:#fff;
+  color:#333;
+  text-align:left;
+  font:inherit;
+  font-size:12px;
+  cursor:pointer;
+}
+#agenda .agenda-menu-opcoes button:hover{background:#FAF2F6;color:#6B304F;}
+#agenda .agenda-financeiro-progresso{
+  grid-column:2 / 4;
+  min-width:0;
+  margin:0 2px 2px 0;
+}
+#agenda .agenda-financeiro-barra{
+  width:100%;
+  height:8px;
+  overflow:hidden;
+  border-radius:20px;
+  background:#E8E8EA;
+}
+#agenda .agenda-financeiro-barra span{
+  display:block;
+  height:100%;
+  border-radius:20px;
+  background:#159BDA;
+  transition:width .2s ease;
+}
+#agenda .agenda-status-financeiro.quitado ~ .agenda-financeiro-progresso .agenda-financeiro-barra span{background:#159447;}
+#agenda .agenda-financeiro-legenda{
+  display:flex;
+  justify-content:space-between;
+  gap:8px;
+  margin-top:6px;
+  color:#777;
+  font-size:10px;
+}
+#agenda .agenda-financeiro-legenda span:first-child{color:#168BC4;}
+#agenda .acoes-cliente-agenda{
+  grid-column:2 / 4;
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:8px;
+  margin-top:4px;
+}
+#agenda .acoes-cliente-agenda button{
+  min-height:37px;
+  padding:7px 5px;
+  border:0;
+  border-radius:9px;
+  font-family:inherit;
+  font-size:11px;
+  font-weight:700;
+  cursor:pointer;
+}
+#agenda .acoes-cliente-agenda .btn-detalhes-agenda{background:#F8E8EF;color:#6B304F;}
+#agenda .acoes-cliente-agenda .btn-editar-agenda{background:#F8E8EF;color:#6B304F;}
+#agenda .acoes-cliente-agenda .btn-excluir-agenda{background:#FCEDEE;color:#D73543;}
+#modalPagamentoAgenda .modal-pagamento-conteudo{max-width:440px;}
+#modalPagamentoAgenda .agenda-pagamento-kicker{margin:0 0 5px;color:#9A5576;font-size:10px;font-weight:800;letter-spacing:1px;}
+#modalPagamentoAgenda .agenda-pagamento-cliente{margin:-8px 0 15px;color:#777;font-size:13px;}
+#modalPagamentoAgenda .agenda-pagamento-resumo{display:grid;gap:9px;margin:0 0 18px;padding:14px;background:#FBF7F9;border-radius:13px;}
+#modalPagamentoAgenda .agenda-pagamento-resumo div{display:flex;justify-content:space-between;gap:12px;font-size:12px;color:#777;}
+#modalPagamentoAgenda .agenda-pagamento-resumo strong{color:#252525;font-size:13px;white-space:nowrap;}
+#modalPagamentoAgenda .agenda-pagamento-resumo .saldo-destaque{color:#B66A18;}
+#modalPagamentoAgenda .form-agendamento select,
+#modalPagamentoAgenda .form-agendamento input{min-height:44px;}
+@media(max-width:480px){
+  #agenda .cliente-agenda-dia.cliente-agenda-financeiro{grid-template-columns:42px minmax(0,1fr) auto;gap:9px;}
+  #agenda .agenda-card-top-actions{min-width:88px;}
+  #agenda .agenda-status-financeiro{min-width:78px;padding:5px 8px;font-size:10px;}
+  #agenda .agenda-valor-total{font-size:12px;}
+  #agenda .agenda-menu-toggle{right:0;top:35px;transform:none;width:29px;height:29px;}
+  #agenda .agenda-menu-opcoes{top:68px;}
+  #agenda .agenda-financeiro-legenda{font-size:9px;}
+  #agenda .acoes-cliente-agenda{gap:6px;}
+  #agenda .acoes-cliente-agenda button{font-size:10px;}
+}
+#agenda .agenda-menu-quitado{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  min-height:38px;
+  padding:8px 10px;
+  color:#159447;
+  font-size:12px;
+  font-weight:700;
+}
+
+
+/* FLOW PRO — Ajuste das ações da Agenda: botões lado a lado */
+#agenda .cliente-agenda-financeiro .acoes-cliente-agenda {
+  grid-column: 2 / 4 !important;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: stretch !important;
+  justify-content: space-between !important;
+  flex-wrap: nowrap !important;
+  gap: 8px !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  margin-top: 6px !important;
+}
+
+#agenda .cliente-agenda-financeiro .acoes-cliente-agenda button {
+  display: inline-flex !important;
+  flex: 1 1 0 !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: auto !important;
+  min-width: 0 !important;
+  max-width: none !important;
+  margin: 0 !important;
+  white-space: nowrap !important;
+}
+
+@media (max-width: 480px) {
+  #agenda .cliente-agenda-financeiro .acoes-cliente-agenda {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    gap: 6px !important;
+  }
+
+  #agenda .cliente-agenda-financeiro .acoes-cliente-agenda button {
+    flex: 1 1 0 !important;
+    padding: 8px 3px !important;
+    font-size: 10px !important;
+  }
+}
+
+
+/* FLOW PRO — Cor dinâmica da barra conforme status financeiro */
+#agenda .agenda-financeiro-barra .agenda-financeiro-fill {
+  display: block;
+  height: 100%;
+  border-radius: 20px;
+  transition: width .25s ease, background-color .25s ease;
+}
+#agenda .agenda-financeiro-barra .agenda-financeiro-fill.parcial {
+  background: #159BDA;
+}
+#agenda .agenda-financeiro-barra .agenda-financeiro-fill.quitado {
+  background: #159447;
+}
+#agenda .agenda-financeiro-barra .agenda-financeiro-fill.pendente {
+  background: #E99A28;
+}
+#agenda .agenda-financeiro-barra .agenda-financeiro-fill.cancelado {
+  background: #9A8790;
+}

@@ -187,121 +187,217 @@ b.horario || "" )
 // MOSTRAR AGENDAMENTOS DO DIA
 // ============================================================
 function mostrarAgendamentosDoDia(data) {
-const lista =
-document.getElementById(
-"listaClientesDia"
-);
-if (!lista) {
-return; }
-const agendamentos =
-pegarAgendamentosDoDia(data);
+const lista = document.getElementById("listaClientesDia");
+if (!lista) return;
+
+const agendamentos = pegarAgendamentosDoDia(data);
 lista.innerHTML = "";
+
 if (agendamentos.length === 0) {
 lista.innerHTML = `
 <div class="agenda-sem-clientes">
 <i class="fa-regular fa-calendar-xmark"></i>
-<p>
-Nenhum agendamento para este dia.
-</p>
-</div>
-`;
+<p>Nenhum agendamento para este dia.</p>
+</div>`;
+return;
+}
 
-return; }
-agendamentos.forEach(
-function (cliente, indice) {
-const valor =
-encontrarValorServico(
-cliente
-);
-const item =
-document.createElement(
-"div"
-);
-item.className =
-"cliente-agenda-dia";
+agendamentos.forEach(function (cliente) {
+const calculo = fpCalcularPrecoUI(cliente);
+const total = fpValorNumericoUI(cliente.valorTotal);
+const recebido = fpValorNumericoUI(cliente.valorRecebido) || 0;
+const saldoInformado = fpValorNumericoUI(cliente.saldoPendente);
+const valorTotal = total !== null ? total : (calculo.status === "ok" ? calculo.valor : null);
+const saldo = saldoInformado !== null ? saldoInformado : (valorTotal !== null ? Math.max(0, valorTotal - recebido) : null);
+const status = String(cliente.statusFinanceiro || (saldo === null ? "Pendente" : saldo <= 0 ? "Quitado" : recebido > 0 ? "Parcial" : "Pendente"));
+const percentual = valorTotal > 0 ? Math.max(0, Math.min(100, (recebido / valorTotal) * 100)) : 0;
+const statusClasse = status.toLowerCase().includes("quitado") ? "quitado" : status.toLowerCase().includes("parcial") ? "parcial" : status.toLowerCase().includes("cancelado") ? "cancelado" : "pendente";
+const podeReceber = saldo !== null && saldo > 0 && !status.toLowerCase().includes("cancelado");
+const valorTexto = valorTotal !== null ? formatarMoeda(valorTotal) : fpTextoPrecoUI(cliente);
+
+const item = document.createElement("article");
+item.className = "cliente-agenda-dia cliente-agenda-financeiro";
 item.innerHTML = `
-<div class="cliente-agenda-hora">
-${
-cliente.horario ||
-"--:--" }
-</div>
+<div class="cliente-agenda-hora">${fpEscaparHTMLAgenda(cliente.horario || "--:--")}</div>
 <div class="cliente-agenda-info">
-<strong>
-${
-cliente.nome ||
-"Cliente" }
-</strong>
-<span>
-${
-cliente.servico ||
-"-" }
-</span>
+<strong>${fpEscaparHTMLAgenda(cliente.nome || "Cliente")}</strong>
+<span>${fpEscaparHTMLAgenda(cliente.servico || "-")}</span>
 </div>
-<div class="cliente-agenda-valor">
-${
-valor > 0
-? formatarMoeda(valor)
-: "" }
+<div class="agenda-card-top-actions">
+<span class="agenda-status-financeiro ${statusClasse}">${fpEscaparHTMLAgenda(status)}</span>
+<strong class="agenda-valor-total">${valorTexto}</strong>
+<button type="button" class="agenda-menu-toggle" aria-label="Mais opções" aria-expanded="false">
+<i class="fa-solid fa-ellipsis"></i>
+</button>
+<div class="agenda-menu-opcoes" hidden>
+${podeReceber ? `<button type="button" class="agenda-menu-pagamento"><i class="fa-solid fa-receipt"></i> Registrar pagamento</button>` : `<span class="agenda-menu-quitado"><i class="fa-solid fa-circle-check"></i> Sem saldo pendente</span>`}
+</div>
+</div>
+<div class="agenda-financeiro-progresso">
+<div class="agenda-financeiro-barra"><span class="agenda-financeiro-fill ${statusClasse}" style="width:${percentual.toFixed(2)}%"></span></div>
+<div class="agenda-financeiro-legenda">
+<span> ${formatarMoeda(recebido)} recebidos</span>
+<span>${saldo !== null ? formatarMoeda(saldo) : "Saldo indisponível"} pendentes</span>
+</div>
 </div>
 <div class="acoes-cliente-agenda">
-<button
-type="button"
-class="btn-detalhes-agenda"
-data-id="${cliente.id}" >
-Detalhes
-</button>
-<button
-type="button"
-class="btn-editar-agenda"
-data-id="${cliente.id}" >
-Editar
-</button>
-<button
-type="button"
-class="btn-excluir-agenda"
-data-id="${cliente.id}" >
-Excluir
-</button>
-</div>
-`;
-const botao =
-item.querySelector(
-".btn-detalhes-agenda"
-);
-botao.addEventListener(
-"click",
-function () {
-abrirDetalhesCliente(
-cliente
-);}
-);
-const botaoEditar =
-item.querySelector(
+<button type="button" class="btn-detalhes-agenda">Detalhes</button>
+<button type="button" class="btn-editar-agenda">Editar</button>
+<button type="button" class="btn-excluir-agenda">Excluir</button>
+</div>`;
 
-".btn-editar-agenda"
-);
-if(botaoEditar){
-botaoEditar.addEventListener(
-"click",
-function(){
-editarClienteAgenda(
-cliente
-);}
-);}
-const botaoExcluir =
-item.querySelector(
-".btn-excluir-agenda"
-);
-if(botaoExcluir){
-botaoExcluir.addEventListener(
-"click",
-function(){
-excluirClienteAgenda(
-cliente
-);}
-);}
-lista.appendChild(item); }
-);}
+item.querySelector(".btn-detalhes-agenda").addEventListener("click", function(){ abrirDetalhesCliente(cliente); });
+item.querySelector(".btn-editar-agenda").addEventListener("click", function(){ editarClienteAgenda(cliente); });
+item.querySelector(".btn-excluir-agenda").addEventListener("click", function(){ excluirClienteAgenda(cliente); });
+const menuBotao = item.querySelector(".agenda-menu-toggle");
+const menu = item.querySelector(".agenda-menu-opcoes");
+menuBotao.addEventListener("click", function(event){
+ event.stopPropagation();
+ const abrir = menu.hidden;
+ fpFecharMenusAgenda();
+ menu.hidden = !abrir;
+ menuBotao.setAttribute("aria-expanded", abrir ? "true" : "false");
+});
+const botaoPagamento = item.querySelector(".agenda-menu-pagamento");
+if (botaoPagamento) botaoPagamento.addEventListener("click", function(){
+ fpFecharMenusAgenda();
+ abrirModalPagamentoAgenda(cliente, valorTotal, recebido, saldo);
+});
+
+lista.appendChild(item);
+});
+}
+
+function fpEscaparHTMLAgenda(valor){
+return String(valor === null || valor === undefined ? "" : valor)
+.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+.replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+}
+
+function fpFecharMenusAgenda(){
+document.querySelectorAll(".agenda-menu-opcoes").forEach(function(menu){ menu.hidden = true; });
+document.querySelectorAll(".agenda-menu-toggle").forEach(function(botao){ botao.setAttribute("aria-expanded", "false"); });
+}
+
+document.addEventListener("click", function(event){
+if (!event.target.closest || !event.target.closest(".agenda-card-top-actions")) fpFecharMenusAgenda();
+});
+
+function fpConverterMoedaDigitada(valor){
+let texto = String(valor || "").trim().replace(/R\$/gi, "").replace(/\s/g, "");
+if (texto.includes(",")) texto = texto.replace(/\./g, "").replace(",", ".");
+const numero = Number(texto);
+return Number.isFinite(numero) ? Math.round(numero * 100) / 100 : NaN;
+}
+
+function abrirModalPagamentoAgenda(cliente, total, recebido, saldo){
+if (saldo === null || saldo === undefined || !Number.isFinite(Number(saldo)) || Number(saldo) <= 0){
+alert("Este agendamento não possui saldo pendente disponível para recebimento.");
+return;
+}
+let modal = document.getElementById("modalPagamentoAgenda");
+if (!modal){
+modal = document.createElement("div");
+modal.id = "modalPagamentoAgenda";
+modal.className = "modal-detalhes-cliente";
+modal.innerHTML = `
+<div class="modal-conteudo modal-pagamento-conteudo">
+<button type="button" class="modal-fechar" id="fecharPagamentoAgenda" aria-label="Fechar">×</button>
+<p class="agenda-pagamento-kicker">CONTROLE FINANCEIRO</p>
+<h2>Registrar pagamento</h2>
+<div class="agenda-pagamento-cliente" id="agendaPagamentoCliente"></div>
+<div class="agenda-pagamento-resumo" id="agendaPagamentoResumo"></div>
+<form id="formPagamentoAgenda" class="form-agendamento">
+<label for="pagamentoValorAgenda">Valor recebido (R$)</label>
+<input id="pagamentoValorAgenda" type="number" min="0.01" step="0.01" required inputmode="decimal">
+<label for="pagamentoFormaAgenda">Forma de pagamento</label>
+<select id="pagamentoFormaAgenda" required>
+<option value="">Selecione</option>
+<option value="Pix">Pix</option>
+<option value="Dinheiro">Dinheiro</option>
+<option value="Cartão de débito">Cartão de débito</option>
+<option value="Cartão de crédito">Cartão de crédito</option>
+<option value="Transferência">Transferência</option>
+<option value="Não informado">Não informado</option>
+</select>
+<label for="pagamentoObservacaoAgenda">Observação (opcional)</label>
+<input id="pagamentoObservacaoAgenda" type="text" maxlength="250" placeholder="Ex.: pagamento realizado após o atendimento">
+<button type="submit" class="btn-salvar-agendamento" id="confirmarPagamentoAgenda">Confirmar recebimento</button>
+</form>
+</div>`;
+document.body.appendChild(modal);
+document.getElementById("fecharPagamentoAgenda").addEventListener("click", function(){ modal.classList.remove("ativo"); });
+modal.addEventListener("click", function(event){ if(event.target === modal) modal.classList.remove("ativo"); });
+fpConfigurarFormularioPagamentoAgenda();
+}
+modal.dataset.agendamentoId = cliente.id || "";
+modal.dataset.origem = cliente.origem || "Formulario";
+modal.dataset.nomeCliente = cliente.nome || "Cliente";
+modal.dataset.saldo = String(Number(saldo));
+document.getElementById("agendaPagamentoCliente").textContent = (cliente.nome || "Cliente") + " • " + (cliente.servico || "Atendimento");
+document.getElementById("agendaPagamentoResumo").innerHTML = `
+<div><span>Valor total</span><strong>${total !== null ? formatarMoeda(total) : "Não definido"}</strong></div>
+<div><span>Já recebido</span><strong>${formatarMoeda(recebido || 0)}</strong></div>
+<div><span>Saldo pendente</span><strong class="saldo-destaque">${formatarMoeda(saldo)}</strong></div>`;
+const campoValor = document.getElementById("pagamentoValorAgenda");
+campoValor.max = Number(saldo).toFixed(2);
+campoValor.value = Number(saldo).toFixed(2);
+document.getElementById("pagamentoFormaAgenda").value = "";
+document.getElementById("pagamentoObservacaoAgenda").value = "";
+modal.classList.add("ativo");
+}
+
+function fpConfigurarFormularioPagamentoAgenda(){
+const form = document.getElementById("formPagamentoAgenda");
+if (!form || form.dataset.configurado === "sim") return;
+form.dataset.configurado = "sim";
+form.addEventListener("submit", async function(event){
+event.preventDefault();
+const modal = document.getElementById("modalPagamentoAgenda");
+const botao = document.getElementById("confirmarPagamentoAgenda");
+const saldo = Number(modal.dataset.saldo || 0);
+const valor = fpConverterMoedaDigitada(document.getElementById("pagamentoValorAgenda").value);
+const forma = document.getElementById("pagamentoFormaAgenda").value;
+if (!Number.isFinite(valor) || valor <= 0){ alert("Informe um valor válido maior que zero."); return; }
+if (valor > saldo + 0.001){ alert("O valor informado ultrapassa o saldo pendente de " + formatarMoeda(saldo) + "."); return; }
+if (!forma){ alert("Selecione a forma de pagamento."); return; }
+botao.disabled = true;
+botao.textContent = "Registrando...";
+try{
+const payload = {
+acao: "registrarPagamento",
+id: modal.dataset.agendamentoId,
+origem: modal.dataset.origem,
+valor: valor,
+formaPagamento: forma,
+tipoPagamento: Math.abs(valor - saldo) < 0.005 ? "Quitação" : "Parcial",
+dataRecebimento: new Date().toISOString(),
+observacao: document.getElementById("pagamentoObservacaoAgenda").value.trim()
+};
+const resposta = await fetch(API_AGENDA, {
+method: "POST",
+headers: {"Content-Type": "text/plain;charset=utf-8"},
+body: JSON.stringify(payload)
+});
+const resultado = await resposta.json();
+if (!resultado || !resultado.sucesso) throw new Error(resultado && resultado.erro ? resultado.erro : "Não foi possível registrar o pagamento.");
+modal.classList.remove("ativo");
+alert("Pagamento registrado com sucesso. Novo saldo: " + formatarMoeda(resultado.saldoPendente) + ".");
+if (typeof carregarDados === "function"){
+await carregarDados();
+document.dispatchEvent(new Event("dadosCarregados"));
+}else{
+location.reload();
+}
+}catch(erro){
+console.error("Erro ao registrar pagamento Flow Pro:", erro);
+alert(erro.message || "Não foi possível registrar o pagamento. Tente novamente.");
+}finally{
+botao.disabled = false;
+botao.textContent = "Confirmar recebimento";
+}
+});
+}
 // ============================================================
 // ATUALIZAR RESUMO
 // ============================================================
