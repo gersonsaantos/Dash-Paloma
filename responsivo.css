@@ -2519,14 +2519,33 @@ color:#33252E; font:inherit; font-size:15px; }
 #modalPagamentoAgenda .form-agendamento input{min-height:44px;}
 @media(max-width:480px){
   #agenda .cliente-agenda-dia.cliente-agenda-financeiro{grid-template-columns:42px minmax(0,1fr) auto;gap:9px;}
-  #agenda .agenda-card-top-actions{min-width:88px;}
+  #agenda .agenda-card-top-actions{
+    min-width:116px;
+    box-sizing:border-box;
+    padding-right:34px;
+    align-items:flex-end;
+  }
   #agenda .agenda-status-financeiro{min-width:78px;padding:5px 8px;font-size:10px;}
   #agenda .agenda-valor-total{font-size:12px;}
-  #agenda .agenda-menu-toggle{right:0;top:35px;transform:none;width:29px;height:29px;}
-  #agenda .agenda-menu-opcoes{top:68px;}
+  #agenda .agenda-menu-toggle{
+    right:0;
+    top:0;
+    transform:none;
+    width:29px;
+    height:29px;
+  }
+  #agenda .agenda-menu-opcoes{top:36px;right:0;}
   #agenda .agenda-financeiro-legenda{font-size:9px;}
   #agenda .acoes-cliente-agenda{gap:6px;}
   #agenda .acoes-cliente-agenda button{font-size:10px;}
+}
+
+@media(max-width:360px){
+  #agenda .agenda-card-top-actions{
+    min-width:108px;
+    padding-right:30px;
+  }
+  #agenda .agenda-menu-toggle{width:26px;height:26px;}
 }
 #agenda .agenda-menu-quitado{
   display:flex;
