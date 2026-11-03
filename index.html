@@ -260,51 +260,38 @@
           </div>
         </section>
         <section class="pagina" id="clientes">
-          <!-- TELA CLIENTES: CONSULTA SIMPLES -->
           <header class="clientes-header-mobile">
-            <button class="menu-button" type="button" aria-label="Abrir menu">
-              <i class="fa-solid fa-bars" aria-hidden="true"></i>
-            </button>
+            <button class="menu-button" type="button" aria-label="Abrir menu"><i class="fa-solid fa-bars" aria-hidden="true"></i></button>
             <h1>Clientes</h1>
           </header>
-          <!-- BUSCA POR NOME OU TELEFONE -->
-          <div class="search-client">
-            <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
-            <input
-              id="buscaClientes"
-              type="search"
-              placeholder="Buscar cliente por nome ou telefone..."
-              aria-label="Buscar cliente por nome ou telefone"
-              autocomplete="off"
-            />
+          <div class="clientes-tabs" role="tablist" aria-label="Área de clientes">
+            <button class="clientes-tab active" id="tabClientes" type="button" role="tab" aria-selected="true" aria-controls="painelClientes" data-tab="clientes"><i class="fa-solid fa-users"></i><span>Clientes</span></button>
+            <button class="clientes-tab" id="tabDeslocamento" type="button" role="tab" aria-selected="false" aria-controls="painelDeslocamento" data-tab="deslocamento"><i class="fa-solid fa-map-location-dot"></i><span>Deslocamento</span></button>
           </div>
-          <!-- INDICADORES -->
-          <section class="client-summary" aria-label="Resumo de clientes">
-            <div class="client-card">
-              <i class="fa-solid fa-users" aria-hidden="true"></i>
-              <span>Total de clientes</span>
-              <strong id="totalClientes">—</strong>
-            </div>
-            <div class="client-card">
-              <i class="fa-solid fa-user-plus" aria-hidden="true"></i>
-              <span>Novas neste mês</span>
-              <strong id="novasClientesMes">—</strong>
-            </div>
-          </section>
-          <!-- RESULTADOS REAIS SERÃO INSERIDOS PELO JAVASCRIPT -->
-          <section
-            Flow
-            Pro
-            •
-            Página
-            6
-            class="client-list"
-            id="listaResultadosClientes"
-            aria-live="polite"
-            aria-label="Resultados da busca de clientes"
-          >
-            <p class="client-empty-state">Carregando clientes...</p>
-          </section>
+          <div id="painelClientes" class="clientes-tab-panel" role="tabpanel" aria-labelledby="tabClientes">
+            <div class="search-client"><i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i><input id="buscaClientes" type="search" placeholder="Buscar cliente por nome ou telefone..." aria-label="Buscar cliente por nome ou telefone" autocomplete="off" /></div>
+            <section class="client-summary" aria-label="Resumo de clientes">
+              <div class="client-card"><i class="fa-solid fa-users" aria-hidden="true"></i><span>Total de clientes</span><strong id="totalClientes">—</strong></div>
+              <div class="client-card"><i class="fa-solid fa-user-plus" aria-hidden="true"></i><span>Novas neste mês</span><strong id="novasClientesMes">—</strong></div>
+            </section>
+            <section class="client-list" id="listaResultadosClientes" aria-live="polite" aria-label="Resultados da busca de clientes"><p class="client-empty-state">Carregando clientes...</p></section>
+          </div>
+          <div id="painelDeslocamento" class="clientes-tab-panel" role="tabpanel" aria-labelledby="tabDeslocamento" hidden>
+            <div class="deslocamento-intro"><div><p class="deslocamento-kicker">GESTÃO DE ATENDIMENTO EXTERNO</p><h2>Taxas por bairro</h2><p>Cadastre e mantenha os valores de deslocamento utilizados nos atendimentos.</p></div><span class="deslocamento-icon"><i class="fa-solid fa-route"></i></span></div>
+            <form id="formTaxaDeslocamento" class="deslocamento-form">
+              <input type="hidden" name="id" />
+              <label>Município<input name="municipio" type="text" maxlength="100" placeholder="Ex.: São Luís" /></label>
+              <label>Bairro / localidade<input name="bairro" type="text" maxlength="100" placeholder="Ex.: Centro" required /></label>
+              <label>Tipo de referência<input name="tipoReferencia" type="text" maxlength="80" value="Bairro/localidade" placeholder="Bairro/localidade" /></label>
+              <label>Taxa de deslocamento (R$)<input name="taxa" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0,00" required /></label>
+              <label class="deslocamento-observacao">Conferência<input name="conferencia" type="text" maxlength="250" placeholder="Ex.: Revisar sugestão" /></label>
+              <label class="deslocamento-ativo"><input name="ativo" type="checkbox" checked /> Taxa ativa</label>
+              <div class="deslocamento-form-actions"><button type="submit" class="deslocamento-save"><i class="fa-solid fa-check"></i> Salvar taxa</button><button type="button" id="cancelarEdicaoTaxa" class="deslocamento-cancel" hidden>Cancelar edição</button></div>
+            </form>
+            <div class="deslocamento-list-heading"><div><h3>Bairros cadastrados</h3><p id="totalTaxasDeslocamento">0 bairros</p></div><div class="deslocamento-search"><i class="fa-solid fa-magnifying-glass"></i><input id="buscaBairros" type="search" placeholder="Buscar bairro..." aria-label="Buscar bairro" /></div></div>
+            <div id="listaTaxasDeslocamento" class="deslocamento-list" aria-live="polite"><p class="client-empty-state">Carregando taxas...</p></div>
+            <p class="deslocamento-nota"><i class="fa-solid fa-circle-info"></i> Alterar uma taxa nesta tabela não modifica valores já registrados em atendimentos anteriores.</p>
+          </div>
         </section>
         <section class="pagina" id="financeiro">
           <!-- FINANCEIRO: página única com rolagem vertical contínua -->

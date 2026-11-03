@@ -635,53 +635,126 @@
   }
 
   function renderizarListaDespesas(despesas) {
-    const container = elemento(
-      ".financeiro-despesas-lista",
-      elemento("#financeiro")
-    );
-
+    const container = elemento(".financeiro-despesas-lista", elemento("#financeiro"));
     if (!container) return;
 
     container.replaceChildren();
 
-    despesas
-      .slice()
-      .sort((a, b) => b.data.localeCompare(a.data))
-      .slice(0, 8)
-      .forEach((despesa) => {
-        const linha = document.createElement("div");
+    despesas.slice().sort((a, b) => b.data.localeCompare(a.data)).slice(0, 8).forEach((despesa) => {
+      const linha = document.createElement("div");
+      linha.className = "financeiro-despesa-linha";
+      linha.style.cssText = "display:flex;align-items:center;justify-content:space-between;gap:10px;padding:11px 0;border-bottom:1px solid #F1E9ED;font-size:12px;";
 
-        linha.style.cssText =
-          "display:flex;justify-content:space-between;gap:10px;" +
-          "padding:10px 0;border-bottom:1px solid #F1E9ED;font-size:12px;";
+      const descricao = document.createElement("div");
+      descricao.style.cssText = "color:#5C4B55;min-width:0;flex:1;overflow-wrap:anywhere;";
+      const titulo = document.createElement("strong");
+      titulo.textContent = despesa.categoria || "Despesa";
+      const detalhe = document.createElement("small");
+      detalhe.style.cssText = "display:block;color:#988A92;margin-top:3px;";
+      detalhe.textContent = `${dataLocal(despesa.data)} · ${despesa.descricao || ""}`;
+      descricao.append(titulo, detalhe);
 
-        const descricao = document.createElement("span");
+      const lado = document.createElement("div");
+      lado.style.cssText = "display:flex;align-items:center;gap:7px;flex-shrink:0;";
+      const valor = document.createElement("strong");
+      valor.style.cssText = "color:#8C3E56;white-space:nowrap;";
+      valor.textContent = moeda(despesa.valor);
 
-        descricao.style.cssText =
-          "color:#5C4B55;min-width:0;overflow-wrap:anywhere;";
+      const acoes = document.createElement("div");
+      acoes.style.cssText = "display:flex;gap:5px;";
+      const editar = document.createElement("button");
+      editar.type = "button";
+      editar.textContent = "Editar";
+      editar.title = "Editar despesa";
+      editar.style.cssText = "border:1px solid #E8D5DF;background:#FFF7FA;color:#6B304F;border-radius:8px;padding:6px 8px;font-size:11px;cursor:pointer;";
+      editar.addEventListener("click", () => abrirEdicaoDespesa(despesa));
 
-        descricao.textContent = despesa.categoria || "Despesa";
+      const excluir = document.createElement("button");
+      excluir.type = "button";
+      excluir.textContent = "Excluir";
+      excluir.title = "Excluir despesa";
+      excluir.style.cssText = "border:1px solid #F0D5D9;background:#FFF5F5;color:#B4233D;border-radius:8px;padding:6px 8px;font-size:11px;cursor:pointer;";
+      excluir.addEventListener("click", () => confirmarExclusaoDespesa(despesa));
 
-        const detalhe = document.createElement("small");
+      acoes.append(editar, excluir);
+      lado.append(valor, acoes);
+      linha.append(descricao, lado);
+      container.appendChild(linha);
+    });
+  }
 
-        detalhe.style.cssText =
-          "display:block;color:#988A92;margin-top:3px;";
+  function abrirEdicaoDespesa(despesa) {
+    const overlay = modalBase("Editar despesa", `
+      <form id="financeiro-form-editar-despesa" style="display:grid;gap:12px;">
+        <label>Descrição
+          <input name="descricao" maxlength="160" required value="${escapar(despesa.descricao)}" style="${estiloCampo()}">
+        </label>
+        <label>Categoria
+          <select name="categoria" required style="${estiloCampo()}">
+            ${["Gasolina","Produtos","Manutenção","Alimentação","Outros"].map(c => `<option ${c === despesa.categoria ? "selected" : ""}>${c}</option>`).join("")}
+          </select>
+        </label>
+        <label>Valor (R$)
+          <input name="valor" inputmode="decimal" required value="${String(despesa.valor).replace(".", ",")}" style="${estiloCampo()}">
+        </label>
+        <label>Data
+          <input name="data" type="date" required value="${escapar(despesa.data)}" style="${estiloCampo()}">
+        </label>
+        <label>Forma de pagamento
+          <select name="formaPagamento" required style="${estiloCampo()}">
+            ${["Pix","Dinheiro","Cartão de débito","Cartão de crédito","Transferência","Não informado"].map(c => `<option ${c === despesa.pagamento ? "selected" : ""}>${c}</option>`).join("")}
+          </select>
+        </label>
+        <label>Observação
+          <textarea name="observacao" rows="2" style="${estiloCampo()}">${escapar(despesa.observacoes || "")}</textarea>
+        </label>
+        <button type="submit" style="border:0;border-radius:12px;padding:14px;background:#6B304F;color:#fff;font-weight:700;">Salvar alterações</button>
+      </form>
+    `);
+    const form = elemento("#financeiro-form-editar-despesa", overlay);
+    form.addEventListener("submit", async (evento) => {
+      evento.preventDefault();
+      const dados = Object.fromEntries(new FormData(form).entries());
+      const valor = numero(dados.valor);
+      if (valor <= 0) return alert("Informe um valor maior que zero.");
+      const botao = form.querySelector('button[type="submit"]');
+      botao.disabled = true;
+      botao.textContent = "Salvando...";
+      try {
+        if (typeof editarDespesaAPI !== "function") throw new Error("Função de edição não encontrada na API. Atualize o api.js.");
+        await editarDespesaAPI({ id: despesa.id, ...dados, valor, observacao: dados.observacao || "" });
+        fecharModal();
+        await recarregarFinanceiro();
+        alert("Despesa atualizada com sucesso.");
+      } catch (erro) {
+        console.error("Erro ao editar despesa:", erro);
+        alert("Não foi possível editar: " + (erro.message || erro));
+        botao.disabled = false;
+        botao.textContent = "Salvar alterações";
+      }
+    });
+  }
 
-        detalhe.textContent =
-          `${dataLocal(despesa.data)} · ${despesa.descricao || ""}`;
+  async function confirmarExclusaoDespesa(despesa) {
+    const confirmar = window.confirm(
+      `Excluir esta despesa?\\n\\n${despesa.categoria} — ${moeda(despesa.valor)}\\n${despesa.descricao}\\n\\nEssa ação também removerá o lançamento da planilha e atualizará os totais.`
+    );
+    if (!confirmar) return;
+    try {
+      if (typeof excluirDespesaAPI !== "function") throw new Error("Função de exclusão não encontrada na API. Atualize o api.js.");
+      await excluirDespesaAPI(despesa.id);
+      await recarregarFinanceiro();
+      alert("Despesa excluída com sucesso.");
+    } catch (erro) {
+      console.error("Erro ao excluir despesa:", erro);
+      alert("Não foi possível excluir: " + (erro.message || erro));
+    }
+  }
 
-        descricao.appendChild(detalhe);
-
-        const valor = document.createElement("strong");
-
-        valor.style.cssText =
-          "color:#8C3E56;white-space:nowrap;";
-
-        valor.textContent = moeda(despesa.valor);
-
-        linha.append(descricao, valor);
-        container.appendChild(linha);
-      });
+  async function recarregarFinanceiro() {
+    if (typeof carregarDados === "function") await carregarDados();
+    sincronizarDados();
+    renderizar();
   }
 
   function criarGrafico(chave, canvasId, configuracao) {
@@ -863,8 +936,7 @@
           formaPagamento: dados.formaPagamento,
           observacao: dados.observacoes || ""
         });
-        sincronizarDados();
-        renderizar();
+        await recarregarFinanceiro();
         formulario.reset();
         if (campoData) campoData.value = hojeISO();
         alert("Despesa registrada na planilha com sucesso.");
@@ -879,18 +951,17 @@
   }
 
   function configurarBotaoRelatorio() {
-    const botao = elemento(
-      ".financeiro-report-button",
-      elemento("#financeiro")
-    );
-
-    if (!botao || botao.dataset.bound === "1") {
-      return;
-    }
-
-    botao.dataset.bound = "1";
-
-    botao.addEventListener("click", gerarRelatorio);
+    const botoes = todos(".financeiro-report-button", elemento("#financeiro"));
+    botoes.forEach((botao) => {
+      // O botão anual possui tratamento próprio logo abaixo.
+      if (botao.classList.contains("financeiro-report-anual")) return;
+      if (botao.dataset.bound === "1") return;
+      botao.dataset.bound = "1";
+      botao.addEventListener("click", (evento) => {
+        evento.preventDefault();
+        gerarRelatorio();
+      });
+    });
 
     const botaoAnual = elemento(".financeiro-report-anual", elemento("#financeiro"));
     if (botaoAnual && botaoAnual.dataset.bound !== "1") {
@@ -1141,9 +1212,9 @@
             }, 150);
           }
 
-          window.onload = function () {
-            window.print();
-          };
+          window.addEventListener("load", function () {
+            setTimeout(function () { window.print(); }, 350);
+          });
         <\/script>
       </body>
       </html>

@@ -14,32 +14,37 @@ carregarAgendaHoje();
 // SAUDAÇÃO AUTOMÁTICA
 // =====================================
 function atualizarSaudacao(){
-const elemento =
-document.getElementById("saudacao");
+const elemento = document.getElementById("saudacao");
 if(!elemento) return;
-const agora = new Date();
-const hora = Number(
-agora.toLocaleString(
-"pt-BR",
-{
-timeZone: "America/Sao_Paulo",
-hour: "2-digit"
-}
-)
-);
-let mensagem = "";
+
+// Usa o horário de São Luís/Brasília para evitar diferenças
+// entre o fuso do dispositivo e o horário local.
+const partes = new Intl.DateTimeFormat("pt-BR", {
+  timeZone: "America/Fortaleza",
+  hour: "2-digit",
+  hour12: false
+}).formatToParts(new Date());
+const parteHora = partes.find(parte => parte.type === "hour");
+const hora = parteHora ? Number(parteHora.value) : new Date().getHours();
+
+let mensagem;
+let emoji;
 if(hora >= 5 && hora < 12){
-mensagem = "Bom dia";
+  mensagem = "Bom dia";
+  emoji = "☀️";
+}else if(hora >= 12 && hora < 18){
+  mensagem = "Boa tarde";
+  emoji = "☀️";
+}else if(hora >= 18 && hora < 24){
+  mensagem = "Boa noite";
+  emoji = "🌙";
+}else{
+  mensagem = "Boa madrugada";
+  emoji = "🌙";
 }
-else if(hora >= 12 && hora < 18){
-mensagem = "Boa tarde";
-}
-else{
-mensagem = "Boa noite";
-}
+
 const nomeUsuario = "Paloma";
-elemento.innerHTML =
-`${mensagem}, ${nomeUsuario}! ■■`;
+elemento.textContent = `${mensagem}, ${nomeUsuario}! ${emoji}`;
 }
 // =====================================
 // DATA ATUAL - BRASÍLIA
@@ -289,6 +294,63 @@ const cliente = (nomeServico && typeof nomeServico === "object")
 const resultado = fpCalcularPrecoUI(cliente);
 return resultado.status === "ok" ? resultado.valor : 0; }
 // =====================================
+// TOTAL DO ATENDIMENTO NA HOME
+// Serviços + deslocamento (sem duplicar)
+// =====================================
+function fpNumeroHome(valor){
+if(valor === null || valor === undefined || valor === "") return null;
+return fpValorNumericoUI(valor);
+}
+function fpTaxaDoAtendimentoHome(cliente){
+cliente = cliente || {};
+// Prioriza a taxa já gravada no próprio agendamento.
+const camposTaxa = [
+cliente.valorDeslocamento,
+cliente.taxaDeslocamento,
+cliente.taxaDeslocamentoValor,
+cliente.deslocamentoValor,
+cliente.valorTaxa
+];
+for(const campo of camposTaxa){
+const n = campo && typeof campo === "object"
+? fpNumeroHome(campo.valor ?? campo.taxa ?? campo.valorDeslocamento)
+: fpNumeroHome(campo);
+if(n !== null && n >= 0) return n;
+}
+const bairro = fpNormalizarPrecoUI(cliente.bairro);
+if(!bairro || typeof dadosSistema === "undefined" ||
+!Array.isArray(dadosSistema.taxasDeslocamento)) return 0;
+const correspondencias = dadosSistema.taxasDeslocamento.filter(item => {
+const nome = fpNormalizarPrecoUI(item.bairro || item.localidade || item.nome);
+const ativo = item.ativo === false || fpNormalizarPrecoUI(item.ativo) === "nao" ||
+fpNormalizarPrecoUI(item.ativo) === "false" ? false : true;
+return ativo && nome === bairro;
+});
+// Não escolhe arbitrariamente quando o mesmo bairro existe em mais de um município.
+if(correspondencias.length !== 1) return 0;
+const item = correspondencias[0];
+const valor = fpNumeroHome(item.taxa ?? item.valor ?? item.taxaInicial ?? item.valorDeslocamento);
+return valor !== null && valor >= 0 ? valor : 0;
+}
+function fpValorTotalAtendimentoHome(cliente){
+cliente = cliente || {};
+// Se a API já entrega um total final salvo, ele é a fonte principal.
+const camposTotal = [
+cliente.valorTotal,
+cliente.totalComDeslocamento,
+cliente.totalAtendimento,
+cliente.valorFinal,
+cliente.valorOrcamento
+];
+for(const campo of camposTotal){
+const n = fpNumeroHome(campo);
+if(n !== null && n >= 0) return n;
+}
+const servicos = fpCalcularPrecoUI(cliente);
+if(servicos.status !== "ok") return 0;
+return Math.round((servicos.valor + fpTaxaDoAtendimentoHome(cliente)) * 100) / 100;
+}
+// =====================================
 // FORMATAR MOEDA
 // =====================================
 function formatarMoeda(valor){
@@ -350,12 +412,7 @@ let faturamentoHoje = 0;
 
 atendimentosHoje.forEach(
 cliente => {
-faturamentoHoje +=
-encontrarValorServicoHome(
-cliente.servico,
-cliente.tamanhoCabelo,
-cliente.penteado
-);}
+faturamentoHoje += fpValorTotalAtendimentoHome(cliente);}
 );
 // ==================================
 // CARD:
@@ -556,12 +613,7 @@ const clientesExibidos =
 clientesHoje.slice(0,4);
 clientesExibidos.forEach(
 cliente => {
-const valor =
-encontrarValorServicoHome(
-cliente.servico,
-cliente.tamanhoCabelo,
-cliente.penteado
-);
+const valor = fpValorTotalAtendimentoHome(cliente);
 lista.innerHTML += `
 
 <div class="cliente-home">
@@ -747,12 +799,7 @@ proximo.servico ||
 // PREENCHER VALOR
 // ==================================
 if(valorElemento){
-const valor =
-encontrarValorServicoHome(
-proximo.servico,
-proximo.tamanhoCabelo,
-proximo.penteado
-);
+const valor = fpValorTotalAtendimentoHome(proximo);
 valorElemento.innerText =
 formatarMoeda(valor); }
 // ==================================
@@ -1117,12 +1164,7 @@ Nenhum atendimento hoje.
 `;}
 clientesHoje.forEach(
 (cliente,index)=>{
-const valor =
-encontrarValorServicoHome(
-cliente.servico,
-cliente.tamanhoCabelo,
-cliente.penteado
-);
+const valor = fpValorTotalAtendimentoHome(cliente);
 html += `
 <div class="agenda-todos-item">
 <div>

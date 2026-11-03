@@ -975,13 +975,16 @@ cliente.penteado || "-" }
 </span>
 </div>
 <div class="detalhe-item">
-<strong>
-Bairro
-</strong>
-<span>
-${
-cliente.bairro || "-" }
-</span>
+<strong>Bairro</strong>
+<span>${cliente.bairro || "-"}</span>
+</div>
+<div class="detalhe-item">
+<strong>Valor dos serviços</strong>
+<span>${cliente.valorServicos !== null && cliente.valorServicos !== undefined ? formatarMoeda(cliente.valorServicos) : "Não discriminado"}</span>
+</div>
+<div class="detalhe-item">
+<strong>Taxa de deslocamento</strong>
+<span>${cliente.taxaDeslocamento !== null && cliente.taxaDeslocamento !== undefined ? formatarMoeda(cliente.taxaDeslocamento) : "Não identificada"}</span>
 </div>
 <div class="detalhe-item">
 <strong>
@@ -1135,7 +1138,12 @@ Bairro
 <input
 type="text"
 id="novoBairro"
-placeholder="Bairro" >
+placeholder="Digite e selecione o bairro"
+list="listaBairrosFlowPro" >
+<datalist id="listaBairrosFlowPro"></datalist>
+<div id="resumoPrecoDeslocamentoFlowPro" class="flowpro-resumo-deslocamento" aria-live="polite">
+<span>Informe o bairro para calcular o deslocamento.</span>
+</div>
 <label>
 Localização
 </label>
@@ -1198,7 +1206,8 @@ dataSelecionadaAgenda
 );
 modal.classList.add(
 "ativo"
-);}
+);
+fpPrepararBairrosAgenda();}
 // ============================================================
 // CAMPOS DEPENDENTES DO SERVIÇO
 // ============================================================
@@ -1248,6 +1257,55 @@ atualizarCamposServico(); }
 // ============================================================
 // SALVAR NOVO AGENDAMENTO
 // ============================================================
+function fpNormalizarBairroAgenda(valor){
+return String(valor||"").trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9 ]/g," ").replace(/\s+/g," ").trim();
+}
+function fpTaxaBairroAgenda(bairro){
+const taxas=(dadosSistema&&Array.isArray(dadosSistema.taxasDeslocamento)?dadosSistema.taxasDeslocamento:[]).filter(function(t){return t.ativo!==false;});
+const chave=fpNormalizarBairroAgenda(bairro);
+if(!chave) return {status:"sem_bairro"};
+const encontrados=taxas.filter(function(t){return fpNormalizarBairroAgenda(t.bairro)===chave;});
+if(encontrados.length===1) return {status:"ok",taxa:Number(encontrados[0].taxa)||0,registro:encontrados[0]};
+if(encontrados.length>1) return {status:"ambiguo"};
+return {status:"nao_encontrado"};
+}
+function fpAtualizarResumoDeslocamentoAgenda(){
+const resumo=document.getElementById("resumoPrecoDeslocamentoFlowPro");
+const bairro=document.getElementById("novoBairro");
+if(!resumo||!bairro) return;
+const servico=document.getElementById("novoServico");
+const tamanho=document.getElementById("novoTamanhoCabelo");
+const penteado=document.getElementById("novoPenteado");
+const taxa=fpTaxaBairroAgenda(bairro.value);
+const preco=fpCalcularPrecoUI({servico:servico&&servico.value,tamanhoCabelo:tamanho&&tamanho.value,penteado:penteado&&penteado.value});
+let html="";
+if(taxa.status==="sem_bairro") html="<span>Informe o bairro para calcular o deslocamento.</span>";
+else if(taxa.status==="nao_encontrado") html="<strong>Taxa não cadastrada</strong><span>Cadastre ou ative a taxa desse bairro antes de confirmar o financeiro.</span>";
+else if(taxa.status==="ambiguo") html="<strong>Bairro encontrado em mais de um município</strong><span>É necessário identificar o município para aplicar a taxa correta.</span>";
+else if(preco.status!=="ok") html="<span>Selecione os serviços para visualizar o valor total.</span>";
+else{
+const total=Math.round((preco.valor+taxa.taxa)*100)/100;
+html="<div><span>Serviços</span><strong>"+formatarMoeda(preco.valor)+"</strong></div>"+
+"<div><span>Deslocamento — "+(taxa.registro.bairro||bairro.value)+"</span><strong>"+formatarMoeda(taxa.taxa)+"</strong></div>"+
+"<div class=\"flowpro-total-deslocamento\"><span>Total</span><strong>"+formatarMoeda(total)+"</strong></div>"+
+"<div><span>Sinal de 50%</span><strong>"+formatarMoeda(Math.round(total*50)/100)+"</strong></div>";
+}
+resumo.innerHTML=html;
+}
+function fpPrepararBairrosAgenda(){
+const campo=document.getElementById("novoBairro");
+const lista=document.getElementById("listaBairrosFlowPro");
+if(!campo||!lista) return;
+const taxas=(dadosSistema&&Array.isArray(dadosSistema.taxasDeslocamento)?dadosSistema.taxasDeslocamento:[]).filter(function(t){return t.ativo!==false;});
+lista.innerHTML=taxas.map(function(t){return "<option value=\\\""+fpEscaparHTMLAgenda(t.bairro)+"\\\"></option>";}).join("");
+if(campo.dataset.flowProTaxa!="sim"){
+campo.dataset.flowProTaxa="sim";
+campo.addEventListener("input",fpAtualizarResumoDeslocamentoAgenda);
+["novoServico","novoTamanhoCabelo","novoPenteado"].forEach(function(id){const el=document.getElementById(id);if(el) el.addEventListener("change",fpAtualizarResumoDeslocamentoAgenda);});
+}
+fpAtualizarResumoDeslocamentoAgenda();
+}
+
 function configurarSalvarFormulario() {
 const form =
 document.getElementById(
@@ -1341,9 +1399,7 @@ if (
 resultado &&
 resultado.sucesso
 ) {
-alert(
-"Agendamento salvo com sucesso!"
-);
+alert("Agendamento salvo com sucesso!" + (resultado.mensagemFinanceiro ? "\n\nAtenção: " + resultado.mensagemFinanceiro : ""));
 document
 .getElementById(
 "modalNovoAgendamento" )

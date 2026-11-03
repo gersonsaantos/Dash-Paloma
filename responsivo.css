@@ -2672,3 +2672,38 @@ color:#33252E; font:inherit; font-size:15px; }
   #financeiro .financeiro-header-actions { gap:7px; }
   #financeiro .financeiro-header-actions .profile-image { width:35px; height:35px; }
 }
+
+
+/* ==========================================================
+ FLOW PRO — CLIENTES / DESLOCAMENTO
+ ========================================================== */
+.clientes-tabs{display:flex;gap:10px;margin:18px 0 22px;padding:6px;background:#f4eef2;border:1px solid #eadde5;border-radius:16px;max-width:520px}
+.clientes-tab{display:flex;align-items:center;justify-content:center;gap:9px;flex:1;min-height:46px;padding:10px 16px;border:0;border-radius:12px;background:transparent;color:#765b6a;font-weight:700;cursor:pointer;transition:.2s}
+.clientes-tab.active{background:#fff;color:#713653;box-shadow:0 3px 12px #4c263014}
+.clientes-tab-panel[hidden]{display:none!important}
+.deslocamento-intro{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:22px 24px;margin-bottom:18px;border-radius:18px;background:linear-gradient(125deg,#54233f,#793c5d);color:#fff}
+.deslocamento-kicker{margin:0 0 6px;font-size:10px;letter-spacing:1.5px;font-weight:800;color:#e9c8d9}
+.deslocamento-intro h2{margin:0 0 6px;font-size:22px;color:#fff}
+.deslocamento-intro p:last-child{margin:0;color:#f2e5ec;font-size:13px;line-height:1.5}
+.deslocamento-icon{display:grid;place-items:center;flex:0 0 54px;width:54px;height:54px;border-radius:16px;background:#ffffff1b;color:#f1d5e2;font-size:22px}
+.deslocamento-form{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:20px;margin-bottom:24px;background:#fff;border:1px solid #eadfe5;border-radius:17px;box-shadow:0 5px 20px #4922390a}
+.deslocamento-form label{display:flex;flex-direction:column;gap:7px;color:#543d4a;font-size:12px;font-weight:700}
+.deslocamento-form input:not([type=checkbox]){width:100%;min-height:43px;padding:10px 12px;border:1px solid #e5d9e0;border-radius:10px;background:#fff;color:#34232d;font:inherit;font-weight:500;outline:none}
+.deslocamento-form input:focus{border-color:#9b5c7b;box-shadow:0 0 0 3px #9b5c7b1c}
+.deslocamento-observacao{grid-column:1/-1}
+.deslocamento-ativo{display:flex!important;flex-direction:row!important;align-items:center;gap:9px!important;align-self:center}
+.deslocamento-ativo input{accent-color:#783d5b;width:17px;height:17px}
+.deslocamento-form-actions{display:flex;justify-content:flex-end;gap:9px;align-items:center}
+.deslocamento-save,.deslocamento-cancel{min-height:42px;padding:10px 16px;border:0;border-radius:10px;font-weight:700;cursor:pointer}
+.deslocamento-save{background:#713653;color:#fff}.deslocamento-save:disabled{opacity:.6;cursor:wait}.deslocamento-cancel{background:#f2edf0;color:#674b5a}
+.deslocamento-list-heading{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:8px 0 12px}
+.deslocamento-list-heading h3{margin:0;color:#392632;font-size:17px}.deslocamento-list-heading p{margin:4px 0 0;color:#927d89;font-size:12px}
+.deslocamento-search{display:flex;align-items:center;gap:8px;min-width:210px;padding:0 12px;border:1px solid #e7dce3;border-radius:10px;background:#fff;color:#987e8c}
+.deslocamento-search input{width:100%;height:38px;border:0;outline:0;background:transparent;color:#392632;font:inherit;font-size:13px}
+.deslocamento-list{display:grid;gap:9px}
+.deslocamento-item{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:15px 17px;border:1px solid #eee5ea;border-radius:13px;background:#fff}
+.deslocamento-item-info{display:grid;gap:5px;min-width:0}.deslocamento-item-info strong{color:#392632;font-size:14px}.deslocamento-item-info small{color:#927d89;font-size:11px;overflow-wrap:anywhere}
+.deslocamento-item-actions{display:flex;align-items:center;gap:8px;flex-shrink:0}.deslocamento-item-actions>b{margin-right:7px;color:#713653;font-size:14px;white-space:nowrap}
+.icon-action{display:grid;place-items:center;width:34px;height:34px;border:1px solid #eadfe5;border-radius:9px;background:#fff;color:#75445f;cursor:pointer}.icon-action.danger{color:#b64b55}
+.deslocamento-nota{display:flex;gap:8px;align-items:flex-start;margin:16px 0 0;color:#927d89;font-size:11px;line-height:1.5}.deslocamento-nota i{margin-top:2px;color:#9b6b83}
+@media(max-width:640px){.clientes-tabs{max-width:none}.deslocamento-intro{padding:18px}.deslocamento-form{grid-template-columns:1fr;padding:16px}.deslocamento-observacao{grid-column:auto}.deslocamento-ativo{min-height:32px}.deslocamento-form-actions{justify-content:stretch}.deslocamento-form-actions button{flex:1}.deslocamento-list-heading{align-items:stretch;flex-direction:column}.deslocamento-search{min-width:0}.deslocamento-item{padding:13px}.deslocamento-item-actions{gap:5px}.deslocamento-item-actions>b{font-size:12px;margin-right:2px}}
