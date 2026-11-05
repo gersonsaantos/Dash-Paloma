@@ -50,6 +50,11 @@ async function excluirTaxaDeslocamentoAPI(id){
   await carregarDados();
   return resultado;
 }
+async function ajustarFinanceiroAgendamentoAPI(dados){
+  const resultado = await enviarAcaoFlowPro({ ...dados, acao: "ajustarFinanceiro" });
+  await carregarDados();
+  return resultado;
+}
 async function registrarDespesaAPI(dados){ return enviarAcaoFlowPro({ ...dados, acao: "registrarDespesa" }); }
 async function editarDespesaAPI(dados){ return enviarAcaoFlowPro({ ...dados, acao: "editarDespesa" }); }
 async function excluirDespesaAPI(id){ return enviarAcaoFlowPro({ acao: "excluirDespesa", id: id }); }

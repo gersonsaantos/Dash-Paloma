@@ -230,7 +230,9 @@ item.innerHTML = `
 <i class="fa-solid fa-ellipsis"></i>
 </button>
 <div class="agenda-menu-opcoes" hidden>
+<button type="button" class="agenda-menu-ajuste"><i class="fa-solid fa-pen-to-square"></i> Ajustar valores</button>
 ${podeReceber ? `<button type="button" class="agenda-menu-pagamento"><i class="fa-solid fa-receipt"></i> Registrar pagamento</button>` : `<span class="agenda-menu-quitado"><i class="fa-solid fa-circle-check"></i> Sem saldo pendente</span>`}
+${recebido > 0 ? `<button type="button" class="agenda-menu-devolucao"><i class="fa-solid fa-rotate-left"></i> Registrar devolução</button>` : ""}
 </div>
 </div>
 <div class="agenda-financeiro-progresso">
@@ -258,10 +260,20 @@ menuBotao.addEventListener("click", function(event){
  menu.hidden = !abrir;
  menuBotao.setAttribute("aria-expanded", abrir ? "true" : "false");
 });
+const botaoAjuste = item.querySelector(".agenda-menu-ajuste");
+if (botaoAjuste) botaoAjuste.addEventListener("click", function(){
+ fpFecharMenusAgenda();
+ abrirModalAjusteFinanceiroAgenda(cliente, valorTotal, recebido);
+});
 const botaoPagamento = item.querySelector(".agenda-menu-pagamento");
 if (botaoPagamento) botaoPagamento.addEventListener("click", function(){
  fpFecharMenusAgenda();
  abrirModalPagamentoAgenda(cliente, valorTotal, recebido, saldo);
+});
+const botaoDevolucao = item.querySelector(".agenda-menu-devolucao");
+if (botaoDevolucao) botaoDevolucao.addEventListener("click", function(){
+ fpFecharMenusAgenda();
+ abrirModalDevolucaoAgenda(cliente, recebido);
 });
 
 lista.appendChild(item);
@@ -398,6 +410,166 @@ botao.textContent = "Confirmar recebimento";
 }
 });
 }
+function abrirModalAjusteFinanceiroAgenda(cliente, total, recebido){
+ let modal = document.getElementById("modalAjusteFinanceiroAgenda");
+ if(!modal){
+  modal = document.createElement("div");
+  modal.id = "modalAjusteFinanceiroAgenda";
+  modal.className = "modal-detalhes-cliente";
+  modal.innerHTML = `
+  <div class="modal-conteudo modal-pagamento-conteudo">
+   <button type="button" class="modal-fechar" id="fecharAjusteFinanceiroAgenda" aria-label="Fechar">×</button>
+   <p class="agenda-pagamento-kicker">CONTROLE FINANCEIRO</p>
+   <h2>Ajustar valores do atendimento</h2>
+   <div class="agenda-pagamento-cliente" id="ajusteFinanceiroCliente"></div>
+   <p style="font-size:13px;line-height:1.5;color:#75636D;margin:0 0 14px">Altere o valor total e/ou o valor já recebido. O sistema registrará a diferença no histórico, sem apagar os lançamentos anteriores.</p>
+   <form id="formAjusteFinanceiroAgenda" class="form-agendamento">
+    <label for="ajusteValorTotalAgenda">Valor total do atendimento (R$)</label>
+    <input id="ajusteValorTotalAgenda" type="number" min="0.01" step="0.01" required inputmode="decimal">
+    <label for="ajusteValorRecebidoAgenda">Valor efetivamente recebido (R$)</label>
+    <input id="ajusteValorRecebidoAgenda" type="number" min="0" step="0.01" required inputmode="decimal">
+    <label for="ajusteObservacaoAgenda">Motivo do ajuste (opcional)</label>
+    <input id="ajusteObservacaoAgenda" type="text" maxlength="250" placeholder="Ex.: valor definido após avaliação do Babyliss">
+    <button type="submit" class="btn-salvar-agendamento" id="confirmarAjusteFinanceiroAgenda">Salvar valores</button>
+   </form>
+  </div>`;
+  document.body.appendChild(modal);
+  document.getElementById("fecharAjusteFinanceiroAgenda").addEventListener("click",function(){modal.classList.remove("ativo");});
+  modal.addEventListener("click",function(event){if(event.target===modal) modal.classList.remove("ativo");});
+  fpConfigurarFormularioAjusteFinanceiroAgenda();
+ }
+ modal.dataset.agendamentoId = cliente.id || "";
+ modal.dataset.origem = cliente.origem || "Formulario";
+ document.getElementById("ajusteFinanceiroCliente").textContent = (cliente.nome || "Cliente") + " • " + (cliente.servico || "Atendimento");
+ document.getElementById("ajusteValorTotalAgenda").value = total !== null && total !== undefined ? Number(total).toFixed(2) : "";
+ document.getElementById("ajusteValorRecebidoAgenda").value = Number(recebido || 0).toFixed(2);
+ document.getElementById("ajusteObservacaoAgenda").value = "";
+ modal.classList.add("ativo");
+}
+
+function fpConfigurarFormularioAjusteFinanceiroAgenda(){
+ const form = document.getElementById("formAjusteFinanceiroAgenda");
+ if(!form || form.dataset.configurado === "sim") return;
+ form.dataset.configurado = "sim";
+ form.addEventListener("submit",async function(event){
+  event.preventDefault();
+  const modal = document.getElementById("modalAjusteFinanceiroAgenda");
+  const botao = document.getElementById("confirmarAjusteFinanceiroAgenda");
+  const total = fpConverterMoedaDigitada(document.getElementById("ajusteValorTotalAgenda").value);
+  const recebido = fpConverterMoedaDigitada(document.getElementById("ajusteValorRecebidoAgenda").value);
+  if(!Number.isFinite(total) || total <= 0){alert("Informe um valor total maior que zero.");return;}
+  if(!Number.isFinite(recebido) || recebido < 0){alert("Informe um valor recebido válido.");return;}
+  if(recebido > total + 0.001){alert("O valor recebido não pode ser maior que o valor total do atendimento.");return;}
+  botao.disabled = true;
+  botao.textContent = "Salvando...";
+  try{
+   const payload = {
+    id:modal.dataset.agendamentoId,
+    origem:modal.dataset.origem,
+    valorTotal:total,
+    valorRecebido:recebido,
+    observacao:document.getElementById("ajusteObservacaoAgenda").value.trim()
+   };
+   let resultado;
+   if(typeof ajustarFinanceiroAgendamentoAPI === "function"){
+    resultado = await ajustarFinanceiroAgendamentoAPI(payload);
+   }else{
+    const resposta = await fetch(API_AGENDA,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({...payload,acao:"ajustarFinanceiro"})});
+    resultado = await resposta.json();
+    if(resultado && resultado.sucesso && typeof carregarDados === "function") await carregarDados();
+   }
+   if(!resultado || !resultado.sucesso) throw new Error(resultado && resultado.erro ? resultado.erro : "Não foi possível ajustar os valores.");
+   modal.classList.remove("ativo");
+   alert("Valores atualizados! Recebido: " + formatarMoeda(resultado.valorRecebido) + " • Pendente: " + formatarMoeda(resultado.saldoPendente) + ".");
+  }catch(erro){
+   console.error("Erro ao ajustar valores do atendimento:",erro);
+   alert(erro.message || "Não foi possível salvar os valores. Tente novamente.");
+  }finally{
+   botao.disabled = false;
+   botao.textContent = "Salvar valores";
+  }
+ });
+}
+
+function abrirModalDevolucaoAgenda(cliente, recebido){
+ if (!recebido || Number(recebido) <= 0){
+  alert("Não há valor recebido disponível para devolução.");
+  return;
+ }
+ let modal = document.getElementById("modalDevolucaoAgenda");
+ if(!modal){
+  modal = document.createElement("div");
+  modal.id = "modalDevolucaoAgenda";
+  modal.className = "modal-detalhes-cliente";
+  modal.innerHTML = `
+  <div class="modal-conteudo modal-pagamento-conteudo">
+   <button type="button" class="modal-fechar" id="fecharDevolucaoAgenda" aria-label="Fechar">×</button>
+   <p class="agenda-pagamento-kicker">CONTROLE FINANCEIRO</p>
+   <h2>Registrar devolução</h2>
+   <div class="agenda-pagamento-cliente" id="devolucaoAgendaCliente"></div>
+   <div class="agenda-pagamento-resumo"><div><span>Valor líquido recebido</span><strong id="devolucaoAgendaDisponivel"></strong></div></div>
+   <form id="formDevolucaoAgenda" class="form-agendamento">
+    <label for="devolucaoValorAgenda">Valor devolvido (R$)</label>
+    <input id="devolucaoValorAgenda" type="number" min="0.01" step="0.01" required inputmode="decimal">
+    <label for="devolucaoFormaAgenda">Forma de devolução</label>
+    <select id="devolucaoFormaAgenda" required>
+     <option value="">Selecione</option><option value="Pix">Pix</option><option value="Dinheiro">Dinheiro</option><option value="Transferência">Transferência</option><option value="Cartão">Cartão</option>
+    </select>
+    <label for="devolucaoObservacaoAgenda">Observação (opcional)</label>
+    <input id="devolucaoObservacaoAgenda" type="text" maxlength="250" placeholder="Ex.: devolução parcial por cancelamento">
+    <button type="submit" class="btn-salvar-agendamento" id="confirmarDevolucaoAgenda">Confirmar devolução</button>
+   </form>
+  </div>`;
+  document.body.appendChild(modal);
+  document.getElementById("fecharDevolucaoAgenda").addEventListener("click",()=>modal.classList.remove("ativo"));
+  modal.addEventListener("click",event=>{if(event.target===modal) modal.classList.remove("ativo");});
+  fpConfigurarFormularioDevolucaoAgenda();
+ }
+ modal.dataset.agendamentoId = cliente.id || "";
+ modal.dataset.origem = cliente.origem || "Formulario";
+ modal.dataset.disponivel = String(Number(recebido));
+ document.getElementById("devolucaoAgendaCliente").textContent=(cliente.nome || "Cliente")+" • "+(cliente.servico || "Atendimento");
+ document.getElementById("devolucaoAgendaDisponivel").textContent=formatarMoeda(recebido);
+ const campo=document.getElementById("devolucaoValorAgenda");
+ campo.max=Number(recebido).toFixed(2);
+ campo.value=Number(recebido).toFixed(2);
+ document.getElementById("devolucaoFormaAgenda").value="";
+ document.getElementById("devolucaoObservacaoAgenda").value="";
+ modal.classList.add("ativo");
+}
+
+function fpConfigurarFormularioDevolucaoAgenda(){
+ const form=document.getElementById("formDevolucaoAgenda");
+ if(!form || form.dataset.configurado==="sim") return;
+ form.dataset.configurado="sim";
+ form.addEventListener("submit",async function(event){
+  event.preventDefault();
+  const modal=document.getElementById("modalDevolucaoAgenda");
+  const botao=document.getElementById("confirmarDevolucaoAgenda");
+  const disponivel=Number(modal.dataset.disponivel || 0);
+  const valor=fpConverterMoedaDigitada(document.getElementById("devolucaoValorAgenda").value);
+  const forma=document.getElementById("devolucaoFormaAgenda").value;
+  if(!Number.isFinite(valor) || valor<=0){alert("Informe um valor válido para devolução.");return;}
+  if(valor>disponivel+0.001){alert("A devolução não pode ultrapassar o valor líquido recebido.");return;}
+  if(!forma){alert("Selecione a forma de devolução.");return;}
+  botao.disabled=true; botao.textContent="Registrando...";
+  try{
+   const resposta=await fetch(API_AGENDA,{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:JSON.stringify({
+    acao:"registrarDevolucao",id:modal.dataset.agendamentoId,origem:modal.dataset.origem,
+    valor:valor,formaPagamento:forma,dataDevolucao:new Date().toISOString(),
+    observacao:document.getElementById("devolucaoObservacaoAgenda").value.trim()
+   })});
+   const resultado=await resposta.json();
+   if(!resultado || !resultado.sucesso) throw new Error(resultado && resultado.erro ? resultado.erro : "Não foi possível registrar a devolução.");
+   modal.classList.remove("ativo");
+   alert("Devolução registrada com sucesso. Valor líquido recebido: "+formatarMoeda(resultado.valorRecebido)+".");
+   if(typeof carregarDados==="function"){await carregarDados();document.dispatchEvent(new Event("dadosCarregados"));}
+   else location.reload();
+  }catch(erro){console.error("Erro ao registrar devolução Flow Pro:",erro);alert(erro.message || "Não foi possível registrar a devolução.");}
+  finally{botao.disabled=false;botao.textContent="Confirmar devolução";}
+ });
+}
+
 // ============================================================
 // ATUALIZAR RESUMO
 // ============================================================

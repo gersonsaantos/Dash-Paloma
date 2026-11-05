@@ -27,17 +27,15 @@
     }).format(Number(valor) || 0);
 
   const dataISO = (valor) => {
-    if (!valor) return "";
-
-    if (/^\d{4}-\d{2}-\d{2}$/.test(String(valor))) {
-      return String(valor);
-    }
-
+    if (valor === null || valor === undefined || valor === "") return "";
+    const texto = String(valor).trim();
+    const iso = texto.match(/^(\d{4})-(\d{2})-(\d{2})(?:$|[T\s])/);
+    if (iso) return `${iso[1]}-${iso[2]}-${iso[3]}`;
+    const br = texto.match(/^(\d{1,2})[\/.-](\d{1,2})[\/.-](\d{4})(?:\s+.*)?$/);
+    if (br) return `${br[3]}-${String(br[2]).padStart(2,"0")}-${String(br[1]).padStart(2,"0")}`;
     const d = new Date(valor);
-
     if (Number.isNaN(d.getTime())) return "";
-
-    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+    return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
   };
 
   const hojeISO = () => dataISO(new Date());
@@ -67,6 +65,8 @@
       valor: numero(item.valor),
       pagamento: item.formaPagamento || "",
       tipoRecebimento: item.tipoPagamento || "",
+      ehAjuste: /ajuste/i.test(String(item.tipoPagamento || "")),
+      ehDevolucao: /devolu[cç][aã]o/i.test(String(item.tipoPagamento || "")),
       origem: item.origem || "",
       status: status === "recebido" ? "Recebido" : (item.status || ""),
       observacoes: item.observacao || "",
@@ -96,16 +96,80 @@
     state.pagamentos = Array.isArray(dados.pagamentos) ? dados.pagamentos : [];
     state.despesas = Array.isArray(dados.despesas) ? dados.despesas.map(normalizarDespesa) : [];
 
-    const agendamentosPorId = new Map(
-      state.agendamentos.map((a) => [String(a.id || ""), a])
-    );
+    // Associa pagamentos aos agendamentos usando ID normalizado e origem.
+    // Isso evita falhas por espaços extras e reduz associações ambíguas
+    // entre registros do Formulário e do APP.
+    const normalizarId = (valor) => String(valor ?? "").trim();
+    const normalizarOrigem = (valor) => {
+      const origem = String(valor ?? "").trim().toLowerCase();
+      if (origem === "app") return "app";
+      if (origem === "formulario" || origem === "formulário") return "formulario";
+      return origem;
+    };
+
+    // Nomeia o procedimento pela combinação contratada, sem dividir o valor.
+    // Babyliss é uma categoria própria; quando combinado com maquiagem,
+    // permanece como a categoria própria "Maquiagem + Babyliss".
+    const identificarProcedimento = (agendamento) => {
+      const servicoOriginal = String(agendamento?.servico || "").trim();
+      const variacaoOriginal = String(agendamento?.penteado || "").trim();
+      const servico = servicoOriginal.toLocaleLowerCase("pt-BR");
+      const variacao = variacaoOriginal.toLocaleLowerCase("pt-BR");
+      const texto = `${servico} ${variacao}`;
+      const temBabyliss = /babyliss/.test(texto);
+      const temMaquiagem = /maquiagem/.test(servico);
+
+      if (temBabyliss && temMaquiagem) return "Maquiagem + Babyliss";
+      if (temBabyliss) return "Babyliss";
+      if (servicoOriginal) return servicoOriginal.replace(/\s+/g, " ");
+      return "Serviço não informado";
+    };
+
+    const agendamentosPorChave = new Map();
+    const agendamentosPorId = new Map();
+
+    state.agendamentos.forEach((agendamento) => {
+      const id = normalizarId(agendamento.id);
+      if (!id) return;
+
+      const origem = normalizarOrigem(agendamento.origem);
+      agendamentosPorChave.set(`${origem}|${id}`, agendamento);
+
+      if (!agendamentosPorId.has(id)) agendamentosPorId.set(id, []);
+      agendamentosPorId.get(id).push(agendamento);
+    });
 
     state.receitas = state.pagamentos
       .map(normalizarPagamento)
-      .filter((p) => p.status === "Recebido" && p.valor > 0)
+      .filter((p) => p.status === "Recebido" && p.valor !== 0)
       .map((p) => {
-        const agendamento = agendamentosPorId.get(String(p.idAgendamento)) || {};
-        p.servico = agendamento.servico || "Serviço não informado";
+        const id = normalizarId(p.idAgendamento);
+        const origem = normalizarOrigem(p.origem);
+
+        // Primeiro tenta o vínculo exato por origem + ID.
+        let agendamento = id
+          ? agendamentosPorChave.get(`${origem}|${id}`)
+          : null;
+
+        // Se a origem não veio no pagamento, aceita o ID somente quando
+        // ele identifica um único agendamento, sem risco de associação ambígua.
+        if (!agendamento && id) {
+          const candidatos = agendamentosPorId.get(id) || [];
+          if (candidatos.length === 1) agendamento = candidatos[0];
+        }
+
+        // Competência financeira: usar a data do atendimento quando houver
+        // vínculo confirmado. A data real do recebimento fica preservada.
+        const dataAtendimento = agendamento ? dataISO(agendamento.data) : "";
+        p.dataRecebimento = p.data;
+        p.dataAtendimento = dataAtendimento;
+        p.data = dataAtendimento || p.data;
+
+        // Diferencia ausência de vínculo de agendamento sem serviço preenchido.
+        p.servico = agendamento
+          ? identificarProcedimento(agendamento)
+          : "Agendamento não vinculado";
+
         return p;
       });
 
@@ -148,6 +212,7 @@
     );
     const despesas = registrosNoPeriodo(state.despesas);
 
+    // O mês de competência é sempre o mês do atendimento.
     const agendamentosPeriodo = state.agendamentos.filter((item) => {
       const data = dataISO(item.data);
       if (!data) return false;
@@ -157,9 +222,20 @@
         : ano === state.ano && mes - 1 === state.mes;
     });
 
-    const totalReceitas = receitas.reduce((soma, item) => soma + numero(item.valor), 0);
+    // Fonte principal do recebido: valorRecebido consolidado no próprio
+    // agendamento. Isso evita depender de uma associação por ID com a aba
+    // Pagamentos, que estava deixando o cartão "Recebido no mês" zerado.
+    // O campo deve refletir o líquido após eventuais devoluções.
+    const totalReceitas = agendamentosPeriodo.reduce((soma, item) => {
+      const status = String(item.statusAgendamento || item.status || "").toLowerCase();
+      if (status.includes("cancelado")) return soma;
+      return soma + Math.max(0, numero(item.valorRecebido));
+    }, 0);
+
     const totalDespesas = despesas.reduce((soma, item) => soma + numero(item.valor), 0);
     const totalPrevisto = agendamentosPeriodo.reduce((soma, item) => {
+      const status = String(item.statusAgendamento || item.status || "").toLowerCase();
+      if (status.includes("cancelado")) return soma;
       const saldo = numero(item.saldoPendente);
       const total = numero(item.valorTotal);
       const recebido = numero(item.valorRecebido);
@@ -505,20 +581,35 @@
     atualizarValor(".financeiro-despesas-valor", moeda(resumo.totalDespesas));
     atualizarValor(".financeiro-resultado-valor", moeda(resumo.totalReceitas - resumo.totalDespesas));
 
-    const anualReceitas = state.receitas
-      .filter((item) => item.data && Number(item.data.slice(0, 4)) === state.ano && item.status === "Recebido")
-      .reduce((soma, item) => soma + numero(item.valor), 0);
+    // Resumo anual usa a mesma fonte de verdade do resumo mensal:
+    // valores consolidados nos agendamentos, pela data do atendimento.
+    const agendamentosAno = state.agendamentos.filter((item) => {
+      const data = dataISO(item.data);
+      if (!data) return false;
+      const anoAtendimento = Number(data.slice(0, 4));
+      const status = String(item.statusAgendamento || item.status || "").toLowerCase();
+      return anoAtendimento === state.ano && !status.includes("cancelado");
+    });
+
+    const anualReceitas = agendamentosAno.reduce(
+      (soma, item) => soma + Math.max(0, numero(item.valorRecebido)),
+      0
+    );
+
     const anualDespesas = state.despesas
-      .filter((item) => item.data && Number(item.data.slice(0, 4)) === state.ano)
+      .filter((item) => {
+        const data = dataISO(item.data);
+        return data && Number(data.slice(0, 4)) === state.ano;
+      })
       .reduce((soma, item) => soma + numero(item.valor), 0);
-    const anualPrevisto = state.agendamentos
-      .filter((item) => item.data && Number(dataISO(item.data).slice(0, 4)) === state.ano)
-      .reduce((soma, item) => {
-        const total = numero(item.valorTotal);
-        const recebido = numero(item.valorRecebido);
-        const saldo = numero(item.saldoPendente);
-        return soma + (total > 0 ? (saldo > 0 ? saldo : Math.max(0, total - recebido)) : 0);
-      }, 0);
+
+    const anualPrevisto = agendamentosAno.reduce((soma, item) => {
+      const total = numero(item.valorTotal);
+      const recebido = numero(item.valorRecebido);
+      const saldo = numero(item.saldoPendente);
+      const pendente = saldo > 0 ? saldo : Math.max(0, total - recebido);
+      return soma + (total > 0 ? pendente : 0);
+    }, 0);
 
     atualizarValor(".financeiro-anual-recebido", moeda(anualReceitas));
     const anual = elemento(".financeiro-anual-content");
@@ -858,22 +949,72 @@
       }
     });
 
-    const categorias = new Map();
+    // Categorias fixas do painel: os valores da lista e do gráfico usam
+    // exatamente as mesmas somas, limitadas às despesas do período selecionado.
+    const categoriasFixas = [
+      { nome: "Gasolina", cor: "#6388D8", classe: "cat-gasolina" },
+      { nome: "Produtos", cor: "#B66F8B", classe: "cat-produtos" },
+      { nome: "Manutenção", cor: "#E8759B", classe: "cat-manutencao" },
+      { nome: "Alimentação", cor: "#F19A86", classe: "cat-alimentacao" },
+      { nome: "Outros", cor: "#E8B8C5", classe: "cat-outros" }
+    ];
+
+    const normalizarCategoriaDespesa = (valor) => {
+      const texto = String(valor || "").trim().toLocaleLowerCase("pt-BR")
+        .normalize("NFD").replace(/[\\u0300-\\u036f]/g, "");
+
+      if (texto.includes("gasolina") || texto.includes("combustivel") || texto.includes("combustível")) return "Gasolina";
+      if (texto.includes("produto") || texto.includes("material")) return "Produtos";
+      if (texto.includes("manutencao")) return "Manutenção";
+      if (texto.includes("alimentacao") || texto.includes("refeicao") || texto.includes("comida")) return "Alimentação";
+      return "Outros";
+    };
+
+    const totaisPorCategoria = new Map(categoriasFixas.map((item) => [item.nome, 0]));
     resumo.despesas.forEach((despesa) => {
-      const categoria = despesa.categoria || "Outras despesas";
-      categorias.set(categoria, (categorias.get(categoria) || 0) + numero(despesa.valor));
+      const categoria = normalizarCategoriaDespesa(despesa.categoria);
+      totaisPorCategoria.set(
+        categoria,
+        (totaisPorCategoria.get(categoria) || 0) + numero(despesa.valor)
+      );
     });
-    const itensDespesas = Array.from(categorias.entries()).sort((a, b) => b[1] - a[1]);
+
+    const valoresCategorias = categoriasFixas.map((item) => totaisPorCategoria.get(item.nome) || 0);
+    const totalDespesasPeriodo = valoresCategorias.reduce((soma, valor) => soma + valor, 0);
+
+    // Atualiza o total exibido acima do gráfico.
+    const totalDespesaEl = elemento(".financeiro-despesa-total strong");
+    if (totalDespesaEl) totalDespesaEl.textContent = moeda(totalDespesasPeriodo);
+
+    // Atualiza os cinco valores da legenda fixa do HTML, inclusive categorias zeradas.
+    const linhasCategorias = todos(".financeiro-categorias-lista .categoria-despesa-item");
+    categoriasFixas.forEach((categoria, indice) => {
+      const linha = linhasCategorias[indice];
+      const valorEl = linha ? linha.querySelector("strong") : null;
+      if (valorEl) valorEl.textContent = moeda(valoresCategorias[indice]);
+    });
 
     criarGrafico("despesas", "graficoDespesas", {
       type: "doughnut",
       data: {
-        labels: itensDespesas.map((item) => item[0]),
-        datasets: [{ data: itensDespesas.map((item) => item[1]), backgroundColor: ["#6B304F", "#B66F8B", "#D9A7BA", "#E8D8E0", "#C9A5B6", "#8A536D", "#A7B8A8"], borderWidth: 2, borderColor: "#FFFFFF" }]
+        labels: categoriasFixas.map((item) => item.nome),
+        datasets: [{
+          data: valoresCategorias,
+          backgroundColor: categoriasFixas.map((item) => item.cor),
+          borderWidth: 2,
+          borderColor: "#FFFFFF"
+        }]
       },
       options: {
         responsive: true, maintainAspectRatio: false, cutout: "62%",
-        plugins: { legend: { position: "bottom", labels: { boxWidth: 9, boxHeight: 9, padding: 12, font: { size: 10 } } }, tooltip: { callbacks: { label: (contexto) => `${contexto.label}: ${moeda(contexto.raw)}` } } }
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              label: (contexto) => `${contexto.label}: ${moeda(contexto.raw)}`
+            }
+          }
+        }
       }
     });
   }
