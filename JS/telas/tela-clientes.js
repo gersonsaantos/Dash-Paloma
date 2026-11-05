@@ -6,23 +6,21 @@
  let avisoTimer=null;
  function prepararAvisos(){
   if(document.getElementById("mensagemTaxaDeslocamento")) return;
-  const form=$("formTaxaDeslocamento"); if(!form) return;
   const aviso=document.createElement("div");
   aviso.id="mensagemTaxaDeslocamento"; aviso.setAttribute("role","status"); aviso.setAttribute("aria-live","polite"); aviso.hidden=true;
-  aviso.style.cssText="margin:12px 0;padding:12px 14px;border-radius:10px;font-size:13px;font-weight:600;line-height:1.4;display:flex;align-items:center;gap:9px;";
-  form.insertAdjacentElement("afterend",aviso);
+  aviso.style.cssText="position:fixed;top:20px;right:20px;z-index:100000;max-width:min(420px,calc(100vw - 32px));padding:13px 17px;border-radius:12px;font-size:13px;font-weight:600;line-height:1.4;display:flex;align-items:center;gap:10px;box-shadow:0 10px 30px rgba(30,15,25,.18);transition:opacity .2s ease,transform .2s ease;";
+  document.body.appendChild(aviso);
  }
  function mostrarMensagemTaxa(texto,tipo){
   prepararAvisos(); const el=$("mensagemTaxaDeslocamento"); if(!el)return;
-  clearTimeout(avisoTimer); el.hidden=false; el.style.display="flex";
+  clearTimeout(avisoTimer); el.hidden=false; el.style.display="flex";el.style.opacity="1";el.style.transform="translateY(0)";
   el.style.background=tipo==="sucesso"?"#eaf7ef":tipo==="erro"?"#fff0ef":"#f7eff4";
   el.style.color=tipo==="sucesso"?"#176b3a":tipo==="erro"?"#a12622":"#713653";
   el.style.border="1px solid "+(tipo==="sucesso"?"#b8e2c7":tipo==="erro"?"#f0c2bf":"#ead5e0");
   el.replaceChildren();
-  const icone=document.createElement("span"); icone.textContent=tipo==="sucesso"?"✓":"!";
-  icone.style.cssText="font-size:17px;font-weight:800;";
-  const mensagem=document.createElement("span"); mensagem.textContent=texto;
-  el.append(icone,mensagem); avisoTimer=setTimeout(()=>{el.hidden=true;},5000);
+  const icone=document.createElement("span"); icone.textContent=tipo==="sucesso"?"✓":"!";icone.style.cssText="font-size:17px;font-weight:800;";
+  const mensagem=document.createElement("span"); mensagem.textContent=texto;el.append(icone,mensagem);
+  avisoTimer=setTimeout(()=>{el.style.opacity="0";el.style.transform="translateY(-8px)";setTimeout(()=>{el.hidden=true;},220);},5000);
  }
  document.addEventListener("DOMContentLoaded", iniciar);
  document.addEventListener("dadosCarregados", renderizar);
